@@ -1,33 +1,30 @@
-'use strict'
+'use strict';
 
 /* Required dependencies */
 var blessed = require('blessed'),
+  contrib = require('blessed-contrib'),
   fs = require('fs'),
   util = require('util');
 
 /* Project dependencies */
-var docker = require('./dockerUtil');
+var docker = require('./src/dockerUtil');
 
 var screen = blessed.screen({
   dump: __dirname + '/logs/dock.log',
-  title: 'widget test',
+  title: 'Dockly',
   smartCSR: true,
-  dockBorders: true,
-  warnings: true,
-  autoPadding: false,
-  fullUnicode: true,
-  warnings: true
+  fullUnicode: true
 });
 
-var logsBox = blessed.box({
-  parent: screen,
+var logsBox = blessed.log({
+  label: 'Container Logs',
   mouse: true,
   scrollable: true,
   alwaysScroll: true,
   keys: true,
   vi: true,
   style: {
-    fg: 'blue',
+    fg: 'default',
     bg: 'default',
     border: {
       fg: 'default',
@@ -48,17 +45,20 @@ var logsBox = blessed.box({
     fg: 'blue',
     ch: '|'
   },
-  width: '100%',
+  width: '80%',
   height: '60%',
   top: '0',
   left: '0',
-  align: 'center',
+  align: 'left',
   content: 'Loading...',
   tags: true
 });
+screen.append(logsBox);
+
 
 var containersBox = blessed.listtable({
   parent: screen,
+  label: 'Containers List',
   keys: true,
   mouse: true,
   data: null,
@@ -88,6 +88,7 @@ var containersBox = blessed.listtable({
 });
 
 var containerInfo = blessed.box({
+  label: 'Container Info',
   scrollable: true,
   alwaysScroll: true,
   keys: true,
@@ -99,8 +100,7 @@ var containerInfo = blessed.box({
     }
   },
   border: {
-    type: 'line',
-    fg: '#00ff00'
+    type: 'line'
   },
   hover: {
     bg: 'blue'
@@ -117,14 +117,155 @@ var containerInfo = blessed.box({
   content: 'Loading...'
 });
 
+var dockerInfo = blessed.table({
+  label: 'Docker Host',
+  parent: screen,
+  border: 'line',
+  align: 'center',
+  tags: true,
+  style: {
+    border: {
+      fg: 'default'
+    },
+    cell: {
+      fg: 'magenta'
+    }
+  },
+  width: '20%',
+  top: '40%',
+  left: '80%'
+});
+
+var containersStatus = contrib.gauge({
+  label: 'Running/Paused/Stopped',
+  style: {
+    fg: 'blue',
+    bg: 'default',
+    border: {
+      fg: 'default',
+      bg: 'default'
+    },
+    selected: {
+      bg: 'green'
+    }
+  },
+  border: {
+    type: 'line',
+    fg: '#00ff00'
+  },
+  hover: {
+    bg: 'blue'
+  },
+  width: '20%',
+  height: '16%',
+  top: '0',
+  left: '80%',
+});
+screen.append(containersStatus);
+
+var containerStat = contrib.donut({
+  label: 'Container Utilization',
+  radius: 10,
+  arcWidth: 3,
+  remainColor: 'black',
+  style: {
+    fg: 'blue',
+    bg: 'default',
+    border: {
+      fg: 'default',
+      bg: 'default'
+    },
+    selected: {
+      bg: 'green'
+    }
+  },
+  border: {
+    type: 'line',
+    fg: '#00ff00'
+  },
+  hover: {
+    bg: 'blue'
+  },
+  width: '20%',
+  height: '22%',
+  top: '18%',
+  left: '80%',
+});
+screen.append(containerStat);
+
+setInterval(function() {
+  docker.getInfo(function(data) {
+
+    dockerInfo.setData([
+       [ 'Host', data.Host ],
+       [ 'OS', data.OperatingSystem ],
+       [ 'Arch', data.Architecture ],
+       [ 'Host Version', data.ServerVersion ],
+       [ 'Host API Version', data.ApiVersion ],
+       [ 'Memory', data.MemTotal.toString() ]
+     ]);
+
+     if (data.Containers !== 0) {
+
+       var stack = [];
+       if (data.ContainersRunning !== 0) {
+         stack.push({ percent: Math.round((data.ContainersRunning / data.Containers) * 100), stroke: 'green' });
+       }
+
+       if (data.ContainersPaused !== 0) {
+         stack.push({ percent: Math.round((data.ContainersPaused / data.Containers) * 100), stroke: 'yellow' });
+       }
+
+       if (data.ContainersStopped !== 0) {
+         stack.push({ percent: Math.round((data.ContainersStopped / data.Containers) * 100), stroke: 'red' });
+       }
+
+       containersStatus.setStack(stack);
+
+     }
+
+     screen.render();
+
+  });
+}, 1000);
+
+screen.render();
+
 docker.listContainers(function(data) {
   containersBox.setData(data);
+  containersBox.select(0);
   screen.render();
   containersBox.focus();
 });
 
 
+setInterval(function() {
 
+    var containerId = containersBox.getItem(containersBox.selected).getContent().trim().split(' ').shift();
+    docker.getContainerStats(containerId, function(data) {
+
+      // Calculate CPU usage based on delta from previous measurement
+      var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage -  data.precpu_stats.cpu_usage.total_usage;
+      var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage;
+      var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage.length;
+      var cpuUsagePercent = cpuUsageDelta / systemUsageDelta * cpuCoresAvail * 100;
+
+      // Calculate Memory usage
+      var memUsage = data.memory_stats.usage;
+      var memAvail = data.memory_stats.limit;
+      var memUsagePercent = memUsage / memAvail * 100;
+
+      // logsBox.setContent(cpuUsagePercent.toString() + '\n' + memUsagePercent.toString() + '\n');
+
+      containerStat.setData([
+        { percent: Math.round(cpuUsagePercent), label: 'cpu %', 'color': 'magenta' },
+        { percent: Math.round(memUsagePercent), label: 'mem %', 'color': 'cyan' },
+       ]);
+
+       screen.render();
+
+    });
+  }, 200);
 
 containersBox.on('select', function(item, idx) {
 
@@ -139,6 +280,14 @@ containersBox.on('select', function(item, idx) {
     screen.render();
   });
 
+  docker.getContainerLogs(containerId, function(err, stream) {
+    if (stream && stream.pipe) {
+      stream.on('data', function(chink) {
+        logsBox.add(chink.toString('utf-8').trim());
+      });
+    }
+  });
+
 })
 
 containerInfo.on('keypress', function(ch, key) {
@@ -146,7 +295,6 @@ containerInfo.on('keypress', function(ch, key) {
     containerInfo.destroy();
   }
 });
-
 
 
 screen.on('keypress', function(ch, key) {
@@ -169,5 +317,3 @@ screen.on('element focus', function(cur, old) {
 screen.key('q', function() {
   return screen.destroy();
 });
-
-screen.render();

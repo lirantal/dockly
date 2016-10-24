@@ -25,6 +25,7 @@
   "homepage": "https://github.com/lirantal/dockly#readme",
   "dependencies": {
     "blessed": "^0.1.81",
+    "blessed-contrib": "^3.5.5",
     "dockerode": "^2.3.1"
   }
 }
