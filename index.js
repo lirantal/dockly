@@ -45,8 +45,8 @@ var logsBox = blessed.log({
     fg: 'blue',
     ch: '|'
   },
-  width: '80%',
-  height: '60%',
+  width: '60%',
+  height: '70%',
   top: '0',
   left: '0',
   align: 'left',
@@ -81,8 +81,8 @@ var containersBox = blessed.listtable({
     }
   },
   width: '100%',
-  height: '40%',
-  top: '60%',
+  height: '30%',
+  top: '70%',
   left: '0',
   align: 'center'
 });
@@ -131,9 +131,9 @@ var dockerInfo = blessed.table({
       fg: 'magenta'
     }
   },
-  width: '20%',
+  width: '40%',
   top: '40%',
-  left: '80%'
+  left: '60%'
 });
 
 var containersStatus = contrib.gauge({
@@ -156,10 +156,10 @@ var containersStatus = contrib.gauge({
   hover: {
     bg: 'blue'
   },
-  width: '20%',
+  width: '40%',
   height: '16%',
   top: '0',
-  left: '80%',
+  left: '60%',
 });
 screen.append(containersStatus);
 
@@ -186,10 +186,10 @@ var containerStat = contrib.donut({
   hover: {
     bg: 'blue'
   },
-  width: '20%',
+  width: '40%',
   height: '22%',
   top: '18%',
-  left: '80%',
+  left: '60%',
 });
 screen.append(containerStat);
 
