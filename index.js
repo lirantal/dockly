@@ -1,13 +1,18 @@
 'use strict';
 
-/* Required dependencies */
+/**
+ * Required dependencies
+ */
 var blessed = require('blessed'),
   contrib = require('blessed-contrib'),
   fs = require('fs'),
   util = require('util');
 
-/* Project dependencies */
+/**
+ * Project dependencies
+ */
 var docker = require('./src/dockerUtil');
+var widgets = require('./widgets');
 
 var screen = blessed.screen({
   dump: __dirname + '/logs/dock.log',
@@ -16,187 +21,32 @@ var screen = blessed.screen({
   fullUnicode: true
 });
 
-var logsBox = blessed.log({
-  label: 'Container Logs',
-  mouse: true,
-  scrollable: true,
-  alwaysScroll: true,
-  keys: true,
-  vi: true,
-  style: {
-    fg: 'default',
-    bg: 'default',
-    border: {
-      fg: 'default',
-      bg: 'default'
-    },
-    selected: {
-      bg: 'green'
-    }
-  },
-  border: {
-    type: 'line',
-    fg: '#00ff00'
-  },
-  hover: {
-    bg: 'blue'
-  },
-  scrollbar: {
-    fg: 'blue',
-    ch: '|'
-  },
-  width: '60%',
-  height: '70%',
-  top: '0',
-  left: '0',
-  align: 'left',
-  content: 'Loading...',
-  tags: true
-});
-screen.append(logsBox);
+// var cntnrList = widgets.cntnrList(blessed, screen);
+// screen.append(cntnrList);
+
+var widgetDockerInfo = widgets.dockerInfo(blessed, screen);
+screen.append(widgetDockerInfo);
+
+var widgetContainerUtilization = widgets.containerUtilization(contrib, screen);
+screen.append(widgetContainerUtilization);
+
+var widgetContainerStatus = widgets.containerStatus(contrib, screen);
+screen.append(widgetContainerStatus);
+
+var widgetContainerLogs = widgets.containerLogs(blessed, screen);
+screen.append(widgetContainerLogs);
+
+var widgetContainerList = widgets.containerList(blessed, screen);
+screen.append(widgetContainerList);
+
+var widgetContainerInfo = widgets.containerInfo(blessed, screen);
 
 
-var containersBox = blessed.listtable({
-  parent: screen,
-  label: 'Containers List',
-  keys: true,
-  mouse: true,
-  data: null,
-  tags: true,
-  interactive: true,
-  border: 'line',
-  hover: {
-    bg: 'blue'
-  },
-  style: {
-    header: {
-      fg: 'blue',
-      bold: true
-    },
-    cell: {
-      fg: 'magenta',
-      selected: {
-        bg: 'blue'
-      }
-    }
-  },
-  width: '100%',
-  height: '30%',
-  top: '70%',
-  left: '0',
-  align: 'center'
-});
-
-var containerInfo = blessed.box({
-  label: 'Container Info',
-  scrollable: true,
-  alwaysScroll: true,
-  keys: true,
-  vi: true,
-  tags: true,
-  style: {
-    selected: {
-      bg: 'green'
-    }
-  },
-  border: {
-    type: 'line'
-  },
-  hover: {
-    bg: 'blue'
-  },
-  scrollbar: {
-    fg: 'blue',
-    ch: '|'
-  },
-  width: '70%',
-  height: '70%',
-  top: 'center',
-  left: 'center',
-  align: 'left',
-  content: 'Loading...'
-});
-
-var dockerInfo = blessed.table({
-  label: 'Docker Host',
-  parent: screen,
-  border: 'line',
-  align: 'center',
-  tags: true,
-  style: {
-    border: {
-      fg: 'default'
-    },
-    cell: {
-      fg: 'magenta'
-    }
-  },
-  width: '40%',
-  top: '40%',
-  left: '60%'
-});
-
-var containersStatus = contrib.gauge({
-  label: 'Running/Paused/Stopped',
-  style: {
-    fg: 'blue',
-    bg: 'default',
-    border: {
-      fg: 'default',
-      bg: 'default'
-    },
-    selected: {
-      bg: 'green'
-    }
-  },
-  border: {
-    type: 'line',
-    fg: '#00ff00'
-  },
-  hover: {
-    bg: 'blue'
-  },
-  width: '40%',
-  height: '16%',
-  top: '0',
-  left: '60%',
-});
-screen.append(containersStatus);
-
-var containerStat = contrib.donut({
-  label: 'Container Utilization',
-  radius: 10,
-  arcWidth: 3,
-  remainColor: 'black',
-  style: {
-    fg: 'blue',
-    bg: 'default',
-    border: {
-      fg: 'default',
-      bg: 'default'
-    },
-    selected: {
-      bg: 'green'
-    }
-  },
-  border: {
-    type: 'line',
-    fg: '#00ff00'
-  },
-  hover: {
-    bg: 'blue'
-  },
-  width: '40%',
-  height: '22%',
-  top: '18%',
-  left: '60%',
-});
-screen.append(containerStat);
 
 setInterval(function() {
   docker.getInfo(function(data) {
 
-    dockerInfo.setData([
+    widgetDockerInfo.setData([
        [ 'Host', data.Host ],
        [ 'OS', data.OperatingSystem ],
        [ 'Arch', data.Architecture ],
@@ -220,7 +70,7 @@ setInterval(function() {
          stack.push({ percent: Math.round((data.ContainersStopped / data.Containers) * 100), stroke: 'red' });
        }
 
-       containersStatus.setStack(stack);
+       widgetContainerStatus.setStack(stack);
 
      }
 
@@ -232,16 +82,16 @@ setInterval(function() {
 screen.render();
 
 docker.listContainers(function(data) {
-  containersBox.setData(data);
-  containersBox.select(0);
+  widgetContainerList.setData(data);
+  widgetContainerList.select(0);
   screen.render();
-  containersBox.focus();
+  widgetContainerList.focus();
 });
 
 
 setInterval(function() {
 
-    var containerId = containersBox.getItem(containersBox.selected).getContent().trim().split(' ').shift();
+    var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
     docker.getContainerStats(containerId, function(data) {
 
       // Calculate CPU usage based on delta from previous measurement
@@ -255,9 +105,7 @@ setInterval(function() {
       var memAvail = data.memory_stats.limit;
       var memUsagePercent = memUsage / memAvail * 100;
 
-      // logsBox.setContent(cpuUsagePercent.toString() + '\n' + memUsagePercent.toString() + '\n');
-
-      containerStat.setData([
+      widgetContainerUtilization.setData([
         { percent: Math.round(cpuUsagePercent), label: 'cpu %', 'color': 'magenta' },
         { percent: Math.round(memUsagePercent), label: 'mem %', 'color': 'cyan' },
        ]);
@@ -267,32 +115,32 @@ setInterval(function() {
     });
   }, 200);
 
-containersBox.on('select', function(item, idx) {
+widgetContainerList.on('select', function(item, idx) {
 
   // extract the first column out of the table row which is the container id
   var containerId = item.getContent().trim().split(' ').shift();
 
-  screen.append(containerInfo);
-  containerInfo.focus();
+  screen.append(widgetContainerInfo);
+  widgetContainerInfo.focus();
 
   docker.getContainer(containerId, function(err, data) {
-    containerInfo.setContent(util.inspect(data));
+    widgetContainerInfo.setContent(util.inspect(data));
     screen.render();
   });
 
   docker.getContainerLogs(containerId, function(err, stream) {
     if (stream && stream.pipe) {
       stream.on('data', function(chink) {
-        logsBox.add(chink.toString('utf-8').trim());
+        widgetContainerLogs.add(chink.toString('utf-8').trim());
       });
     }
   });
 
 })
 
-containerInfo.on('keypress', function(ch, key) {
+widgetContainerInfo.on('keypress', function(ch, key) {
   if (key.name === 'escape') {
-    containerInfo.destroy();
+    widgetContainerInfo.destroy();
   }
 });
 
