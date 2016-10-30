@@ -1,6 +1,5 @@
 'use strict';
 
-var cntnrList = require('./cntnrlist');
 var widgetDockerInfo = require('./widget-docker-info');
 var widgetContainerUtilization = require('./widget-container-utilization');
 var widgetContainerLogs = require('./widget-container-logs');
