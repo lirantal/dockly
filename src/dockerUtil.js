@@ -1,12 +1,21 @@
 'use strict';
 
-var dockerNode = require('dockerode');
-var docker = new dockerNode({socketPath: '/var/run/docker.sock'});
+var dockerLib = require('dockerode');
+var dockerCon;
 
-var util = {};
+function util(connection) {
 
-util.listContainers = function(cb) {
-  docker.listContainers(function (err, containers) {
+  if (!dockerCon) {
+    if (!connection) {
+      dockerCon = new dockerLib({socketPath: '/var/run/docker.sock'});
+    } else {
+      dockerCon = new dockerLib(connection);
+    }
+  }
+}
+
+util.prototype.listContainers = function(cb) {
+  dockerCon.listContainers(function (err, containers) {
     var list = [
       ['Id', 'Name', 'Image', 'Command', 'State', 'Status'],
     ];
@@ -20,9 +29,9 @@ util.listContainers = function(cb) {
   });
 };
 
-util.getInfo = function(cb) {
+util.prototype.getInfo = function(cb) {
   var host = {};
-  docker.info(function (err, data) {
+  dockerCon.info(function (err, data) {
     host.Containers = data.Containers;
     host.ContainersRunning = data.ContainersRunning;
     host.ContainersPaused = data.ContainersPaused;
@@ -35,7 +44,7 @@ util.getInfo = function(cb) {
     host.Host = data.Name;
     host.ServerVersion = data.ServerVersion;
 
-    docker.version(function(vErr, vData) {
+    dockerCon.version(function(vErr, vData) {
 
       host.ApiVersion = vData.ApiVersion;
 
@@ -44,21 +53,21 @@ util.getInfo = function(cb) {
   });
 }
 
-util.getContainer = function(containerId, cb) {
-  var container = docker.getContainer(containerId);
+util.prototype.getContainer = function(containerId, cb) {
+  var container = dockerCon.getContainer(containerId);
   return container.inspect(cb);
 };
 
-util.getContainerStats = function(containerId, cb) {
-  var container = docker.getContainer(containerId);
+util.prototype.getContainerStats = function(containerId, cb) {
+  var container = dockerCon.getContainer(containerId);
   return container.stats({stream: false}, function(err, stream) {
     cb(stream);
   })
 
 };
 
-util.getContainerLogs = function(containerId, cb) {
-  var container = docker.getContainer(containerId);
+util.prototype.getContainerLogs = function(containerId, cb) {
+  var container = dockerCon.getContainer(containerId);
   return container.logs({
         follow: true,
         stdout: true,

@@ -5,17 +5,17 @@
  */
 var blessed = require('blessed'),
   contrib = require('blessed-contrib'),
-  fs = require('fs'),
   util = require('util');
 
 /**
  * Project dependencies
  */
-var docker = require('./src/dockerUtil'),
+var dockerUtil = require('./src/dockerUtil'),
   widgets = require('./widgets');
 
+var docker = new dockerUtil();
+
 var screen = blessed.screen({
-  dump: __dirname + '/logs/dock.log',
   title: 'Dockly',
   smartCSR: true,
   fullUnicode: true

@@ -1,6 +1,6 @@
 {
   "name": "dockly",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "blessed-contrib": "^3.5.5",
+    "command-line-args": "^3.0.2",
     "dockerode": "^2.3.1"
   }
 }
