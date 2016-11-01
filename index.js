@@ -11,9 +11,10 @@ var blessed = require('blessed'),
  * Project dependencies
  */
 var dockerUtil = require('./src/dockerUtil'),
-  widgets = require('./widgets');
+  widgets = require('./widgets'),
+  cli = require('./src/cli');
 
-var docker = new dockerUtil();
+var docker = new dockerUtil(cli());
 
 var screen = blessed.screen({
   title: 'Dockly',

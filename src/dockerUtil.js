@@ -5,13 +5,18 @@ var dockerCon;
 
 function util(connection) {
 
+  if (typeof connection !== 'object') {
+    throw('Error: docker connection string is faulty, please review command line arguments.');
+  }
+
   if (!dockerCon) {
-    if (!connection) {
-      dockerCon = new dockerLib({socketPath: '/var/run/docker.sock'});
+    if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
+      dockerCon = new dockerLib({socketPath: process.env.DOCKER_SOCKET || '/var/run/docker.sock'});
     } else {
       dockerCon = new dockerLib(connection);
     }
   }
+
 }
 
 util.prototype.listContainers = function(cb) {
