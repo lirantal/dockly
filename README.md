@@ -11,7 +11,23 @@ npm install -g dockly
 ```
 
 # Usage
-[TBD]
+
+Just fire up dockly and it will automatically connect to your localhost docker daemon through the unix socket:
+
+```
+dockly
+```
+
+## Command line options:
+
+It's also possible to provide command line options for dockly to customize the docker connection
+
+| Param | Type | Description |
+| --- | --- | --- |
+| -h or --host | string | Docker host to connect to |
+| -p or --port | string | Docker port to connect to |
+| -s or --socketPath | string | Docker socket to connect to |
+
 
 # Author
 Liran Tal <liran.tal@gmail.com>
