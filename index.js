@@ -39,6 +39,35 @@ screen.append(widgetContainerList);
 
 var widgetContainerInfo = widgets.containerInfo(blessed, screen);
 
+var widgetToolbarHelper = widgets.toolbar;
+
+widgetToolbarHelper.commands = {
+  'info': {
+    keys: ['i'],
+    callback: function() {
+
+      var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
+
+      screen.append(widgetContainerInfo);
+      widgetContainerInfo.focus();
+
+      docker.getContainer(containerId, function(err, data) {
+        widgetContainerInfo.setContent(util.inspect(data));
+        screen.render();
+      });
+    }
+  },
+  'logs': {
+    keys: ['[RETURN]']
+  },
+  'quit': {
+    keys: ['q']
+  }
+};
+
+var widgetToolbar = widgetToolbarHelper.getToolbar(blessed, screen);
+screen.append(widgetToolbar);
+
 setInterval(function() {
   docker.getInfo(function(data) {
 
@@ -128,14 +157,6 @@ widgetContainerList.on('select', function(item, idx) {
 
   // extract the first column out of the table row which is the container id
   var containerId = item.getContent().trim().split(' ').shift();
-
-  screen.append(widgetContainerInfo);
-  widgetContainerInfo.focus();
-
-  docker.getContainer(containerId, function(err, data) {
-    widgetContainerInfo.setContent(util.inspect(data));
-    screen.render();
-  });
 
   docker.getContainerLogs(containerId, function(err, stream) {
     if (stream && stream.pipe) {
