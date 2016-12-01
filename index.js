@@ -45,14 +45,14 @@ var widgetToolbarHelper = widgets.toolbar;
 widgetToolbarHelper.commands = {
   'info': {
     keys: ['i'],
-    callback: function() {
+    callback: function () {
 
       var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
 
       screen.append(widgetContainerInfo);
       widgetContainerInfo.focus();
 
-      docker.getContainer(containerId, function(err, data) {
+      docker.getContainer(containerId, function (err, data) {
         widgetContainerInfo.setContent(util.inspect(data));
         screen.render();
       });
@@ -69,8 +69,12 @@ widgetToolbarHelper.commands = {
 var widgetToolbar = widgetToolbarHelper.getToolbar(blessed, screen);
 screen.append(widgetToolbar);
 
-setInterval(function() {
-  docker.getInfo(function(data) {
+setInterval(function () {
+  docker.getInfo(function (data) {
+
+    if (!data || Object.keys(data).length === 0) {
+      return;
+    }
 
     widgetDockerInfo.setData([
       ['Host', data.Host],
@@ -116,52 +120,64 @@ setInterval(function() {
 
 screen.render();
 
-docker.listContainers(function(data) {
+docker.listContainers(function (data) {
   widgetContainerList.setData(data);
   widgetContainerList.select(0);
   screen.render();
   widgetContainerList.focus();
 });
 
-setInterval(function() {
+setInterval(function () {
 
   var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
-  docker.getContainerStats(containerId, function(data) {
+  docker.getContainerStats(containerId, function (data) {
+
+    if (!data || Object.keys(data).length === 0) {
+      return;
+    }
 
     // Calculate CPU usage based on delta from previous measurement
     var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage;
     var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage;
-    var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage.length;
-    var cpuUsagePercent = cpuUsageDelta / systemUsageDelta * cpuCoresAvail * 100;
+    var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage !== null ? data.cpu_stats.cpu_usage.percpu_usage.length : 0;
+
+    var cpuUsagePercent = 0;
+    if (systemUsageDelta != 0 || cpuCoresAvail != 0) {
+      cpuUsagePercent = cpuUsageDelta / systemUsageDelta * cpuCoresAvail * 100;
+    }
 
     // Calculate Memory usage
     var memUsage = data.memory_stats.usage;
     var memAvail = data.memory_stats.limit;
-    var memUsagePercent = memUsage / memAvail * 100;
+
+    var memUsagePercent = 0;
+    if (memAvail != 0) {
+      memUsagePercent = memUsage / memAvail * 100;
+    }
 
     widgetContainerUtilization.setData([{
-      percent: Math.round(cpuUsagePercent),
+      percent: Math.round(Number(cpuUsagePercent)),
       label: 'cpu %',
       'color': 'magenta'
     }, {
-      percent: Math.round(memUsagePercent),
+      percent: Math.round(Number(memUsagePercent)),
       label: 'mem %',
       'color': 'cyan'
-    }, ]);
+    },]);
 
     screen.render();
 
   });
 }, 200);
 
-widgetContainerList.on('select', function(item, idx) {
+widgetContainerList.on('select', function (item, idx) {
 
   // extract the first column out of the table row which is the container id
   var containerId = item.getContent().trim().split(' ').shift();
 
-  docker.getContainerLogs(containerId, function(err, stream) {
+  docker.getContainerLogs(containerId, function (err, stream) {
     if (stream && stream.pipe) {
-      stream.on('data', function(chink) {
+      stream.on('data', function (chink) {
         widgetContainerLogs.add(chink.toString('utf-8').trim());
       });
     }
@@ -169,13 +185,13 @@ widgetContainerList.on('select', function(item, idx) {
 
 })
 
-widgetContainerInfo.on('keypress', function(ch, key) {
+widgetContainerInfo.on('keypress', function (ch, key) {
   if (key.name === 'escape') {
     widgetContainerInfo.destroy();
   }
 });
 
-screen.on('keypress', function(ch, key) {
+screen.on('keypress', function (ch, key) {
   if (key.name === 'tab') {
     return key.shift ?
       screen.focusPrevious() :
@@ -186,12 +202,12 @@ screen.on('keypress', function(ch, key) {
   }
 });
 
-screen.on('element focus', function(cur, old) {
+screen.on('element focus', function (cur, old) {
   if (old.border) old.style.border.fg = 'default';
   if (cur.border) cur.style.border.fg = 'green';
   screen.render();
 });
 
-screen.key('q', function() {
+screen.key('q', function () {
   return screen.destroy();
 });
