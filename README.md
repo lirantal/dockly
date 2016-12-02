@@ -28,6 +28,21 @@ It's also possible to provide command line options for dockly to customize the d
 | -p or --port | string | Docker port to connect to |
 | -s or --socketPath | string | Docker socket to connect to |
 
+# Docker Support
+
+## Build
+You can build dockly as a docker image yourself, using the following command:
+
+```
+docker build -t dockly .
+```
+
+## Run
+To run dockly as a container, invoke the following command:
+
+```
+docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
+```
 
 # Author
 Liran Tal <liran.tal@gmail.com>
