@@ -35,9 +35,11 @@ util.prototype.listContainers = function (cb) {
     cb(list);
 
   });
+
 };
 
 util.prototype.getInfo = function (cb) {
+
   var host = {};
   dockerCon.info(function (err, data) {
 
@@ -64,6 +66,7 @@ util.prototype.getInfo = function (cb) {
       cb(host);
     })
   });
+
 }
 
 util.prototype.getContainer = function (containerId, cb) {
@@ -76,7 +79,6 @@ util.prototype.getContainerStats = function (containerId, cb) {
   return container.stats({stream: false}, function (err, stream) {
     cb(stream);
   })
-
 };
 
 util.prototype.getContainerLogs = function (containerId, cb) {

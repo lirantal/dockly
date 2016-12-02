@@ -30,6 +30,7 @@
     "blessed": "^0.1.81",
     "blessed-contrib": "^3.5.5",
     "command-line-args": "^3.0.2",
+    "command-line-usage": "^3.0.7",
     "dockerode": "^2.3.1"
   }
 }

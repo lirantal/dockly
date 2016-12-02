@@ -15,7 +15,7 @@ var dockerUtil = require('./src/dockerUtil'),
   widgets = require('./widgets'),
   cli = require('./src/cli');
 
-var docker = new dockerUtil(cli());
+var docker = new dockerUtil(cli.cliParse());
 
 var screen = blessed.screen({
   title: 'Dockly',
@@ -210,4 +210,24 @@ screen.on('element focus', function (cur, old) {
 
 screen.key('q', function () {
   return screen.destroy();
+});
+
+process.on('uncaughtException', function(err) {
+
+  // clear the screen
+  screen.destroy();
+
+  cli.showUsage();
+
+  if (err && err.message) {
+    console.log('\x1b[31m');
+
+    console.log('Error: ' + err.message);
+    if (err.message === 'Unable to determine the domain name') {
+      console.log('-> check your connection options to the docker daemon and confirm containers exist');
+    }
+    console.log('\x1b[0m');
+  }
+
+  process.exit(-1);
 });
