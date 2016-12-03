@@ -1,3 +1,8 @@
+[![view on npm](http://img.shields.io/npm/v/dockly.svg)](https://www.npmjs.org/package/dockly)
+[![view on npm](http://img.shields.io/npm/l/dockly.svg)](https://www.npmjs.org/package/dockly)
+[![npm module downloads](http://img.shields.io/npm/dt/dockly.svg)](https://www.npmjs.org/package/dockly)
+[![Dependency Status](https://david-dm.org/lirantal/dockly.svg)](https://david-dm.org/lirantal/dockly)
+
 # Dockly
 Docker console UI and Dashboard for quick manging and inspecting of Containers and Images
 
