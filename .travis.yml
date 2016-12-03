@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+  - "4"
+before_install:
+  - npm install -g snyk
+script:
+  - snyk test
+  - node index.js
