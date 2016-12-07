@@ -7,6 +7,8 @@ var widgetContainerStatus = require('./widget-container-status');
 var widgetContainerInfo = require('./widget-container-info');
 var widgetContainerList = require('./widget-container-list');
 var widgetToolbar = require('./widget-toolbar');
+var widgetContainerPopup = require('./widget-container-popup');
+
 
 module.exports = {
   dockerInfo: widgetDockerInfo,
@@ -16,4 +18,5 @@ module.exports = {
   containerInfo: widgetContainerInfo,
   containerList: widgetContainerList,
   toolbar: widgetToolbar,
+  containerPopup: widgetContainerPopup
 };
