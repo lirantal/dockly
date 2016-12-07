@@ -28,7 +28,7 @@ util.prototype.listContainers = function (cb) {
 
     if (containers) {
       containers.forEach(function (container, index, array) {
-        list.push([container.Id, container.Names[0], container.Image, container.Command, container.State, container.Status]);
+        list.push([container.Id.substring(0, 11), container.Names[0], container.Image.substring(0, 19), container.Command, container.State, container.Status]);
       });
     }
 
