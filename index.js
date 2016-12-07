@@ -39,6 +39,7 @@ var widgetContainerList = widgets.containerList(blessed, screen);
 screen.append(widgetContainerList);
 
 var widgetContainerInfo = widgets.containerInfo(blessed, screen);
+var widgetContainerPopup = widgets.containerPopup(blessed, screen);
 
 var widgetToolbarHelper = widgets.toolbar;
 
@@ -47,12 +48,10 @@ widgetToolbarHelper.commands = {
     keys: ['i'],
     callback: function () {
 
-      var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
-
       screen.append(widgetContainerInfo);
       widgetContainerInfo.focus();
 
-      docker.getContainer(containerId, function (err, data) {
+      docker.getContainer(getSelectedContainer(), function (err, data) {
         widgetContainerInfo.setContent(util.inspect(data));
         screen.render();
       });
@@ -60,6 +59,38 @@ widgetToolbarHelper.commands = {
   },
   'logs': {
     keys: ['[RETURN]']
+  },
+  'restart': {
+    keys: ['r'],
+    callback: function() {
+
+      let containerId = getSelectedContainer();
+
+      screen.append(widgetContainerPopup);
+
+      widgetContainerPopup.setLabel('Container: ' + containerId)
+      widgetContainerPopup.setContent('Restarting container...');
+      widgetContainerPopup.focus();
+
+      docker.restartContainer(containerId, function (err, data) {
+
+        //console.log(err);
+        //console.log(data);
+
+        // if (err) {
+        //   widgetContainerPopup.setContent(util.inspect(err));
+        // }
+
+        if (err && err.statusCode === 500) {
+          widgetContainerPopup.setContent(err.json.message);
+        } else {
+          widgetContainerPopup.setContent('Container restarted successfully');
+        }
+
+        screen.render();
+
+      });
+    }
   },
   'quit': {
     keys: ['q']
@@ -129,8 +160,7 @@ docker.listContainers(function (data) {
 
 setInterval(function () {
 
-  var containerId = widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
-  docker.getContainerStats(containerId, function (data) {
+  docker.getContainerStats(getSelectedContainer(), function (data) {
 
     if (!data || Object.keys(data).length === 0) {
       return;
@@ -183,13 +213,27 @@ widgetContainerList.on('select', function (item, idx) {
     }
   });
 
-})
+});
 
 widgetContainerInfo.on('keypress', function (ch, key) {
-  if (key.name === 'escape') {
+  if (key.name === 'escape' || key.name === 'return') {
     widgetContainerInfo.destroy();
   }
 });
+
+widgetContainerPopup.on('keypress', function (ch, key) {
+  if (key.name === 'escape' || key.name === 'return') {
+    widgetContainerPopup.destroy();
+  }
+});
+
+/**
+ * returns a selected container from the containers listbox
+ * @return {string} container id
+ */
+function getSelectedContainer() {
+  return widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
+}
 
 screen.on('keypress', function (ch, key) {
   if (key.name === 'tab') {
