@@ -7,4 +7,4 @@ before_install:
   - npm install -g snyk
 script:
   - snyk test
-  - node index.js
+  - node ./index.js
