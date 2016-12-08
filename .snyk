@@ -1,0 +1,6 @@
+version: v1.5.2
+ignore: {}
+patch:
+  'npm:request:20160119':
+    - blessed-contrib > picture-tube > request:
+        patched: '2016-12-07T21:57:54.700Z'

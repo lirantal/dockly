@@ -4,7 +4,9 @@
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "snyk test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "bin": {
     "dockly": "./index.js"
@@ -31,6 +33,8 @@
     "blessed-contrib": "^3.5.5",
     "command-line-args": "^3.0.2",
     "command-line-usage": "^3.0.7",
-    "dockerode": "^2.3.1"
-  }
+    "dockerode": "^2.3.1",
+    "snyk": "^1.19.1"
+  },
+  "snyk": true
 }
