@@ -74,13 +74,6 @@ widgetToolbarHelper.commands = {
 
       docker.restartContainer(containerId, function (err, data) {
 
-        //console.log(err);
-        //console.log(data);
-
-        // if (err) {
-        //   widgetContainerPopup.setContent(util.inspect(err));
-        // }
-
         if (err && err.statusCode === 500) {
           widgetContainerPopup.setContent(err.json.message);
         } else {
@@ -149,14 +142,25 @@ setInterval(function () {
   });
 }, 1000);
 
-screen.render();
-
 docker.listContainers(function (data) {
   widgetContainerList.setData(data);
   widgetContainerList.select(0);
   screen.render();
   widgetContainerList.focus();
 });
+
+function listContainersUpdate() {
+
+  docker.listContainers(function (data) {
+    widgetContainerList.setData(data);
+    screen.render();
+  });
+
+}
+
+screen.render();
+
+setInterval(listContainersUpdate, 1000);
 
 setInterval(function () {
 

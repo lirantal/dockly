@@ -24,7 +24,7 @@ var widgetContainerPopup = function(blessed, screen) {
       ch: '|'
     },
     width: '60%',
-    height: '30%',
+    height: '20%',
     top: 'center',
     left: 'center',
     align: 'left',
