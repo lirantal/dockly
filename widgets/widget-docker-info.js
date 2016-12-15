@@ -1,7 +1,8 @@
 'use strict';
 
-var widgetContainerUtilization = function(blessed, screen) {
-  return blessed.table({
+exports.widget = {};
+exports.getWidget = function(blessed, screen) {
+  let widget = blessed.table({
     label: 'Docker Host',
     parent: screen,
     border: 'line',
@@ -19,6 +20,24 @@ var widgetContainerUtilization = function(blessed, screen) {
     top: '40%',
     left: '60%'
   });
+
+  this.widget = widget;
+  return widget;
 };
 
-module.exports = widgetContainerUtilization;
+exports.update = function(data) {
+
+  if (!data || Object.keys(data).length === 0) {
+    return;
+  }
+
+  this.widget.setData([
+    ['Host', data.Host],
+    ['OS', data.OperatingSystem],
+    ['Arch', data.Architecture],
+    ['Host Version', data.ServerVersion],
+    ['Host API Version', data.ApiVersion],
+    ['Memory', data.MemTotal.toString()]
+  ]);
+
+};

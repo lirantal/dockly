@@ -23,13 +23,13 @@ var screen = blessed.screen({
   fullUnicode: true
 });
 
-var widgetDockerInfo = widgets.dockerInfo(blessed, screen);
+var widgetDockerInfo = widgets.dockerInfo.getWidget(blessed, screen);
 screen.append(widgetDockerInfo);
 
-var widgetContainerUtilization = widgets.containerUtilization(contrib, screen);
+var widgetContainerUtilization = widgets.containerUtilization.getWidget(contrib, screen);
 screen.append(widgetContainerUtilization);
 
-var widgetContainerStatus = widgets.containerStatus(contrib, screen);
+var widgetContainerStatus = widgets.containerStatus.getWidget(contrib, screen);
 screen.append(widgetContainerStatus);
 
 var widgetContainerLogs = widgets.containerLogs(blessed, screen);
@@ -94,53 +94,24 @@ var widgetToolbar = widgetToolbarHelper.getToolbar(blessed, screen);
 screen.append(widgetToolbar);
 
 setInterval(function () {
+
+  // Update Docker Info
   docker.getInfo(function (data) {
-
-    if (!data || Object.keys(data).length === 0) {
-      return;
-    }
-
-    widgetDockerInfo.setData([
-      ['Host', data.Host],
-      ['OS', data.OperatingSystem],
-      ['Arch', data.Architecture],
-      ['Host Version', data.ServerVersion],
-      ['Host API Version', data.ApiVersion],
-      ['Memory', data.MemTotal.toString()]
-    ]);
-
-    if (data.Containers !== 0) {
-
-      var stack = [];
-      if (data.ContainersRunning !== 0) {
-        stack.push({
-          percent: Math.round((data.ContainersRunning / data.Containers) * 100),
-          stroke: 'green'
-        });
-      }
-
-      if (data.ContainersPaused !== 0) {
-        stack.push({
-          percent: Math.round((data.ContainersPaused / data.Containers) * 100),
-          stroke: 'yellow'
-        });
-      }
-
-      if (data.ContainersStopped !== 0) {
-        stack.push({
-          percent: Math.round((data.ContainersStopped / data.Containers) * 100),
-          stroke: 'red'
-        });
-      }
-
-      widgetContainerStatus.setStack(stack);
-
-    }
-
-    screen.render();
-
+    widgets.dockerInfo.update(data);
+    widgets.containerStatus.update(data);
   });
-}, 1000);
+
+  // Update List of Containers
+  listContainersUpdate();
+
+  // Update Container Utilization
+  docker.getContainerStats(getSelectedContainer(), function (data) {
+    widgets.containerUtilization.update(data);
+  });
+
+  screen.render();
+
+}, 500);
 
 docker.listContainers(function (data) {
   widgetContainerList.setData(data);
@@ -149,60 +120,7 @@ docker.listContainers(function (data) {
   widgetContainerList.focus();
 });
 
-function listContainersUpdate() {
-
-  docker.listContainers(function (data) {
-    widgetContainerList.setData(data);
-    screen.render();
-  });
-
-}
-
 screen.render();
-
-setInterval(listContainersUpdate, 1000);
-
-setInterval(function () {
-
-  docker.getContainerStats(getSelectedContainer(), function (data) {
-
-    if (!data || Object.keys(data).length === 0) {
-      return;
-    }
-
-    // Calculate CPU usage based on delta from previous measurement
-    var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage;
-    var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage;
-    var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage !== null ? data.cpu_stats.cpu_usage.percpu_usage.length : 0;
-
-    var cpuUsagePercent = 0;
-    if (systemUsageDelta != 0 || cpuCoresAvail != 0) {
-      cpuUsagePercent = cpuUsageDelta / systemUsageDelta * cpuCoresAvail * 100;
-    }
-
-    // Calculate Memory usage
-    var memUsage = data.memory_stats.usage;
-    var memAvail = data.memory_stats.limit;
-
-    var memUsagePercent = 0;
-    if (memAvail != 0) {
-      memUsagePercent = memUsage / memAvail * 100;
-    }
-
-    widgetContainerUtilization.setData([{
-      percent: Math.round(Number(cpuUsagePercent)),
-      label: 'cpu %',
-      'color': 'magenta'
-    }, {
-      percent: Math.round(Number(memUsagePercent)),
-      label: 'mem %',
-      'color': 'cyan'
-    },]);
-
-    screen.render();
-
-  });
-}, 200);
 
 widgetContainerList.on('select', function (item, idx) {
 
@@ -239,11 +157,21 @@ function getSelectedContainer() {
   return widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
 }
 
+/**
+ * render the containers list on demand
+ */
+function listContainersUpdate() {
+
+  docker.listContainers(function (data) {
+    widgetContainerList.setData(data);
+    screen.render();
+  });
+
+}
+
 screen.on('keypress', function (ch, key) {
   if (key.name === 'tab') {
-    return key.shift ?
-      screen.focusPrevious() :
-      screen.focusNext();
+    return key.shift ? screen.focusPrevious() : screen.focusNext();
   }
   if (key.name === 'q') {
     return process.exit(0);
@@ -262,7 +190,7 @@ screen.key('q', function () {
 
 process.on('uncaughtException', function(err) {
 
-  // clear the screen
+  // Make sure the screen is cleared
   screen.destroy();
 
   cli.showUsage();
