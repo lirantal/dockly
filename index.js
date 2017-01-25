@@ -44,6 +44,10 @@ var widgetContainerPopup = widgets.containerPopup(blessed, screen);
 var widgetToolbarHelper = widgets.toolbar;
 
 widgetToolbarHelper.commands = {
+  'refresh': {
+    keys: ['='],
+    callback: listContainersUpdate
+  },
   'info': {
     keys: ['i'],
     callback: function () {
@@ -100,9 +104,6 @@ setInterval(function () {
     widgets.dockerInfo.update(data);
     widgets.containerStatus.update(data);
   });
-
-  // Update List of Containers
-  listContainersUpdate();
 
   // Update Container Utilization
   docker.getContainerStats(getSelectedContainer(), function (data) {
