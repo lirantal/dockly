@@ -6,7 +6,8 @@
  */
 var blessed = require('blessed'),
   contrib = require('blessed-contrib'),
-  util = require('util');
+  util = require('util'),
+  os = require('os');
 
 /**
  * Project dependencies
@@ -19,12 +20,9 @@ var docker = new dockerUtil(cli.cliParse());
 
 var screen = blessed.screen({
   title: 'Dockly',
-  smartCSR: true,
-  fullUnicode: true
+  fullUnicode: true,
+  dockBorders: true
 });
-
-var widgetDockerInfo = widgets.dockerInfo.getWidget(blessed, screen);
-screen.append(widgetDockerInfo);
 
 var widgetContainerUtilization = widgets.containerUtilization.getWidget(contrib, screen);
 screen.append(widgetContainerUtilization);
@@ -38,10 +36,17 @@ screen.append(widgetContainerLogs);
 var widgetContainerList = widgets.containerList(blessed, screen);
 screen.append(widgetContainerList);
 
+var toggleWidgetDockerInfo = 0
+
 var widgetContainerInfo = widgets.containerInfo(blessed, screen);
 var widgetContainerPopup = widgets.containerPopup(blessed, screen);
 
 var widgetToolbarHelper = widgets.toolbar;
+
+// We have to immediately append and remove it so it doesn't appear on screen
+var widgetDockerInfo = widgets.dockerInfo.getWidget(blessed, screen);
+screen.append(widgetDockerInfo);
+screen.remove(widgetDockerInfo);
 
 widgetToolbarHelper.commands = {
   'refresh': {
@@ -59,6 +64,23 @@ widgetToolbarHelper.commands = {
         widgetContainerInfo.setContent(util.inspect(data));
         screen.render();
       });
+    }
+  },
+  'host info': {
+    keys: ['0'],
+    callback: function () {
+
+      toggleWidgetDockerInfo = !toggleWidgetDockerInfo;
+      if (toggleWidgetDockerInfo) {
+
+        docker.getInfo(function (data) {
+          screen.append(widgetDockerInfo);
+          widgets.dockerInfo.update(data);
+        });
+      } else {
+        screen.remove(widgetDockerInfo)
+      }
+
     }
   },
   'logs': {
@@ -101,7 +123,6 @@ setInterval(function () {
 
   // Update Docker Info
   docker.getInfo(function (data) {
-    widgets.dockerInfo.update(data);
     widgets.containerStatus.update(data);
   });
 
@@ -131,7 +152,7 @@ widgetContainerList.on('select', function (item, idx) {
   docker.getContainerLogs(containerId, function (err, stream) {
     if (stream && stream.pipe) {
       stream.on('data', function (chink) {
-        widgetContainerLogs.add(chink.toString('utf-8').trim());
+        widgetContainerLogs.add(chink.toString('utf-8').trim() + os.EOL);
       });
     }
   });
@@ -170,9 +191,11 @@ function listContainersUpdate() {
 
 }
 
+var toggleWidgetFocus = 1;
 screen.on('keypress', function (ch, key) {
   if (key.name === 'tab') {
-    return key.shift ? screen.focusPrevious() : screen.focusNext();
+    toggleWidgetFocus ? screen.focusPush(widgetContainerLogs) : screen.focusPush(widgetContainerList);
+    toggleWidgetFocus = !toggleWidgetFocus;
   }
   if (key.name === 'q') {
     return process.exit(0);
