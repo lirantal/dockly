@@ -3,7 +3,7 @@
 var widgetContainerList = function(blessed, screen) {
   return blessed.listtable({
     parent: screen,
-    label: 'Containers List',
+    label: 'Containers',
     keys: true,
     mouse: true,
     data: null,

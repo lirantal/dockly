@@ -7,7 +7,8 @@
 var blessed = require('blessed'),
   contrib = require('blessed-contrib'),
   util = require('util'),
-  os = require('os');
+  os = require('os'),
+  chalk = require('chalk');
 
 /**
  * Project dependencies
@@ -33,10 +34,11 @@ screen.append(widgetContainerStatus);
 var widgetContainerLogs = widgets.containerLogs(blessed, screen);
 screen.append(widgetContainerLogs);
 
+var toggleWidgetContainerListColor = 0;
 var widgetContainerList = widgets.containerList(blessed, screen);
 screen.append(widgetContainerList);
 
-var toggleWidgetDockerInfo = 0
+var toggleWidgetDockerInfo = 0;
 
 var widgetContainerInfo = widgets.containerInfo(blessed, screen);
 var widgetContainerPopup = widgets.containerPopup(blessed, screen);
@@ -150,9 +152,20 @@ widgetContainerList.on('select', function (item, idx) {
   var containerId = item.getContent().trim().split(' ').shift();
 
   docker.getContainerLogs(containerId, function (err, stream) {
+    var str;
     if (stream && stream.pipe) {
-      stream.on('data', function (chink) {
-        widgetContainerLogs.add(chink.toString('utf-8').trim() + os.EOL);
+      stream.on('data', function (chunk) {
+
+        // toggle for alternating the colors
+        toggleWidgetContainerListColor = !toggleWidgetContainerListColor
+
+        if (toggleWidgetContainerListColor) {
+          str = chalk.cyan(chunk.toString('utf-8').trim());
+        } else {
+          str = chalk.green(chunk.toString('utf-8').trim());
+        }
+
+        widgetContainerLogs.add(str + os.EOL);
       });
     }
   });

@@ -30,12 +30,12 @@ var widgetContainerLogs = function(blessed, screen) {
       fg: 'blue',
       ch: '|'
     },
-    width: '60%',
-    height: '70%',
+    width: '100%',
+    height: '53%',
     top: '0',
     left: '0',
     align: 'left',
-    content: 'Loading...',
+    content: '',
     tags: true
   });
 

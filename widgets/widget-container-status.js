@@ -22,10 +22,10 @@ exports.getWidget = function(blessed, screen) {
     hover: {
       bg: 'blue'
     },
-    width: '40%',
-    height: '16%',
-    top: '0',
-    left: '60%',
+    width: '20%',
+    height: '18%',
+    top: '53%',
+    left: '0%',
   });
 
   this.widget = widget;

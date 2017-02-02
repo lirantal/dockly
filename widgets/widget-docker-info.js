@@ -4,8 +4,8 @@ exports.widget = {};
 exports.getWidget = function(blessed, screen) {
   let widget = blessed.table({
     label: 'Docker Host',
-    parent: screen,
     border: 'line',
+    parent: screen,
     align: 'center',
     tags: true,
     style: {
