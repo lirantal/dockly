@@ -41,14 +41,32 @@ exports.update = function(data) {
     return;
   }
 
+  if (data.cpu_stats.cpu_usage.total_usage === undefined || data.precpu_stats.cpu_usage.total_usage === undefined
+      || data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined) {
+    return this.widget.setData([{
+      percent: 0,
+      label: 'cpu %',
+      'color': 'magenta'
+    }, {
+      percent: 0,
+      label: 'mem %',
+      'color': 'cyan'
+    }
+    ]);
+  }
+
   // Calculate CPU usage based on delta from previous measurement
   var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage;
   var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage;
-  var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage !== null ? data.cpu_stats.cpu_usage.percpu_usage.length : 0;
+  var cpuCoresAvail = (data.cpu_stats.cpu_usage.percpu_usage !== undefined) ? data.cpu_stats.cpu_usage.percpu_usage.length : 0;
 
   var cpuUsagePercent = 0;
   if (systemUsageDelta != 0 || cpuCoresAvail != 0) {
-    cpuUsagePercent = cpuUsageDelta / systemUsageDelta * cpuCoresAvail * 100;
+    var totalUsage = systemUsageDelta * cpuCoresAvail * 100;
+    cpuUsagePercent = 0;
+    if (totalUsage && totalUsage !== 0) {
+      cpuUsagePercent = cpuUsageDelta / totalUsage;
+    }
   }
 
   // Calculate Memory usage
@@ -56,7 +74,7 @@ exports.update = function(data) {
   var memAvail = data.memory_stats.limit;
 
   var memUsagePercent = 0;
-  if (memAvail != 0) {
+  if (memAvail !== 0) {
     memUsagePercent = memUsage / memAvail * 100;
   }
 
