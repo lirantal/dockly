@@ -19,6 +19,16 @@ function util(connection) {
 
 }
 
+util.prototype.listImages = function (cb) {
+
+  dockerCon.listImages(function (err, images) {
+    if (images) {
+      cb(images);
+    }
+  });
+
+};
+
 util.prototype.listContainers = function (cb) {
 
   dockerCon.listContainers({'all': true}, function (err, containers) {

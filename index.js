@@ -28,6 +28,10 @@ var screen = blessed.screen({
 var widgetContainerUtilization = widgets.containerUtilization.getWidget(contrib, screen);
 screen.append(widgetContainerUtilization);
 
+var widgetContainersVsImages = widgets.containersVsImages.getWidget(contrib, screen);
+screen.append(widgetContainersVsImages);
+listContainersVsImages();
+
 var widgetContainerStatus = widgets.containerStatus.getWidget(contrib, screen);
 screen.append(widgetContainerStatus);
 
@@ -197,10 +201,36 @@ function getSelectedContainer() {
  */
 function listContainersUpdate() {
 
+  listContainersVsImages();
+
   docker.listContainers(function (data) {
     widgetContainerList.setData(data);
     screen.render();
   });
+
+}
+
+/**
+ * render the containers and images list
+ */
+function listContainersVsImages() {
+
+  docker.listContainers(function(containers) {
+    let countContainers = containers.length;
+
+    docker.listImages(function (images) {
+
+      let countImages = images.length;
+
+      widgets.containersVsImages.update({
+        Containers: countContainers,
+        Images: countImages
+      });
+
+    });
+
+  });
+
 
 }
 
