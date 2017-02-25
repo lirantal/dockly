@@ -117,6 +117,56 @@ widgetToolbarHelper.commands = {
       });
     }
   },
+  'stop': {
+    keys: ['s'],
+    callback: function() {
+
+      let containerId = getSelectedContainer();
+
+      screen.append(widgetContainerPopup);
+
+      widgetContainerPopup.setLabel('Container: ' + containerId)
+      widgetContainerPopup.setContent('Stopping container...');
+      widgetContainerPopup.focus();
+
+      docker.stopContainer(containerId, function (err, data) {
+
+        if (err && err.statusCode === 500) {
+          widgetContainerPopup.setContent(err.json.message);
+        } else {
+          widgetContainerPopup.setContent('Container stopped successfully');
+        }
+
+        screen.render();
+
+      });
+    }
+  },
+  'shell': {
+    keys: ['l'],
+    callback: function() {
+
+      let containerId = getSelectedContainer();
+
+      screen.append(widgetContainerPopup);
+
+      widgetContainerPopup.setLabel('Container: ' + containerId)
+      widgetContainerPopup.setContent('Stopping container...');
+      widgetContainerPopup.focus();
+
+      docker.stopContainer(containerId, function (err, data) {
+
+        if (err && err.statusCode === 500) {
+          widgetContainerPopup.setContent(err.json.message);
+        } else {
+          widgetContainerPopup.setContent('Container stopped successfully');
+        }
+
+        screen.render();
+
+      });
+    }
+  },
   'quit': {
     keys: ['q']
   }

@@ -89,6 +89,11 @@ util.prototype.restartContainer = function (containerId, cb) {
   container.restart(cb);
 };
 
+util.prototype.stopContainer = function (containerId, cb) {
+  var container = dockerCon.getContainer(containerId);
+  container.stop(cb);
+};
+
 util.prototype.getContainerStats = function (containerId, cb) {
   var container = dockerCon.getContainer(containerId);
   return container.stats({stream: false}, function (err, stream) {
