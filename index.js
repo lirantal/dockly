@@ -8,7 +8,9 @@ var blessed = require('blessed'),
   contrib = require('blessed-contrib'),
   util = require('util'),
   os = require('os'),
-  chalk = require('chalk');
+  chalk = require('chalk'),
+  opn = require('opn'),
+  fs = require('fs');
 
 /**
  * Project dependencies
@@ -89,12 +91,28 @@ widgetToolbarHelper.commands = {
 
     }
   },
+  'shell': {
+    keys: ['l'],
+    callback: function () {
+
+      let containerId = getSelectedContainer();
+      if (containerId) {
+
+        let containerIdFile = __dirname + '/containerId.txt';
+        fs.writeFile(containerIdFile, containerId, 'utf8', function(err) {
+          if (!err) {
+            opn(`${__dirname}/dockerRunScript.sh`);
+          }
+        })
+      }
+    }
+  },
   'logs': {
     keys: ['[RETURN]']
   },
   'restart': {
     keys: ['r'],
-    callback: function() {
+    callback: function () {
 
       let containerId = getSelectedContainer();
 
@@ -119,32 +137,7 @@ widgetToolbarHelper.commands = {
   },
   'stop': {
     keys: ['s'],
-    callback: function() {
-
-      let containerId = getSelectedContainer();
-
-      screen.append(widgetContainerPopup);
-
-      widgetContainerPopup.setLabel('Container: ' + containerId)
-      widgetContainerPopup.setContent('Stopping container...');
-      widgetContainerPopup.focus();
-
-      docker.stopContainer(containerId, function (err, data) {
-
-        if (err && err.statusCode === 500) {
-          widgetContainerPopup.setContent(err.json.message);
-        } else {
-          widgetContainerPopup.setContent('Container stopped successfully');
-        }
-
-        screen.render();
-
-      });
-    }
-  },
-  'shell': {
-    keys: ['l'],
-    callback: function() {
+    callback: function () {
 
       let containerId = getSelectedContainer();
 
@@ -265,7 +258,7 @@ function listContainersUpdate() {
  */
 function listContainersVsImages() {
 
-  docker.listContainers(function(containers) {
+  docker.listContainers(function (containers) {
     let countContainers = containers.length;
 
     docker.listImages(function (images) {
@@ -305,7 +298,7 @@ screen.key('q', function () {
   return screen.destroy();
 });
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
 
   // Make sure the screen is cleared
   screen.destroy();
