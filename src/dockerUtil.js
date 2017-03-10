@@ -32,9 +32,7 @@ util.prototype.listImages = function (cb) {
 util.prototype.listContainers = function (cb) {
 
   dockerCon.listContainers({'all': true}, function (err, containers) {
-    var list = [
-      ['Id', 'Name', 'Image', 'Command', 'State', 'Status'],
-    ];
+    var list = [];
 
     if (containers) {
       containers.forEach(function (container, index, array) {
@@ -42,6 +40,8 @@ util.prototype.listContainers = function (cb) {
       });
     }
 
+    list.sort(sortContainers);
+    list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status']);
     cb(list);
 
   });
@@ -111,6 +111,27 @@ util.prototype.getContainerLogs = function (containerId, cb) {
     tail: 50,
     timestamps: true
   }, cb);
+}
+
+/**
+ * Sort containers by their state: running, created, then exited.
+ *
+ * @param item left
+ * @param item right
+ * @returns {number} for position
+ */
+function sortContainers(a, b) {
+
+  if (a[4] === 'running' && b[4] !== 'running') {
+    return -1;
+  }
+
+  if (a[4] === 'exited' && b[4] !== 'exited') {
+    return 1;
+  }
+
+  return 0;
+
 }
 
 module.exports = util;
