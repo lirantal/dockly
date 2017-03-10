@@ -24,8 +24,8 @@ exports.getWidget = function(blessed, screen) {
     },
     width: '20%',
     height: '18%',
-    top: '53%',
-    left: '0%',
+    top: '0',
+    left: '80%'
   });
 
   this.widget = widget;

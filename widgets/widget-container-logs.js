@@ -31,8 +31,8 @@ var widgetContainerLogs = function(blessed, screen) {
       ch: '|'
     },
     width: '100%',
-    height: '53%',
-    top: '0',
+    height: '45%',
+    top: '55%',
     left: '0',
     align: 'left',
     content: '',

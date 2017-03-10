@@ -26,10 +26,10 @@ exports.getWidget = function(blessed, screen) {
     barSpacing: 15,
     xOffset: 3,
     maxHeight: 15,
-    width: '15%',
-    height: '18%',
-    top: '53%',
-    left: '70%',
+    width: '20%',
+    height: '20%',
+    top: '38%',
+    left: '80%'
   });
 
   this.widget = widget;

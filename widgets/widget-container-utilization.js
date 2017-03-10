@@ -25,10 +25,10 @@ exports.getWidget = function(blessed, screen) {
     hover: {
       bg: 'blue'
     },
-    width: '25%',
-    height: '18%',
-    top: '53%',
-    left: '20%'
+    width: '20%',
+    height: '22%',
+    top: '18%',
+    left: '80%'
   });
 
   this.widget = widget;

@@ -27,6 +27,8 @@ var screen = blessed.screen({
   dockBorders: true
 });
 
+var focusedWidget;
+
 var widgetContainerUtilization = widgets.containerUtilization.getWidget(contrib, screen);
 screen.append(widgetContainerUtilization);
 
@@ -67,6 +69,7 @@ widgetToolbarHelper.commands = {
 
       screen.append(widgetContainerInfo);
       widgetContainerInfo.focus();
+      focusedWidget = widgetContainerInfo;
 
       docker.getContainer(getSelectedContainer(), function (err, data) {
         widgetContainerInfo.setContent(util.inspect(data));
@@ -189,6 +192,7 @@ docker.listContainers(function (data) {
   widgetContainerList.select(0);
   screen.render();
   widgetContainerList.focus();
+  focusedWidget = widgetContainerList;
 });
 
 screen.render();
@@ -288,9 +292,10 @@ screen.on('keypress', function (ch, key) {
   }
 });
 
-screen.on('element focus', function (cur, old) {
+screen.on('element focus', function (curr, old) {
   if (old.border) old.style.border.fg = 'default';
-  if (cur.border) cur.style.border.fg = 'green';
+  if (curr.border) curr.style.border.fg = 'green';
+
   screen.render();
 });
 

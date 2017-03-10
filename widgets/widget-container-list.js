@@ -25,9 +25,9 @@ var widgetContainerList = function(blessed, screen) {
         }
       }
     },
-    width: '100%',
-    height: '26%',
-    top: '70%',
+    width: '80%',
+    height: '55%',
+    top: '0',
     left: '0',
     align: 'center'
   });
