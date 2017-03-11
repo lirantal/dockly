@@ -2,11 +2,9 @@
 
 exports.widget = {};
 exports.getWidget = function(blessed, screen) {
-  let widget = blessed.donut({
-    label: 'Container Utilization',
-    radius: 10,
-    arcWidth: 3,
-    remainColor: 'black',
+
+  let widget = blessed.bar({
+    label: 'Containers Utilization (%)',
     style: {
       fg: 'blue',
       bg: 'default',
@@ -22,9 +20,11 @@ exports.getWidget = function(blessed, screen) {
       type: 'line',
       fg: '#00ff00'
     },
-    hover: {
-      bg: 'blue'
-    },
+    barBgColor: 'blue',
+    barWidth: 6,
+    barSpacing: 15,
+    xOffset: 3,
+    maxHeight: 15,
     width: '20%',
     height: '22%',
     top: '18%',
@@ -43,16 +43,15 @@ exports.update = function(data) {
 
   if (data.cpu_stats.cpu_usage.total_usage === undefined || data.precpu_stats.cpu_usage.total_usage === undefined
       || data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined) {
-    return this.widget.setData([{
-      percent: 0,
-      label: 'cpu %',
-      'color': 'magenta'
-    }, {
-      percent: 0,
-      label: 'mem %',
-      'color': 'cyan'
-    }
-    ]);
+
+    return this.widget.setData({
+      titles: ['CPU', 'Memory'],
+      data: [
+        0,
+        0
+      ]
+    });
+
   }
 
   // Calculate CPU usage based on delta from previous measurement
@@ -78,15 +77,12 @@ exports.update = function(data) {
     memUsagePercent = memUsage / memAvail * 100;
   }
 
-  this.widget.setData([{
-    percent: Math.round(Number(cpuUsagePercent)),
-    label: 'cpu %',
-    'color': 'magenta'
-    }, {
-      percent: Math.round(Number(memUsagePercent)),
-      label: 'mem %',
-      'color': 'cyan'
-    }
-  ]);
+  return this.widget.setData({
+    titles: ['CPU', 'Memory'],
+    data: [
+      Math.round(Number(cpuUsagePercent)),
+      Math.round(Number(memUsagePercent))
+    ]
+  });
 
 };

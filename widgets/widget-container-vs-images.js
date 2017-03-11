@@ -27,7 +27,7 @@ exports.getWidget = function(blessed, screen) {
     xOffset: 3,
     maxHeight: 15,
     width: '20%',
-    height: '20%',
+    height: '17%',
     top: '38%',
     left: '80%'
   });
