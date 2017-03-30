@@ -9,7 +9,6 @@ var blessed = require('blessed'),
   util = require('util'),
   os = require('os'),
   chalk = require('chalk'),
-  opn = require('opn'),
   fs = require('fs');
 
 /**
@@ -19,7 +18,20 @@ var dockerUtil = require('./src/dockerUtil'),
   widgets = require('./widgets'),
   cli = require('./src/cli');
 
+const ContainerHook = require('./hooks/containers.hook.js')
+const ShellHook = require('./hooks/shell.hook.js')
+
+const widgetsRepository = {};
+
 var docker = new dockerUtil(cli.cliParse());
+
+// --------- hooks
+const dockerHook = new ContainerHook()
+widgetsRepository.dockerHook = dockerHook
+
+const shellHook = new ShellHook()
+widgetsRepository.shellHook = shellHook
+//
 
 var screen = blessed.screen({
   title: 'Dockly',
@@ -27,280 +39,144 @@ var screen = blessed.screen({
   dockBorders: true
 });
 
-var focusedWidget;
+// -- Container List
+var widgetContainerListObj = new widgets.containerList(blessed, screen)
+var widgetContainerList = widgetContainerListObj.getWidget()
+widgetContainerListObj.renderWidget()
+// add it to widgets DI repository
+widgetsRepository.widgetContainerList = widgetContainerListObj
+// ---
 
-var widgetContainerUtilization = widgets.containerUtilization.getWidget(contrib, screen);
-screen.append(widgetContainerUtilization);
+// -- Container Status
+var widgetContainerStatusObj = new widgets.containerStatus(contrib, screen);
+var widgetContainerStatus = widgetContainerStatusObj.getWidget()
+widgetContainerStatusObj.renderWidget()
+// add it to widgets DI repository
+widgetsRepository.widgetContainerStatus = widgetContainerStatusObj
+// ---
 
-var widgetContainersVsImages = widgets.containersVsImages.getWidget(contrib, screen);
-screen.append(widgetContainersVsImages);
-listContainersVsImages();
+// -- Container Logs
+var widgetContainerLogsObj = new widgets.containerLogs(blessed, screen);
+var widgetContainerLogs = widgetContainerLogsObj.getWidget()
+widgetContainerLogsObj.renderWidget()
+// add it to widgets DI repository
+widgetsRepository.widgetContainerLogs = widgetContainerLogsObj
+// --
 
-var widgetContainerStatus = widgets.containerStatus.getWidget(contrib, screen);
-screen.append(widgetContainerStatus);
+// -- ToolBar
+var widgetToolBarObj = new widgets.toolbar(blessed, screen);
+var widgetToolBar = widgetToolBarObj.getWidget();
+widgetToolBarObj.renderWidget();
+// --
+// add it to widgets DI repository
+widgetsRepository.widgetToolBar = widgetToolBarObj;
+// --
 
-var widgetContainerLogs = widgets.containerLogs(blessed, screen);
-screen.append(widgetContainerLogs);
+// -- container Info
+var widgetContainerInfoObj = new widgets.containerInfo(blessed, screen);
+var widgetContainerInfo = widgetContainerInfoObj.getWidget();
+widgetContainerInfoObj.renderWidget();
+// add it to widgets DI repository
+widgetsRepository.widgetContainerInfo = widgetContainerInfoObj;
+// ---
 
-var toggleWidgetContainerListColor = 0;
-var widgetContainerList = widgets.containerList(blessed, screen);
-screen.append(widgetContainerList);
+// -- containers vs images
+var widgetContainersVsImagesObj = new widgets.containersVsImages(contrib, screen);
+var widgetContainersVsImages = widgetContainersVsImagesObj.getWidget();
+widgetContainersVsImagesObj.renderWidget();
+// add it to widgets DI repository
+widgetsRepository.widgetContainersVsImages = widgetContainersVsImagesObj;
+// ---
 
-var toggleWidgetDockerInfo = 0;
+// -- docker host info
+// var widgetDockerInfo = widgets.dockerInfo.getWidget(blessed, containerUtilizationscreen);
+var widgetDockerInfoObj = new widgets.dockerInfo(contrib, screen)
+var widgetDockerInfo = widgetDockerInfoObj.getWidget()
+widgetDockerInfoObj.renderWidget()
+// add it to widgets DI repository
+widgetsRepository.widgetDockerInfo = widgetDockerInfoObj
+// ---
 
-var widgetContainerInfo = widgets.containerInfo(blessed, screen);
-var widgetContainerPopup = widgets.containerPopup(blessed, screen);
+// -- Container Utilization
+var widgetContainerUtilizationObj = new widgets.containerUtilization(contrib, screen)
+var widgetContainerUtilization = widgetContainerUtilizationObj.getWidget()
+widgetContainerUtilizationObj.renderWidget()
+// // add it to widgets DI repository
+widgetsRepository.widgetContainerUtilization = widgetContainerUtilizationObj
+// ---
 
-var widgetToolbarHelper = widgets.toolbar;
+// -- Popup
+var widgetContainerPopupObj = new widgets.containerPopup(blessed, screen)
+var widgetContainerPopup = widgetContainerPopupObj.getWidget()
+widgetContainerPopupObj.renderWidget()
+// // add it to widgets DI repository
+widgetsRepository.widgetContainerPopup = widgetContainerPopupObj
+// ---
 
-// We have to immediately append and remove it so it doesn't appear on screen
-var widgetDockerInfo = widgets.dockerInfo.getWidget(blessed, screen);
-screen.append(widgetDockerInfo);
-screen.remove(widgetDockerInfo);
+// -- set all widgets
+dockerHook.setWidgetsRepo(widgetsRepository)
+shellHook.setWidgetsRepo(widgetsRepository)
+widgetContainerInfoObj.setWidgetsRepo(widgetsRepository)
+widgetContainersVsImagesObj.setWidgetsRepo(widgetsRepository)
+widgetContainerListObj.setWidgetsRepo(widgetsRepository)
+widgetDockerInfoObj.setWidgetsRepo(widgetsRepository)
+widgetContainerLogsObj.setWidgetsRepo(widgetsRepository)
+widgetContainerStatusObj.setWidgetsRepo(widgetsRepository)
+widgetContainerUtilizationObj.setWidgetsRepo(widgetsRepository)
+widgetContainerPopupObj.setWidgetsRepo(widgetsRepository)
+// --
 
-widgetToolbarHelper.commands = {
-  'refresh': {
-    keys: ['='],
-    callback: listContainersUpdate
-  },
-  'info': {
-    keys: ['i'],
-    callback: function () {
 
-      screen.append(widgetContainerInfo);
-      widgetContainerInfo.focus();
-      focusedWidget = widgetContainerInfo;
-
-      docker.getContainer(getSelectedContainer(), function (err, data) {
-        widgetContainerInfo.setContent(util.inspect(data));
-        screen.render();
-      });
-    }
-  },
-  'host info': {
-    keys: ['0'],
-    callback: function () {
-
-      toggleWidgetDockerInfo = !toggleWidgetDockerInfo;
-      if (toggleWidgetDockerInfo) {
-
-        docker.getInfo(function (data) {
-          screen.append(widgetDockerInfo);
-          widgets.dockerInfo.update(data);
-        });
-      } else {
-        screen.remove(widgetDockerInfo)
-      }
-
-    }
-  },
-  'shell': {
-    keys: ['l'],
-    callback: function () {
-
-      let containerId = getSelectedContainer();
-      if (containerId) {
-
-        let containerIdFile = __dirname + '/containerId.txt';
-        fs.writeFile(containerIdFile, containerId, 'utf8', function(err) {
-          if (!err) {
-            opn(`${__dirname}/dockerRunScript.sh`);
-          }
-        })
-      }
-    }
-  },
-  'logs': {
-    keys: ['[RETURN]']
-  },
-  'restart': {
-    keys: ['r'],
-    callback: function () {
-
-      let containerId = getSelectedContainer();
-
-      screen.append(widgetContainerPopup);
-
-      widgetContainerPopup.setLabel('Container: ' + containerId)
-      widgetContainerPopup.setContent('Restarting container...');
-      widgetContainerPopup.focus();
-
-      docker.restartContainer(containerId, function (err, data) {
-
-        if (err && err.statusCode === 500) {
-          widgetContainerPopup.setContent(err.json.message);
-        } else {
-          widgetContainerPopup.setContent('Container restarted successfully');
-        }
-
-        screen.render();
-
-      });
-    }
-  },
-  'stop': {
-    keys: ['s'],
-    callback: function () {
-
-      let containerId = getSelectedContainer();
-
-      screen.append(widgetContainerPopup);
-
-      widgetContainerPopup.setLabel('Container: ' + containerId)
-      widgetContainerPopup.setContent('Stopping container...');
-      widgetContainerPopup.focus();
-
-      docker.stopContainer(containerId, function (err, data) {
-
-        if (err && err.statusCode === 500) {
-          widgetContainerPopup.setContent(err.json.message);
-        } else {
-          widgetContainerPopup.setContent('Container stopped successfully');
-        }
-
-        screen.render();
-
-      });
-    }
-  },
-  'quit': {
-    keys: ['q']
-  }
-};
-
-var widgetToolbar = widgetToolbarHelper.getToolbar(blessed, screen);
-screen.append(widgetToolbar);
-
-setInterval(function () {
-
-  // Update Docker Info
-  docker.getInfo(function (data) {
-    widgets.containerStatus.update(data);
-  });
-
-  // Update Container Utilization
-  docker.getContainerStats(getSelectedContainer(), function (data) {
-    widgets.containerUtilization.update(data);
-  });
-
-  screen.render();
-
-}, 500);
-
-docker.listContainers(function (data) {
-  widgetContainerList.setData(data);
-  widgetContainerList.select(0);
-  screen.render();
-  widgetContainerList.focus();
-  focusedWidget = widgetContainerList;
-});
-
-screen.render();
-
-widgetContainerList.on('select', function (item, idx) {
-
-  // extract the first column out of the table row which is the container id
-  var containerId = item.getContent().trim().split(' ').shift();
-
-  docker.getContainerLogs(containerId, function (err, stream) {
-    var str;
-    if (stream && stream.pipe) {
-      stream.on('data', function (chunk) {
-
-        // toggle for alternating the colors
-        toggleWidgetContainerListColor = !toggleWidgetContainerListColor
-
-        if (toggleWidgetContainerListColor) {
-          str = chalk.cyan(chunk.toString('utf-8').trim());
-        } else {
-          str = chalk.green(chunk.toString('utf-8').trim());
-        }
-
-        widgetContainerLogs.add(str + os.EOL);
-      });
-    }
-  });
-
-});
-
-widgetContainerInfo.on('keypress', function (ch, key) {
-  if (key.name === 'escape' || key.name === 'return') {
-    widgetContainerInfo.destroy();
-  }
-});
-
-widgetContainerPopup.on('keypress', function (ch, key) {
-  if (key.name === 'escape' || key.name === 'return') {
-    widgetContainerPopup.destroy();
-  }
-});
-
-/**
- * returns a selected container from the containers listbox
- * @return {string} container id
- */
-function getSelectedContainer() {
-  return widgetContainerList.getItem(widgetContainerList.selected).getContent().trim().split(' ').shift();
+const utils = {
+  docker
 }
 
-/**
- * render the containers list on demand
- */
-function listContainersUpdate() {
+// -- set all utils
+dockerHook.setUtilsRepo(utils)
+shellHook.setUtilsRepo(utils)
+widgetContainerInfoObj.setUtilsRepo(utils)
+widgetContainerListObj.setUtilsRepo(utils)
+widgetDockerInfoObj.setUtilsRepo(utils)
+widgetContainerLogsObj.setUtilsRepo(utils)
+widgetContainerStatusObj.setUtilsRepo(utils)
+widgetContainerUtilizationObj.setUtilsRepo(utils)
+widgetContainerPopupObj.setUtilsRepo(utils)
+// --
 
-  listContainersVsImages();
+// -- init all widgets and hooks
+widgetContainersVsImagesObj.init()
+widgetContainerInfoObj.init()
+dockerHook.init()
+shellHook.init()
+widgetContainerListObj.init()
+widgetDockerInfoObj.init()
+widgetContainerLogsObj.init()
+widgetContainerStatusObj.init()
+widgetContainerUtilizationObj.init()
+widgetContainerPopupObj.init()
 
-  docker.listContainers(function (data) {
-    widgetContainerList.setData(data);
-    screen.render();
-  });
+screen.render()
 
-}
+var toggleWidgetFocus = true;
 
-/**
- * render the containers and images list
- */
-function listContainersVsImages() {
-
-  docker.listContainers(function (containers) {
-    let countContainers = containers.length;
-
-    docker.listImages(function (images) {
-
-      let countImages = images.length;
-
-      widgets.containersVsImages.update({
-        Containers: countContainers,
-        Images: countImages
-      });
-
-    });
-
-  });
-
-
-}
-
-var toggleWidgetFocus = 1;
 screen.on('keypress', function (ch, key) {
   if (key.name === 'tab') {
-    toggleWidgetFocus ? screen.focusPush(widgetContainerLogs) : screen.focusPush(widgetContainerList);
-    toggleWidgetFocus = !toggleWidgetFocus;
-  }
-  if (key.name === 'q') {
-    return process.exit(0);
+    toggleWidgetFocus ? widgetContainerLogsObj.focus() : widgetContainerListObj.focus()
+    toggleWidgetFocus = !toggleWidgetFocus
+    screen.render()
   }
 });
 
 screen.on('element focus', function (curr, old) {
-  if (old.border) old.style.border.fg = 'default';
-  if (curr.border) curr.style.border.fg = 'green';
-
+  if (old.border) old.style.border.fg = 'default'
+  if (curr.border) curr.style.border.fg = 'green'
   screen.render();
 });
 
+
 screen.key('q', function () {
-  return screen.destroy();
+  screen.destroy()
+  return process.exit(0)
 });
 
 process.on('uncaughtException', function (err) {
@@ -313,7 +189,7 @@ process.on('uncaughtException', function (err) {
   if (err && err.message) {
     console.log('\x1b[31m');
 
-    console.log('Error: ' + err.message);
+    console.trace('Error: ' + err.message);
     if (err.message === 'Unable to determine the domain name') {
       console.log('-> check your connection options to the docker daemon and confirm containers exist');
     }
