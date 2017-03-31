@@ -29,29 +29,27 @@ class screen {
   }
 
   init() {
+    // load all hooks and widgets
     this.assets = assetsLoader.load()
+
+    // initialize screen, and create the hooks and widgets repository
     this.initScreen()
     this.initHooks()
     this.initWidgets()
 
+    // render the widgets and populate their information of available
+    // widgets and utilities
     this.renderWidgets()
     this.setWidgetsRepo()
     this.setWidgetsUtils()
 
+    // initialize all widgets
     this.setWidgetsInit()
 
-
-
-    // console.log(this.widgetsRepository)
-    // 1. get all widgets and instantiate them
-    //
-
-
-
+    // register global screen events and render
     this.registerEvents()
     this.render()
   }
-
 
   initHooks() {
     for (let [hookName, hookObject] of this.assets.get('hooks').entries()) {
@@ -101,7 +99,7 @@ class screen {
   registerEvents() {
     this.screen.on('keypress', (ch, key) => {
       if (key.name === 'tab') {
-        this.toggleWidgetFocus ? widgetContainerLogsObj.focus() : widgetContainerListObj.focus()
+        this.toggleWidgetFocus ? this.widgetsRepository.get('containerLogs').focus() : this.widgetsRepository.get('containerList').focus()
         this.toggleWidgetFocus = !this.toggleWidgetFocus
         this.screen.render()
       }
