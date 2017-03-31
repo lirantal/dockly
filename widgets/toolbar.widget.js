@@ -2,14 +2,26 @@
 
 const EventEmitter = require('events')
 
-class widget extends EventEmitter {
-  constructor (blessed, screen) {
+class myWidget extends EventEmitter {
+  constructor({blessed = {}, contrib = {}, screen = {}}) {
     super()
-
     this.blessed = blessed
+    this.contrib = contrib
     this.screen = screen
 
     this.widget = this.createWidget()
+  }
+
+  setWidgetsRepo (widgets = new Map()) {
+    this.widgetsRepo = widgets
+  }
+
+  setUtilsRepo(utils = new Map) {
+    this.utilsRepo = utils
+  }
+
+  init() {
+    return null
   }
 
   getWidget () {
@@ -38,10 +50,10 @@ class widget extends EventEmitter {
           keys: ['i'],
           callback: () => { this.emit('key', 'i') }
         },
-        'host info': {
-          keys: ['0'],
-          callback: () => { this.emit('key', '0') }
-        },
+        // 'host info': {
+        //   keys: ['0'],
+        //   callback: () => { this.emit('key', '0') }
+        // },
         'shell': {
           keys: ['l'],
           callback: () => { this.emit('key', 'l') }
@@ -74,4 +86,4 @@ class widget extends EventEmitter {
 
 }
 
-module.exports = widget
+module.exports = myWidget

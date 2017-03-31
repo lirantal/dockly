@@ -5,9 +5,10 @@ const chalk = require('chalk')
 const os = require('os')
 
 class myWidget extends EventEmitter {
-  constructor(blessed = {}, screen = {}) {
+  constructor({blessed = {}, contrib = {}, screen = {}}) {
     super()
     this.blessed = blessed
+    this.contrib = contrib
     this.screen = screen
 
     this.widget = this.getWidget()
@@ -18,7 +19,7 @@ class myWidget extends EventEmitter {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = {}) {
+  setUtilsRepo(utils = new Map()) {
     this.utilsRepo = utils
   }
 
@@ -32,7 +33,7 @@ class myWidget extends EventEmitter {
       var containerId = item.getContent().toString().trim().split(' ').shift()
 
       // get logs for the container
-      this.utilsRepo.docker.getContainerLogs(containerId, (err, stream) => {
+      this.utilsRepo.get('docker').getContainerLogs(containerId, (err, stream) => {
         var str
         if (stream && stream.pipe) {
           stream.on('data', (chunk) => {
@@ -46,17 +47,17 @@ class myWidget extends EventEmitter {
               str = chalk.green(chunk.toString('utf-8').trim())
             }
 
-            this.widgetsRepo.widgetContainerLogs.update(str + os.EOL)
+            this.widgetsRepo.get('containerLogs').update(str + os.EOL)
           })
         }
       })
     })
 
-    if (!this.widgetsRepo.widgetToolBar) {
+    if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
 
-    const toolbar = this.widgetsRepo.widgetToolBar
+    const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
       if (keyString === '=') {
         this.refreshContainers()
@@ -107,7 +108,7 @@ class myWidget extends EventEmitter {
   }
 
   refreshContainers() {
-    this.utilsRepo.docker.listContainers((data) => {
+    this.utilsRepo.get('docker').listContainers((data) => {
       this.update(data)
       this.widget.select(1)
       this.focus()

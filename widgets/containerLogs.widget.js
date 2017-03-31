@@ -2,22 +2,24 @@
 'use strict';
 
 class myWidget {
-  constructor(blessed = {}, screen = {}) {
+  constructor({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
+    this.contrib = contrib
     this.screen = screen
 
     this.widget = this.getWidget()
   }
 
-  setWidgetsRepo(widgets = {}) {
+  setWidgetsRepo(widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = {}) {
+  setUtilsRepo(utils = new Map()) {
     this.utilsRepo = utils
   }
 
   init() {
+    return null
   }
 
   focus() {

@@ -1,23 +1,24 @@
 'use strict'
 
 class myWidget {
-  constructor(blessed = {}, screen = {}) {
+  constructor({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
+    this.contrib = contrib
     this.screen = screen
 
     this.widget = this.getWidget()
   }
 
-  setWidgetsRepo(widgets = {}) {
+  setWidgetsRepo(widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = {}) {
+  setUtilsRepo(utils = new Map()) {
     this.utilsRepo = utils
   }
 
   init() {
-    if (!this.widgetsRepo.dockerHook) {
+    if (!this.widgetsRepo.has('containers')) {
       return null
     }
 
@@ -27,7 +28,7 @@ class myWidget {
       }
     })
 
-    const dockerHook = this.widgetsRepo.dockerHook
+    const dockerHook = this.widgetsRepo.get('containers')
     dockerHook.on('loaderStart', (data) => {
       return this.update(data)
     })

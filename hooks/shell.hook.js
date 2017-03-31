@@ -7,20 +7,20 @@ class hook {
   constructor () {
   }
 
-  setWidgetsRepo (widgets = {}) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo (utils = {}) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
   init () {
-    if (!this.widgetsRepo.widgetToolBar) {
+    if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
 
-    const toolbar = this.widgetsRepo.widgetToolBar
+    const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
       // on refresh keypress, update all containers and images information
       if (keyString === 'l') {
@@ -30,7 +30,7 @@ class hook {
   }
 
   openShell () {
-    let containerId = this.widgetsRepo.widgetContainerList.getSelectedContainer()
+    let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
     if (containerId) {
       let containerIdFile = process.cwd() + '/containerId.txt'
       fs.writeFile(containerIdFile, containerId, 'utf8', function (err) {
