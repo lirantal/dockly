@@ -97,7 +97,7 @@ class myWidget {
     var memAvail = data.memory_stats.limit
 
     var memUsagePercent = 0
-    if (memAvail !== 0) {
+    if ((memUsage !== undefined && memAvail !== undefined) && memAvail !== 0) {
       memUsagePercent = memUsage / memAvail * 100
     }
 
