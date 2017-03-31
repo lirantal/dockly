@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 currentFilePath=${BASH_SOURCE[0]}
 workingDir="$( dirname "$currentFilePath" )"
 containerId=`cat ${workingDir}/containerId.txt`
