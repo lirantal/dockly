@@ -8,12 +8,12 @@ const config = {
 }
 
 class assetsLoader {
-  static load() {
+  static load () {
     const assets = this.resolveAssetFiles()
     return assets
   }
 
-  static resolveAssetFiles() {
+  static resolveAssetFiles () {
     let assets = new Map([
       ['hooks', undefined],
       ['widgets', undefined]
@@ -36,7 +36,7 @@ class assetsLoader {
     return assets
   }
 
-  static formatAsset(assetPath) {
+  static formatAsset (assetPath) {
     return path.basename(assetPath).split('.')[0]
   }
 }

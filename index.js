@@ -4,11 +4,11 @@
 /**
  * Project dependencies
  */
-const dockerUtil = require('./src/dockerUtil')
-const cli = require('./src/cli');
+const DockerUtil = require('./src/dockerUtil')
+const cli = require('./src/cli')
 
 const utils = new Map([
-  ['docker', new dockerUtil(cli.cliParse())]
+  ['docker', new DockerUtil(cli.cliParse())]
 ])
 
 const Screen = require('./src/screen')
@@ -16,21 +16,20 @@ const screen = new Screen(utils)
 screen.init()
 
 process.on('uncaughtException', (err) => {
-
   // Make sure the screen is cleared
   screen.teardown()
 
-  cli.showUsage();
+  cli.showUsage()
 
   if (err && err.message) {
-    console.log('\x1b[31m');
+    console.log('\x1b[31m')
 
-    console.trace('Error: ' + err.message);
+    console.trace('Error: ' + err.message)
     if (err.message === 'Unable to determine the domain name') {
-      console.log('-> check your connection options to the docker daemon and confirm containers exist');
+      console.log('-> check your connection options to the docker daemon and confirm containers exist')
     }
-    console.log('\x1b[0m');
+    console.log('\x1b[0m')
   }
 
-  process.exit(-1);
-});
+  process.exit(-1)
+})

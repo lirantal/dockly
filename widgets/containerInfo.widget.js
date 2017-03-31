@@ -3,7 +3,7 @@
 const util = require('util')
 
 class myWidget {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -13,15 +13,15 @@ class myWidget {
     this.toggleVisibility = 0
   }
 
-  setWidgetsRepo(widgets = new Map()) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map()) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
@@ -36,7 +36,6 @@ class myWidget {
     toolbar.on('key', (keyString) => {
       // on info keypress i
       if (keyString === 'i') {
-
         this.toggleVisibility = !this.toggleVisibility
         if (this.toggleVisibility) {
           // show the widget and focus on it,
@@ -62,7 +61,7 @@ class myWidget {
     })
   }
 
-  getWidget() {
+  getWidget () {
     return this.blessed.box({
       label: 'Container Info',
       scrollable: true,
@@ -92,14 +91,13 @@ class myWidget {
       align: 'left',
       content: 'Loading...'
     })
-
   }
 
-  renderWidget() {
+  renderWidget () {
     return null
   }
 
-  update(data) {
+  update (data) {
     this.widget.setContent(data)
     this.screen.render()
   }

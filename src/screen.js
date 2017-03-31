@@ -6,7 +6,7 @@ const contrib = require('blessed-contrib')
 const assetsLoader = require(path.resolve('./src/assetsLoader'))
 
 class screen {
-  constructor(utils = new Map()) {
+  constructor (utils = new Map()) {
     this.screen = undefined
     this.title = 'Dockly'
 
@@ -20,7 +20,7 @@ class screen {
     this.widgets = new Map()
   }
 
-  initScreen() {
+  initScreen () {
     this.screen = blessed.screen({
       title: this.title,
       fullUnicode: true,
@@ -28,7 +28,7 @@ class screen {
     })
   }
 
-  init() {
+  init () {
     // load all hooks and widgets
     this.assets = assetsLoader.load()
 
@@ -51,17 +51,17 @@ class screen {
     this.render()
   }
 
-  initHooks() {
-    for (let [hookName, hookObject] of this.assets.get('hooks').entries()) {
-      let hook = new hookObject()
+  initHooks () {
+    for (let [hookName, HookObject] of this.assets.get('hooks').entries()) {
+      let hook = new HookObject()
       this.hooks.set(hookName, hook)
       this.widgetsRepository.set(hookName, hook)
     }
   }
 
-  initWidgets() {
-    for (let [widgetName, widgetObject] of this.assets.get('widgets').entries()) {
-      let widget = new widgetObject({
+  initWidgets () {
+    for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
+      let widget = new WidgetObject({
         blessed,
         contrib,
         screen: this.screen
@@ -72,31 +72,31 @@ class screen {
     }
   }
 
-  setWidgetsRepo() {
+  setWidgetsRepo () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.setWidgetsRepo(this.widgetsRepository)
     }
   }
 
-  setWidgetsUtils() {
+  setWidgetsUtils () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.setUtilsRepo(this.utils)
     }
   }
 
-  setWidgetsInit() {
+  setWidgetsInit () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.init()
     }
   }
 
-  renderWidgets() {
+  renderWidgets () {
     for (let widgetObject of this.widgets.values()) {
       widgetObject.renderWidget()
     }
   }
 
-  registerEvents() {
+  registerEvents () {
     this.screen.on('keypress', (ch, key) => {
       if (key.name === 'tab') {
         this.toggleWidgetFocus ? this.widgetsRepository.get('containerLogs').focus() : this.widgetsRepository.get('containerList').focus()
@@ -123,14 +123,13 @@ class screen {
     })
   }
 
-  render() {
+  render () {
     this.screen.render()
   }
 
-  teardown() {
+  teardown () {
     this.screen.destroy()
   }
 }
 
 module.exports = screen
-

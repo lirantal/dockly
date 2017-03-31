@@ -1,8 +1,8 @@
 
-'use strict';
+'use strict'
 
 class myWidget {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -10,23 +10,23 @@ class myWidget {
     this.widget = this.getWidget()
   }
 
-  setWidgetsRepo(widgets = new Map()) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map()) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     return null
   }
 
-  focus() {
+  focus () {
     this.widget.focus()
   }
 
-  getWidget() {
+  getWidget () {
     return this.blessed.log({
       label: 'Container Logs',
       mouse: true,
@@ -65,14 +65,13 @@ class myWidget {
     })
   }
 
-  renderWidget() {
+  renderWidget () {
     return this.screen.append(this.widget)
   }
 
-  update(data) {
+  update (data) {
     return this.widget.add(data)
   }
-
 }
 
 module.exports = myWidget

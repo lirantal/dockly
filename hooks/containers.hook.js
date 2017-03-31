@@ -3,19 +3,15 @@
 const EventEmitter = require('events')
 
 class hook extends EventEmitter {
-  constructor() {
-    super()
-  }
-
-  setWidgetsRepo(widgets = new Map()) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map()) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     // on startup we first emit data from the docker server
     this.getFreshData((data) => {
       // emit an even for a refreshed list of containers and images
@@ -50,7 +46,7 @@ class hook extends EventEmitter {
     })
   }
 
-  notifyOnContainerInfo() {
+  notifyOnContainerInfo () {
     setInterval(() => {
       if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
         // Update on Docker Info
@@ -59,10 +55,9 @@ class hook extends EventEmitter {
         })
       }
     }, 500)
-
   }
 
-  notifyOnContainerUtilization() {
+  notifyOnContainerUtilization () {
     setInterval(() => {
       if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
         const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
@@ -75,7 +70,7 @@ class hook extends EventEmitter {
     }, 500)
   }
 
-  getFreshData(cb) {
+  getFreshData (cb) {
     this.utilsRepo.get('docker').listContainers((containers) => {
       this.utilsRepo.get('docker').listImages((images) => {
         cb({containers, images})
@@ -83,7 +78,7 @@ class hook extends EventEmitter {
     })
   }
 
-  restartContainer() {
+  restartContainer () {
     const title = 'Restarting container'
     let message = 'Restarting container...'
 
@@ -96,7 +91,6 @@ class hook extends EventEmitter {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId !== 0 && containerId !== false) {
         this.utilsRepo.get('docker').restartContainer(containerId, (err, data) => {
-
           if (err && err.statusCode === 500) {
             message = err.json.message
           } else {
@@ -107,13 +101,12 @@ class hook extends EventEmitter {
             title: title,
             message: message
           })
-
         })
       }
     }
   }
 
-  stopContainer() {
+  stopContainer () {
     const title = 'Stop container'
     let message = 'Stopping container...'
 
@@ -126,7 +119,6 @@ class hook extends EventEmitter {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId !== 0 && containerId !== false) {
         this.utilsRepo.get('docker').stopContainer(containerId, (err, data) => {
-
           if (err && err.statusCode === 500) {
             message = err.json.message
           } else {
@@ -137,12 +129,10 @@ class hook extends EventEmitter {
             title: title,
             message: message
           })
-
         })
       }
     }
   }
-
 }
 
 module.exports = hook

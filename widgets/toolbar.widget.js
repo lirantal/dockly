@@ -3,7 +3,7 @@
 const EventEmitter = require('events')
 
 class myWidget extends EventEmitter {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -16,11 +16,11 @@ class myWidget extends EventEmitter {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     return null
   }
 
@@ -83,7 +83,6 @@ class myWidget extends EventEmitter {
   renderWidget () {
     return this.screen.append(this.widget)
   }
-
 }
 
 module.exports = myWidget

@@ -4,9 +4,6 @@ const opn = require('opn')
 const fs = require('fs')
 
 class hook {
-  constructor () {
-  }
-
   setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }

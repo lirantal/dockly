@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const os = require('os')
 
 class myWidget extends EventEmitter {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -15,29 +15,31 @@ class myWidget extends EventEmitter {
     this.toggleWidgetContainerListColor = 0
   }
 
-  setWidgetsRepo(widgets = {}) {
+  setWidgetsRepo (widgets = {}) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map()) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     this.refreshContainers()
     this.focus()
 
     this.widget.on('select', (item, idx) => {
-
       // extract the first column out of the table row which is the container id
       var containerId = item.getContent().toString().trim().split(' ').shift()
 
       // get logs for the container
       this.utilsRepo.get('docker').getContainerLogs(containerId, (err, stream) => {
+        if (err) {
+          return null
+        }
+
         var str
         if (stream && stream.pipe) {
           stream.on('data', (chunk) => {
-
             // toggle for alternating the colors
             this.toggleWidgetContainerListColor = !this.toggleWidgetContainerListColor
 
@@ -65,7 +67,7 @@ class myWidget extends EventEmitter {
     })
   }
 
-  getWidget() {
+  getWidget () {
     return this.blessed.listtable({
       parent: this.screen,
       label: 'Containers',
@@ -96,18 +98,17 @@ class myWidget extends EventEmitter {
       left: '0',
       align: 'center'
     })
-
   }
 
-  focus() {
+  focus () {
     this.widget.focus()
   }
 
-  renderWidget() {
+  renderWidget () {
     return this.screen.append(this.widget)
   }
 
-  refreshContainers() {
+  refreshContainers () {
     this.utilsRepo.get('docker').listContainers((data) => {
       this.update(data)
       this.widget.select(1)
@@ -120,11 +121,11 @@ class myWidget extends EventEmitter {
    * returns a selected container from the containers listbox
    * @return {string} container id
    */
-  getSelectedContainer() {
+  getSelectedContainer () {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
   }
 
-  update(data) {
+  update (data) {
     return this.widget.setData(data)
   }
 }

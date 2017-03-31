@@ -1,7 +1,7 @@
 'use strict'
 
 class myWidget {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -9,15 +9,15 @@ class myWidget {
     this.widget = this.getWidget()
   }
 
-  setWidgetsRepo(widgets = new Map()) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map()) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     if (!this.widgetsRepo.has('containers')) {
       return null
     }
@@ -28,7 +28,7 @@ class myWidget {
     })
   }
 
-  getWidget() {
+  getWidget () {
     return this.contrib.gauge({
       label: 'Running/Paused/Stopped',
       style: {
@@ -56,44 +56,42 @@ class myWidget {
     })
   }
 
-  renderWidget() {
+  renderWidget () {
     return this.screen.append(this.widget)
   }
 
-  update(data) {
+  update (data) {
     if (!data || Object.keys(data).length === 0) {
-      return;
+      return
     }
 
     if (data.Containers !== 0) {
-
-      let stack = [];
+      let stack = []
       if (data.ContainersRunning !== 0) {
         stack.push({
           percent: Math.round((data.ContainersRunning / data.Containers) * 100),
           stroke: 'green'
-        });
+        })
       }
 
       if (data.ContainersPaused !== 0) {
         stack.push({
           percent: Math.round((data.ContainersPaused / data.Containers) * 100),
           stroke: 'yellow'
-        });
+        })
       }
 
       if (data.ContainersStopped !== 0) {
         stack.push({
           percent: Math.round((data.ContainersStopped / data.Containers) * 100),
           stroke: 'red'
-        });
+        })
       }
 
       this.widget.setStack(stack)
       this.screen.render()
     }
   }
-
 }
 
 module.exports = myWidget

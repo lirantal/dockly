@@ -1,7 +1,7 @@
 'use strict'
 
 class myWidget {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -64,43 +64,41 @@ class myWidget {
 
   update (data) {
     if (!data || Object.keys(data).length === 0) {
-      return;
+      return
     }
 
-    if (data.cpu_stats.cpu_usage.total_usage === undefined || data.precpu_stats.cpu_usage.total_usage === undefined
-      || data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined) {
-
+    if (data.cpu_stats.cpu_usage.total_usage === undefined || data.precpu_stats.cpu_usage.total_usage === undefined ||
+      data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined) {
       this.widget.setData({
         titles: ['CPU', 'Memory'],
         data: [
           0,
           0
         ]
-      });
-
+      })
     }
 
     // Calculate CPU usage based on delta from previous measurement
-    var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage;
-    var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage;
-    var cpuCoresAvail = (data.cpu_stats.cpu_usage.percpu_usage !== undefined) ? data.cpu_stats.cpu_usage.percpu_usage.length : 0;
+    var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage
+    var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage
+    var cpuCoresAvail = (data.cpu_stats.cpu_usage.percpu_usage !== undefined) ? data.cpu_stats.cpu_usage.percpu_usage.length : 0
 
-    var cpuUsagePercent = 0;
+    var cpuUsagePercent = 0
     if (systemUsageDelta !== 0 || cpuCoresAvail !== 0) {
-      var totalUsage = systemUsageDelta * cpuCoresAvail * 100;
-      cpuUsagePercent = 0;
+      var totalUsage = systemUsageDelta * cpuCoresAvail * 100
+      cpuUsagePercent = 0
       if (totalUsage && totalUsage !== 0) {
-        cpuUsagePercent = cpuUsageDelta / totalUsage;
+        cpuUsagePercent = cpuUsageDelta / totalUsage
       }
     }
 
     // Calculate Memory usage
-    var memUsage = data.memory_stats.usage;
-    var memAvail = data.memory_stats.limit;
+    var memUsage = data.memory_stats.usage
+    var memAvail = data.memory_stats.limit
 
-    var memUsagePercent = 0;
+    var memUsagePercent = 0
     if (memAvail !== 0) {
-      memUsagePercent = memUsage / memAvail * 100;
+      memUsagePercent = memUsage / memAvail * 100
     }
 
     this.widget.setData({
@@ -114,6 +112,5 @@ class myWidget {
     this.screen.render()
   }
 }
-
 
 module.exports = myWidget

@@ -1,12 +1,11 @@
-'use strict';
+'use strict'
 
-var commandLineArgs = require('command-line-args');
-var commandLineUsage = require('command-line-usage');
+var commandLineArgs = require('command-line-args')
+var commandLineUsage = require('command-line-usage')
 
-var pkg = require('../package.json');
+var pkg = require('../package.json')
 
-function Cli() {
-
+function Cli () {
   this.cliOpts = [
     {
       name: 'host',
@@ -26,22 +25,18 @@ function Cli() {
       type: String,
       description: 'Docker daemon socket to connect to'
     }
-  ];
-
+  ]
 }
 
-Cli.prototype.showVersion = function() {
+Cli.prototype.showVersion = function () {
+  console.log(pkg.name + ' ' + pkg.version + ' by ' + pkg.author)
+  console.log(pkg.description)
+  console.log()
+}
 
-  console.log(pkg.name + ' ' + pkg.version + ' by ' + pkg.author);
-  console.log(pkg.description);
-  console.log();
-
-};
-
-Cli.prototype.showUsage = function() {
-
-  console.log('Usage: dockly [OPTIONS]');
-  console.log('dockly [ --help | -v | --version ]');
+Cli.prototype.showUsage = function () {
+  console.log('Usage: dockly [OPTIONS]')
+  console.log('dockly [ --help | -v | --version ]')
 
   var usage = commandLineUsage([
     {
@@ -55,21 +50,17 @@ Cli.prototype.showUsage = function() {
     {
       content: 'Project home: [underline]{https://github.com/lirantal/dockly}'
     }
-  ]);
+  ])
 
-  console.log(usage);
-
-};
+  console.log(usage)
+}
 
 /**
  * @method cliParse
  * @return {object} [description]
  */
-Cli.prototype.cliParse = function() {
+Cli.prototype.cliParse = function () {
+  return commandLineArgs(this.cliOpts)
+}
 
-  return commandLineArgs(this.cliOpts);
-
-};
-
-
-module.exports = new Cli();
+module.exports = new Cli()

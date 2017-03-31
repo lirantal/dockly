@@ -1,7 +1,7 @@
 'use strict'
 
 class myWidget {
-  constructor({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -9,15 +9,15 @@ class myWidget {
     this.widget = this.getWidget()
   }
 
-  setWidgetsRepo(widgets = new Map()) {
+  setWidgetsRepo (widgets = new Map()) {
     this.widgetsRepo = widgets
   }
 
-  setUtilsRepo(utils = new Map) {
+  setUtilsRepo (utils = new Map()) {
     this.utilsRepo = utils
   }
 
-  init() {
+  init () {
     if (!this.widgetsRepo.has('containers')) {
       return null
     }
@@ -31,7 +31,7 @@ class myWidget {
     })
   }
 
-  getWidget() {
+  getWidget () {
     return this.contrib.bar({
       label: 'Containers vs Images',
       style: {
@@ -63,11 +63,11 @@ class myWidget {
     })
   }
 
-  renderWidget() {
+  renderWidget () {
     return this.screen.append(this.widget)
   }
 
-  update(data) {
+  update (data) {
     this.widget.setData({
       titles: ['Containers', 'Images'],
       data: [
@@ -78,7 +78,6 @@ class myWidget {
 
     this.screen.render()
   }
-
 }
 
 module.exports = myWidget
