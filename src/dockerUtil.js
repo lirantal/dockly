@@ -35,17 +35,7 @@ util.prototype.listContainers = function (cb) {
       return cb(null)
     }
 
-    var list = []
-
-    if (containers) {
-      containers.forEach(function (container, index, array) {
-        list.push([container.Id.substring(0, 5), container.Names[0].substring(0, 20), container.Image.substring(0, 19), container.Command.substring(0, 30), container.State, container.Status])
-      })
-    }
-
-    list.sort(sortContainers)
-    list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status'])
-    return cb(list)
+    return cb(containers)
   })
 }
 
@@ -115,25 +105,6 @@ util.prototype.getContainerLogs = function (containerId, cb) {
     tail: 50,
     timestamps: true
   }, cb)
-}
-
-/**
- * Sort containers by their state: running, created, then exited.
- *
- * @param item left
- * @param item right
- * @returns {number} for position
- */
-function sortContainers (a, b) {
-  if (a[4] === 'running' && b[4] !== 'running') {
-    return -1
-  }
-
-  if (a[4] === 'exited' && b[4] !== 'exited') {
-    return 1
-  }
-
-  return 0
 }
 
 module.exports = util
