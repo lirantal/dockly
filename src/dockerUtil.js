@@ -20,11 +20,11 @@ function util (connection) {
 util.prototype.listImages = function (cb) {
   dockerCon.listImages(function (err, images) {
     if (err) {
-      return cb(null)
+      return cb(err, {})
     }
 
     if (images) {
-      return cb(images)
+      return cb(null, images)
     }
   })
 }
@@ -32,10 +32,10 @@ util.prototype.listImages = function (cb) {
 util.prototype.listContainers = function (cb) {
   dockerCon.listContainers({'all': true}, function (err, containers) {
     if (err) {
-      return cb(null)
+      return cb(err, {})
     }
 
-    return cb(containers)
+    return cb(null, containers)
   })
 }
 

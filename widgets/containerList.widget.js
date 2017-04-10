@@ -110,11 +110,13 @@ class myWidget extends EventEmitter {
   }
 
   refreshContainers () {
-    this.utilsRepo.get('docker').listContainers((data) => {
-      this.update(this.formatContainersList(data))
-      this.widget.select(1)
-      this.focus()
-      this.screen.render()
+    this.utilsRepo.get('docker').listContainers((err, data) => {
+      if (!err) {
+        this.update(this.formatContainersList(data))
+        this.widget.select(1)
+        this.focus()
+        this.screen.render()
+      }
     })
   }
 

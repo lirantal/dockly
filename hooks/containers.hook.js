@@ -13,7 +13,10 @@ class hook extends EventEmitter {
 
   init () {
     // on startup we first emit data from the docker server
-    this.getFreshData((data) => {
+    this.getFreshData((err, data) => {
+      if (err) {
+        data = {}
+      }
       // emit an even for a refreshed list of containers and images
       this.emit('containersAndImagesList', data)
     })
@@ -30,7 +33,10 @@ class hook extends EventEmitter {
     toolbar.on('key', (keyString) => {
       // on refresh keypress, update all containers and images information
       if (keyString === '=') {
-        this.getFreshData((data) => {
+        this.getFreshData((err, data) => {
+          if (err) {
+            data = {}
+          }
           // emit an even for a refreshed list of containers and images
           this.emit('containersAndImagesList', data)
         })
@@ -71,9 +77,15 @@ class hook extends EventEmitter {
   }
 
   getFreshData (cb) {
-    this.utilsRepo.get('docker').listContainers((containers) => {
-      this.utilsRepo.get('docker').listImages((images) => {
-        cb({containers, images})
+    this.utilsRepo.get('docker').listContainers((err, containers) => {
+      if (err) {
+        return cb(err, {})
+      }
+      this.utilsRepo.get('docker').listImages((err, images) => {
+        if (err) {
+          return cb(err, {})
+        }
+        return cb(null, {containers, images})
       })
     })
   }
