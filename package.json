@@ -4,11 +4,9 @@
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && snyk test",
+    "test": "npm run lint",
     "lint": "standard",
-    "lint:fix": "standard --fix",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "lint:fix": "standard --fix"
   },
   "bin": {
     "dockly": "./index.js"
@@ -46,8 +44,6 @@
     "opn": "^4.0.2"
   },
   "devDependencies": {
-    "snyk": "^1.19.1",
     "standard": "^10.0.1"
-  },
-  "snyk": true
+  }
 }
