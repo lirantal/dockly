@@ -2,10 +2,6 @@
 
 module.exports = (extendsClass = class {}) => {
   return class extends extendsClass {
-    constructor () {
-      super()
-    }
-
     setWidgetsRepo (widgets = new Map()) {
       this.widgetsRepo = widgets
     }
