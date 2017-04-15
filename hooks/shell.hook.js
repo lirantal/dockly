@@ -2,16 +2,9 @@
 
 const opn = require('opn')
 const fs = require('fs')
+const baseWidget = require('../src/baseWidget')
 
-class hook {
-  setWidgetsRepo (widgets = new Map()) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
-  }
-
+class hook extends baseWidget() {
   init () {
     if (!this.widgetsRepo.has('toolbar')) {
       return null

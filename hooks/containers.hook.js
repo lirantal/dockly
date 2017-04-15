@@ -1,16 +1,9 @@
 'use strict'
 
 const EventEmitter = require('events')
+const baseWidget = require('../src/baseWidget')
 
-class hook extends EventEmitter {
-  setWidgetsRepo (widgets = new Map()) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
-  }
-
+class hook extends baseWidget(EventEmitter) {
   init () {
     // on startup we first emit data from the docker server
     this.getFreshData((err, data) => {

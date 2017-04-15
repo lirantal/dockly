@@ -1,20 +1,15 @@
 'use strict'
 
-class myWidget {
+const baseWidget = require('../src/baseWidget')
+
+class myWidget extends baseWidget() {
   constructor ({blessed = {}, contrib = {}, screen = {}}) {
+    super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
 
     this.widget = this.getWidget()
-  }
-
-  setWidgetsRepo (widgets = new Map()) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
   }
 
   init () {
@@ -54,10 +49,6 @@ class myWidget {
       top: '0',
       left: '80%'
     })
-  }
-
-  renderWidget () {
-    return this.screen.append(this.widget)
   }
 
   update (data) {

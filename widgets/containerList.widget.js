@@ -5,7 +5,9 @@ const chalk = require('chalk')
 const os = require('os')
 const figures = require('figures')
 
-class myWidget extends EventEmitter {
+const baseWidget = require('../src/baseWidget')
+
+class myWidget extends baseWidget(EventEmitter) {
   constructor ({blessed = {}, contrib = {}, screen = {}}) {
     super()
     this.blessed = blessed
@@ -14,14 +16,6 @@ class myWidget extends EventEmitter {
 
     this.widget = this.getWidget()
     this.toggleWidgetContainerListColor = 0
-  }
-
-  setWidgetsRepo (widgets = {}) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
   }
 
   init () {
@@ -99,14 +93,6 @@ class myWidget extends EventEmitter {
       left: '0',
       align: 'center'
     })
-  }
-
-  focus () {
-    this.widget.focus()
-  }
-
-  renderWidget () {
-    return this.screen.append(this.widget)
   }
 
   refreshContainers () {

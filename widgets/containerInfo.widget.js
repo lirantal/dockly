@@ -1,9 +1,11 @@
 'use strict'
 
 const util = require('util')
+const baseWidget = require('../src/baseWidget')
 
-class myWidget {
+class myWidget extends baseWidget() {
   constructor ({blessed = {}, contrib = {}, screen = {}}) {
+    super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
@@ -11,14 +13,6 @@ class myWidget {
     this.widget = this.getWidget()
 
     this.toggleVisibility = 0
-  }
-
-  setWidgetsRepo (widgets = new Map()) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
   }
 
   init () {

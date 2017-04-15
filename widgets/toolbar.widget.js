@@ -1,8 +1,9 @@
 'use strict'
 
 const EventEmitter = require('events')
+const baseWidget = require('../src/baseWidget')
 
-class myWidget extends EventEmitter {
+class myWidget extends baseWidget(EventEmitter) {
   constructor ({blessed = {}, contrib = {}, screen = {}}) {
     super()
     this.blessed = blessed
@@ -10,14 +11,6 @@ class myWidget extends EventEmitter {
     this.screen = screen
 
     this.widget = this.createWidget()
-  }
-
-  setWidgetsRepo (widgets = new Map()) {
-    this.widgetsRepo = widgets
-  }
-
-  setUtilsRepo (utils = new Map()) {
-    this.utilsRepo = utils
   }
 
   init () {
@@ -78,10 +71,6 @@ class myWidget extends EventEmitter {
     })
 
     return widget
-  }
-
-  renderWidget () {
-    return this.screen.append(this.widget)
   }
 }
 
