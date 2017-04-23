@@ -5,7 +5,6 @@ node_js:
   - "4"
 before_script:
   - npm install -g snyk
-  - snyk protect
   - snyk test
 after_success:
   - snyk monitor
