@@ -5,7 +5,7 @@ ignore: {}
 patch:
   'npm:request:20160119':
     - blessed-contrib > picture-tube > request:
-        patched: '2017-04-23T03:58:47.287Z'
+        patched: '2017-04-23T13:37:46.447Z'
   'npm:marked:20170112':
     - blessed-contrib > marked:
-        patched: '2017-04-23T03:58:47.287Z'
+        patched: '2017-04-23T13:37:46.447Z'
