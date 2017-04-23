@@ -4,7 +4,7 @@
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "snyk test && npm run lint",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
@@ -44,6 +44,7 @@
     "opn": "^4.0.2"
   },
   "devDependencies": {
-    "standard": "^10.0.1"
+    "standard": "^10.0.1",
+    "snyk": "^1.29.0"
   }
 }
