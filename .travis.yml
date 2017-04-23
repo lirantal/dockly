@@ -3,6 +3,8 @@ node_js:
   - "7"
   - "6"
   - "4"
-after_script:
+before_script:
   - npm install -g snyk
   - snyk test
+after_success:
+  - snyk monitor
