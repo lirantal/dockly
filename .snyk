@@ -1,5 +1,16 @@
-version: v1.5.2
-ignore: {}
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:marked:20170112':
+    - blessed-contrib > marked:
+        reason: None given
+        expires: '2017-05-23T03:48:20.996Z'
+  'npm:request:20160119':
+    - blessed-contrib > picture-tube > request:
+        reason: None given
+        expires: '2017-05-23T03:48:20.997Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:request:20160119':
     - blessed-contrib > picture-tube > request:
