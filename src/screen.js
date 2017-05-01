@@ -3,7 +3,7 @@
 const path = require('path')
 const blessed = require('blessed')
 const contrib = require('blessed-contrib')
-const assetsLoader = require(path.resolve('./src/assetsLoader'))
+const assetsLoader = require(__dirname + '/assetsLoader')
 
 class screen {
   constructor (utils = new Map()) {

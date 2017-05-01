@@ -3,8 +3,8 @@
 const path = require('path')
 const glob = require('glob')
 const config = {
-  'hooks': 'hooks/*.hook.js',
-  'widgets': 'widgets/*.widget.js'
+  'hooks': __dirname + '/../hooks/*.hook.js',
+  'widgets': __dirname + '/../widgets/*.widget.js'
 }
 
 class assetsLoader {
@@ -23,11 +23,11 @@ class assetsLoader {
     let widgetsMap = new Map()
 
     glob.sync(config.hooks).forEach((item) => {
-      hooksMap.set(this.formatAsset(item), require(path.resolve(item)))
+      hooksMap.set(this.formatAsset(item), require(item))
     })
 
     glob.sync(config.widgets).forEach((item) => {
-      widgetsMap.set(this.formatAsset(item), require(path.resolve(item)))
+      widgetsMap.set(this.formatAsset(item), require(item))
     })
 
     assets.set('hooks', hooksMap)
