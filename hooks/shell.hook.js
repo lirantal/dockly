@@ -22,10 +22,10 @@ class hook extends baseWidget() {
   openShell () {
     let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
     if (containerId) {
-      let containerIdFile = process.cwd() + '/containerId.txt'
+      let containerIdFile = __dirname + '/../containerId.txt'
       fs.writeFile(containerIdFile, containerId, 'utf8', function (err) {
         if (!err) {
-          opn(`${process.cwd()}/dockerRunScript.sh`)
+          opn(`${__dirname}/../dockerRunScript.sh`)
         }
       })
     }
