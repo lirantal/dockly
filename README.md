@@ -6,7 +6,7 @@
 # Dockly
 Docker console UI and Dashboard for quick manging and inspecting of Containers and Images
 
-![vokoscreen-2016-10-25_23-10-41](https://cloud.githubusercontent.com/assets/316371/19702523/b12c191e-9b08-11e6-8e8b-588e61022622.gif)
+![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
 # Install
 Install the API module as a depdency in your project so you can easily use it to query Operations Orchestration REST API
