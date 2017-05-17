@@ -2,6 +2,7 @@
 [![view on npm](http://img.shields.io/npm/l/dockly.svg)](https://www.npmjs.org/package/dockly)
 [![npm module downloads](http://img.shields.io/npm/dt/dockly.svg)](https://www.npmjs.org/package/dockly)
 [![Dependency Status](https://david-dm.org/lirantal/dockly.svg)](https://david-dm.org/lirantal/dockly)
+[![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=lirantal&repoName=dockly&branch=master&pipelineName=dockly&accountName=lirantal&type=cf-1)]( https://g.codefresh.io/repositories/lirantal/dockly/builds?filter=trigger:build;branch:master;service:58127ed36b0e230100f421f6~dockly)
 
 # Dockly
 Docker console UI and Dashboard for quick manging and inspecting of Containers and Images
