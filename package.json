@@ -8,6 +8,9 @@
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
+  "engines": {
+    "node" : ">=6.10.0"
+  },
   "bin": {
     "dockly": "./index.js"
   },
