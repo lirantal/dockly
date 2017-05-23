@@ -4,12 +4,13 @@
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "yarn run snyk:test && yarn run lint",
+    "snyk:test": "snyk test",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
   "engines": {
-    "node" : ">=6.10.0"
+    "node": ">=6.10.0"
   },
   "bin": {
     "dockly": "./index.js"
@@ -41,12 +42,13 @@
     "chalk": "^1.1.3",
     "command-line-args": "^4.0.2",
     "command-line-usage": "^4.0.0",
-    "dockerode": "^2.3.1",
+    "dockerode": "2.4.2",
     "figures": "^2.0.0",
-    "glob": "^7.1.1",
+    "glob": "7.1.1",
     "opn": "^4.0.2"
   },
   "devDependencies": {
+    "snyk": "^1.30.1",
     "standard": "^10.0.1"
   }
 }
