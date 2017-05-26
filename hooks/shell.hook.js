@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const opn = require('opn')
 const fs = require('fs')
 const baseWidget = require('../src/baseWidget')
@@ -22,7 +23,7 @@ class hook extends baseWidget() {
   openShell () {
     let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
     if (containerId) {
-      let containerIdFile = __dirname + '/../containerId.txt'
+      let containerIdFile = path.join(__dirname, '/../containerId.txt')
       fs.writeFile(containerIdFile, containerId, 'utf8', function (err) {
         if (!err) {
           opn(`${__dirname}/../dockerRunScript.sh`)
