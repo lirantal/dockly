@@ -120,7 +120,8 @@ util.prototype.getContainerLogs = function (containerId, cb) {
   }, cb)
 }
 
-function parseUrl (urlString) {
+function parseUrl(urlString) {
+
   if (urlString.indexOf('://') === -1) {
     return url.parse(`http://${urlString}`)
   }
