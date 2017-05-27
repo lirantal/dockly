@@ -1,9 +1,9 @@
 'use strict'
 
-var commandLineArgs = require('command-line-args')
-var commandLineUsage = require('command-line-usage')
+const commandLineArgs = require('command-line-args')
+const commandLineUsage = require('command-line-usage')
 
-var pkg = require('../package.json')
+const pkg = require('../package.json')
 
 function Cli () {
   this.cliOpts = [
@@ -38,7 +38,7 @@ Cli.prototype.showUsage = function () {
   console.log('Usage: dockly [OPTIONS]')
   console.log('dockly [ --help | -v | --version ]')
 
-  var usage = commandLineUsage([
+  const usage = commandLineUsage([
     {
       header: pkg.name,
       content: pkg.description

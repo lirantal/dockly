@@ -1,19 +1,32 @@
 'use strict'
 
-var DockerLib = require('dockerode')
-var dockerCon
+const url = require('url')
+const DockerLib = require('dockerode')
+
+const DOCKER_SOCKET = process.env.DOCKER_SOCKET || '/var/run/docker.sock'
+const DOCKER_HOST = process.env.DOCKER_HOST || false
+let dockerCon
 
 function util (connection) {
   if (typeof connection !== 'object') {
     throw new Error('Error: docker connection string is faulty, please review command line arguments.')
   }
 
-  if (!dockerCon) {
-    if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
-      dockerCon = new DockerLib({socketPath: process.env.DOCKER_SOCKET || '/var/run/docker.sock'})
+  if (dockerCon) {
+    return dockerCon
+  }
+
+  if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
+    // attempt honoring the DOCKER_HOST variable, and fallback to connect using the
+    // the docker daemon socket
+    if (DOCKER_HOST) {
+      const parsedUrl = parseUrl(DOCKER_HOST)
+      dockerCon = new DockerLib({host: parsedUrl.host, port: parsedUrl.port})
     } else {
-      dockerCon = new DockerLib(connection)
+      dockerCon = new DockerLib({socketPath: DOCKER_SOCKET})
     }
+  } else {
+    dockerCon = new DockerLib(connection)
   }
 }
 
@@ -40,7 +53,7 @@ util.prototype.listContainers = function (cb) {
 }
 
 util.prototype.getInfo = function (cb) {
-  var host = {}
+  const host = {}
   dockerCon.info(function (err, data) {
     if (err) {
       return cb(null)
@@ -71,22 +84,22 @@ util.prototype.getInfo = function (cb) {
 }
 
 util.prototype.getContainer = function (containerId, cb) {
-  var container = dockerCon.getContainer(containerId)
+  const container = dockerCon.getContainer(containerId)
   return container.inspect(cb)
 }
 
 util.prototype.restartContainer = function (containerId, cb) {
-  var container = dockerCon.getContainer(containerId)
+  const container = dockerCon.getContainer(containerId)
   container.restart(cb)
 }
 
 util.prototype.stopContainer = function (containerId, cb) {
-  var container = dockerCon.getContainer(containerId)
+  const container = dockerCon.getContainer(containerId)
   container.stop(cb)
 }
 
 util.prototype.getContainerStats = function (containerId, cb) {
-  var container = dockerCon.getContainer(containerId)
+  const container = dockerCon.getContainer(containerId)
   return container.stats({stream: false}, function (err, stream) {
     if (err) {
       return cb(null)
@@ -96,7 +109,7 @@ util.prototype.getContainerStats = function (containerId, cb) {
 }
 
 util.prototype.getContainerLogs = function (containerId, cb) {
-  var container = dockerCon.getContainer(containerId)
+  const container = dockerCon.getContainer(containerId)
   return container.logs({
     follow: true,
     stdout: true,
@@ -105,6 +118,14 @@ util.prototype.getContainerLogs = function (containerId, cb) {
     tail: 50,
     timestamps: true
   }, cb)
+}
+
+function parseUrl (urlString) {
+  if (urlString.indexOf('://') === -1) {
+    return url.parse(`http://${urlString}`)
+  }
+
+  return url.parse(urlString)
 }
 
 module.exports = util
