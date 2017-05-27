@@ -4,21 +4,66 @@
 /**
  * Project dependencies
  */
+const Screen = require('./src/screen')
 const DockerUtil = require('./src/dockerUtil')
 const cli = require('./src/cli')
 
-const utils = new Map([
-  ['docker', new DockerUtil(cli.cliParse())]
-])
+function initDockerConnection () {
+  return new Promise((resolve, reject) => {
 
-const Screen = require('./src/screen')
-const screen = new Screen(utils)
-screen.init()
+    let utils
+    let docker
 
-process.on('uncaughtException', (err) => {
-  // Make sure the screen is cleared
-  screen.teardown()
+    try {
+      docker = new DockerUtil(cli.cliParse())
+    } catch (err) {
+      return reject(err)
+    }
 
+    docker.ping((err) => {
+      if (err) {
+        exitError(err)
+      }
+
+      utils = new Map([
+        ['docker', docker]
+      ])
+
+      return resolve(utils)
+    })
+  })
+}
+
+function initScreens (utils) {
+  return new Promise((resolve, reject) => {
+    let screen
+    try {
+      screen = new Screen(utils)
+      screen.init()
+    } catch(err) {
+      return reject(err)
+    }
+
+    return resolve(screen)
+  })
+}
+
+initDockerConnection()
+  .then(initScreens)
+  .then(function(screen) {
+    process.on('uncaughtException', (err) => {
+      // Make sure the screen is cleared
+      screen.teardown()
+      exitError(err)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    process.exit(-1)
+  })
+
+
+function exitError(err) {
   cli.showUsage()
 
   if (err && err.message) {
@@ -32,4 +77,4 @@ process.on('uncaughtException', (err) => {
   }
 
   process.exit(-1)
-})
+}

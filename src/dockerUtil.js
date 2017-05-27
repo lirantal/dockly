@@ -8,12 +8,9 @@ const DOCKER_HOST = process.env.DOCKER_HOST || false
 let dockerCon
 
 function util (connection) {
+
   if (typeof connection !== 'object') {
     throw new Error('Error: docker connection string is faulty, please review command line arguments.')
-  }
-
-  if (dockerCon) {
-    return dockerCon
   }
 
   if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
@@ -25,9 +22,21 @@ function util (connection) {
     } else {
       dockerCon = new DockerLib({socketPath: DOCKER_SOCKET})
     }
+
   } else {
     dockerCon = new DockerLib(connection)
   }
+
+}
+
+util.prototype.ping = function(cb) {
+  dockerCon.ping(function (err, data) {
+    if (err) {
+      return cb(err, {})
+    }
+
+    return cb(null, data)
+  })
 }
 
 util.prototype.listImages = function (cb) {
