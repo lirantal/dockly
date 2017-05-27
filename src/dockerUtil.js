@@ -12,10 +12,6 @@ function util (connection) {
     throw new Error('Error: docker connection string is faulty, please review command line arguments.')
   }
 
-  if (dockerCon) {
-    return dockerCon
-  }
-
   if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
     // attempt honoring the DOCKER_HOST variable, and fallback to connect using the
     // the docker daemon socket
@@ -28,6 +24,16 @@ function util (connection) {
   } else {
     dockerCon = new DockerLib(connection)
   }
+}
+
+util.prototype.ping = function (cb) {
+  dockerCon.ping(function (err, data) {
+    if (err) {
+      return cb(err, {})
+    }
+
+    return cb(null, data)
+  })
 }
 
 util.prototype.listImages = function (cb) {
