@@ -10,7 +10,6 @@ const cli = require('./src/cli')
 
 function initDockerConnection () {
   return new Promise((resolve, reject) => {
-
     let utils
     let docker
 
@@ -40,7 +39,7 @@ function initScreens (utils) {
     try {
       screen = new Screen(utils)
       screen.init()
-    } catch(err) {
+    } catch (err) {
       return reject(err)
     }
 
@@ -50,7 +49,7 @@ function initScreens (utils) {
 
 initDockerConnection()
   .then(initScreens)
-  .then(function(screen) {
+  .then(function (screen) {
     process.on('uncaughtException', (err) => {
       // Make sure the screen is cleared
       screen.teardown()
@@ -62,8 +61,7 @@ initDockerConnection()
     process.exit(-1)
   })
 
-
-function exitError(err) {
+function exitError (err) {
   cli.showUsage()
 
   if (err && err.message) {
