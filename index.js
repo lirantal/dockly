@@ -8,6 +8,19 @@ const Screen = require('./src/screen')
 const DockerUtil = require('./src/dockerUtil')
 const cli = require('./src/cli')
 
+initDockerConnection()
+  .then(initScreens)
+  .then(function (screen) {
+    process.on('uncaughtException', (err) => {
+      // Make sure the screen is cleared
+      screen.teardown()
+      exitError(err)
+    })
+  })
+  .catch(() => {
+    process.exit(-1)
+  })
+
 function initDockerConnection () {
   return new Promise((resolve, reject) => {
     let utils
@@ -16,12 +29,12 @@ function initDockerConnection () {
     try {
       docker = new DockerUtil(cli.cliParse())
     } catch (err) {
-      return reject(err)
+      return exitError(err)
     }
 
     docker.ping((err) => {
       if (err) {
-        exitError(err)
+        return reject(err)
       }
 
       utils = new Map([
@@ -46,20 +59,6 @@ function initScreens (utils) {
     return resolve(screen)
   })
 }
-
-initDockerConnection()
-  .then(initScreens)
-  .then(function (screen) {
-    process.on('uncaughtException', (err) => {
-      // Make sure the screen is cleared
-      screen.teardown()
-      exitError(err)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-    process.exit(-1)
-  })
 
 function exitError (err) {
   cli.showUsage()

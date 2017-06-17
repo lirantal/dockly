@@ -105,8 +105,12 @@ util.prototype.stopContainer = function (containerId, cb) {
 }
 
 util.prototype.getContainerStats = function (containerId, cb) {
+  if (!containerId) {
+    return cb(null)
+  }
+
   const container = dockerCon.getContainer(containerId)
-  return container.stats({stream: false}, function (err, stream) {
+  container.stats({stream: false}, function (err, stream) {
     if (err) {
       return cb(null)
     }

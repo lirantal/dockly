@@ -24,7 +24,10 @@ class myWidget extends baseWidget(EventEmitter) {
 
     this.widget.on('select', (item, idx) => {
       // extract the first column out of the table row which is the container id
-      var containerId = item.getContent().toString().trim().split(' ').shift()
+      const containerId = item.getContent().toString().trim().split(' ').shift()
+      if (!containerId) {
+        return null
+      }
 
       // get logs for the container
       this.utilsRepo.get('docker').getContainerLogs(containerId, (err, stream) => {
@@ -32,7 +35,7 @@ class myWidget extends baseWidget(EventEmitter) {
           return null
         }
 
-        var str
+        let str
         if (stream && stream.pipe) {
           stream.on('data', (chunk) => {
             // toggle for alternating the colors

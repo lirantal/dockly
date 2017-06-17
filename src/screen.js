@@ -24,7 +24,8 @@ class screen {
     this.screen = blessed.screen({
       title: this.title,
       fullUnicode: true,
-      dockBorders: true
+      dockBorders: true,
+      smartCSR: true
     })
   }
 

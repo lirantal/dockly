@@ -60,7 +60,7 @@ class hook extends baseWidget(EventEmitter) {
     setInterval(() => {
       if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
         const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-        if (containerId !== 0 && containerId !== false) {
+        if (containerId && containerId !== 0) {
           this.utilsRepo.get('docker').getContainerStats(containerId, (data) => {
             this.emit('containerUtilization', data)
           })
@@ -84,17 +84,17 @@ class hook extends baseWidget(EventEmitter) {
   }
 
   restartContainer () {
-    const title = 'Restarting container'
-    let message = 'Restarting container...'
-
-    this.emit('loaderStart', {
-      title: title,
-      message: message
-    })
-
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-      if (containerId !== 0 && containerId !== false) {
+      if (containerId && containerId !== 0 && containerId !== false) {
+        const title = 'Restarting container'
+        let message = 'Restarting container...'
+
+        this.emit('loaderStart', {
+          title: title,
+          message: message
+        })
+
         this.utilsRepo.get('docker').restartContainer(containerId, (err, data) => {
           if (err && err.statusCode === 500) {
             message = err.json.message
@@ -112,17 +112,17 @@ class hook extends baseWidget(EventEmitter) {
   }
 
   stopContainer () {
-    const title = 'Stop container'
-    let message = 'Stopping container...'
-
-    this.emit('loaderStart', {
-      title: title,
-      message: message
-    })
-
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-      if (containerId !== 0 && containerId !== false) {
+      if (containerId && containerId !== 0 && containerId !== false) {
+        const title = 'Stop container'
+        let message = 'Stopping container...'
+
+        this.emit('loaderStart', {
+          title: title,
+          message: message
+        })
+
         this.utilsRepo.get('docker').stopContainer(containerId, (err, data) => {
           if (err && err.statusCode === 500) {
             message = err.json.message

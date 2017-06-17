@@ -30,6 +30,11 @@ class myWidget extends baseWidget() {
     toolbar.on('key', (keyString) => {
       // on info keypress i
       if (keyString === 'i') {
+        const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+        if (!containerId) {
+          return null
+        }
+
         this.toggleVisibility = !this.toggleVisibility
         if (this.toggleVisibility) {
           // show the widget and focus on it,
@@ -39,15 +44,12 @@ class myWidget extends baseWidget() {
           this.widget.focus()
 
           // then show the information on the container
-          const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-          if (containerId !== false) {
-            this.utilsRepo.get('docker').getContainer(containerId, (err, data) => {
-              if (!err) {
-                this.update(util.inspect(data))
-                this.screen.render()
-              }
-            })
-          }
+          this.utilsRepo.get('docker').getContainer(containerId, (err, data) => {
+            if (!err) {
+              this.update(util.inspect(data))
+              this.screen.render()
+            }
+          })
         } else {
           this.screen.remove(this.widget)
         }
