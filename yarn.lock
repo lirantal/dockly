@@ -64,6 +64,12 @@ ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
+ansi-styles@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.1.0.tgz#09c202d5c917ec23188caa5c9cb9179cd9547750"
+  dependencies:
+    color-convert "^1.0.0"
+
 ansi-term@>=0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/ansi-term/-/ansi-term-0.0.2.tgz#fd753efa4beada0eac99981bc52a3f6ff019deb7"
@@ -285,6 +291,14 @@ chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+chalk@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/chalk/-/chalk-2.0.1.tgz#dbec49436d2ae15f536114e76d14656cdbc0f44d"
+  dependencies:
+    ansi-styles "^3.1.0"
+    escape-string-regexp "^1.0.5"
+    supports-color "^4.0.0"
+
 charm@~0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/charm/-/charm-0.1.2.tgz#06c21eed1a1b06aeb67553cdc53e23274bac2296"
@@ -339,6 +353,15 @@ cliui@^3.2.0:
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
 
+clone-deep@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/clone-deep/-/clone-deep-0.3.0.tgz#348c61ae9cdbe0edfe053d91ff4cc521d790ede8"
+  dependencies:
+    for-own "^1.0.0"
+    is-plain-object "^2.0.1"
+    kind-of "^3.2.2"
+    shallow-clone "^0.1.2"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -346,6 +369,16 @@ co@^4.6.0:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+color-convert@^1.0.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/color-convert/-/color-convert-1.9.0.tgz#1accf97dd739b983bf994d56fec8f95853641b7a"
+  dependencies:
+    color-name "^1.1.1"
+
+color-name@^1.1.1:
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
 colors@1.0.3:
   version "1.0.3"
@@ -921,6 +954,20 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+for-in@^0.1.3:
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/for-in/-/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
+
+for-in@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
+
+for-own@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/for-own/-/for-own-1.0.0.tgz#c63332f415cedc4b04dbfe70cf836494c53cb44b"
+  dependencies:
+    for-in "^1.0.1"
+
 foreach@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
@@ -1055,6 +1102,10 @@ has-ansi@^2.0.0:
   dependencies:
     ansi-regex "^2.0.0"
 
+has-flag@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/has-flag/-/has-flag-2.0.0.tgz#e8207af1cc7b30d446cc70b734b5e8be18f88d51"
+
 has@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has/-/has-1.0.1.tgz#8461733f538b0837c9361e39a9ab9e9704dc2f28"
@@ -1171,7 +1222,7 @@ is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
 
-is-buffer@^1.1.5:
+is-buffer@^1.0.2, is-buffer@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.5.tgz#1f3b26ef613b214b88cbca23cc6c01d87961eecc"
 
@@ -1188,6 +1239,10 @@ is-callable@^1.1.1, is-callable@^1.1.3:
 is-date-object@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-date-object/-/is-date-object-1.0.1.tgz#9aa20eb6aeebbff77fbd33e74ca01b33581d3a16"
+
+is-extendable@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
 
 is-finite@^1.0.0:
   version "1.0.2"
@@ -1237,6 +1292,12 @@ is-path-inside@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-1.0.0.tgz#fc06e5a1683fbda13de667aff717bbc10a48f37f"
   dependencies:
     path-is-inside "^1.0.1"
+
+is-plain-object@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
+  dependencies:
+    isobject "^3.0.1"
 
 is-promise@^2.1.0:
   version "2.1.0"
@@ -1293,6 +1354,10 @@ isarray@0.0.1:
 isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
+
+isobject@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
 
 isstream@~0.1.2:
   version "0.1.2"
@@ -1360,7 +1425,13 @@ jsx-ast-utils@^1.3.4:
   dependencies:
     object-assign "^4.1.0"
 
-kind-of@^3.0.2:
+kind-of@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/kind-of/-/kind-of-2.0.1.tgz#018ec7a4ce7e3a86cb9141be519d24c8faa981b5"
+  dependencies:
+    is-buffer "^1.0.2"
+
+kind-of@^3.0.2, kind-of@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
   dependencies:
@@ -1377,6 +1448,10 @@ latest-version@^2.0.0:
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-2.0.0.tgz#56f8d6139620847b8017f8f1f4d78e211324168b"
   dependencies:
     package-json "^2.0.0"
+
+lazy-cache@^0.2.3:
+  version "0.2.7"
+  resolved "https://registry.npmjs.org/lazy-cache/-/lazy-cache-0.2.7.tgz#7feddf2dcb6edb77d11ef1d117ab5ffdf0ab1b65"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
@@ -1528,6 +1603,13 @@ minimist@0.0.8:
 minimist@^1.1.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+
+mixin-object@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/mixin-object/-/mixin-object-2.0.1.tgz#4fb949441dab182540f1fe035ba60e1947a5e57e"
+  dependencies:
+    for-in "^0.1.3"
+    is-extendable "^0.1.1"
 
 mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
@@ -2106,6 +2188,15 @@ set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
 
+shallow-clone@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/shallow-clone/-/shallow-clone-0.1.2.tgz#5909e874ba77106d73ac414cfec1ffca87d97060"
+  dependencies:
+    is-extendable "^0.1.1"
+    kind-of "^2.0.1"
+    lazy-cache "^0.2.3"
+    mixin-object "^2.0.1"
+
 shelljs@^0.7.5:
   version "0.7.7"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.7.tgz#b2f5c77ef97148f4b4f6e22682e10bba8667cff1"
@@ -2136,12 +2227,22 @@ snyk-config@1.0.1:
     nconf "^0.7.2"
     path-is-absolute "^1.0.0"
 
+snyk-gradle-plugin@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/snyk-gradle-plugin/-/snyk-gradle-plugin-1.0.2.tgz#364550d5f388673400296d3ab31df358c678bb9e"
+  dependencies:
+    clone-deep "^0.3.0"
+
 snyk-module@1.8.1, snyk-module@^1.6.0, snyk-module@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/snyk-module/-/snyk-module-1.8.1.tgz#31d5080fb1c0dfd6fa8567dd34a523fd02bf1fca"
   dependencies:
     debug "^2.2.0"
     hosted-git-info "^2.1.4"
+
+snyk-mvn-plugin@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/snyk-mvn-plugin/-/snyk-mvn-plugin-1.0.0.tgz#99ae297b7ae40fa8df78a39fa13816dc513c2d10"
 
 snyk-policy@1.7.1:
   version "1.7.1"
@@ -2157,9 +2258,9 @@ snyk-policy@1.7.1:
     snyk-try-require "^1.1.1"
     then-fs "^2.0.0"
 
-snyk-python-plugin@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/snyk-python-plugin/-/snyk-python-plugin-1.0.0.tgz#d3915fbd933305d9988d86a56a7381e73c4565f7"
+snyk-python-plugin@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/snyk-python-plugin/-/snyk-python-plugin-1.2.2.tgz#296948cba5ac80d2ce178a5cb7ecfcff88fdf263"
 
 snyk-recursive-readdir@^2.0.0:
   version "2.0.0"
@@ -2193,6 +2294,10 @@ snyk-resolve@1.0.0, snyk-resolve@^1.0.0:
     debug "^2.2.0"
     then-fs "^2.0.0"
 
+snyk-sbt-plugin@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/snyk-sbt-plugin/-/snyk-sbt-plugin-1.0.2.tgz#ce2aa9a3b08af6680d5ee8a007ecb6ae55fb72d1"
+
 snyk-tree@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/snyk-tree/-/snyk-tree-1.0.0.tgz#0fb73176dbf32e782f19100294160448f9111cc8"
@@ -2209,9 +2314,9 @@ snyk-try-require@^1.1.1, snyk-try-require@^1.2.0:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@^1.34.4:
-  version "1.34.4"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.34.4.tgz#9f0d50ab4f0544b125fa21c67dd162de1e7ce91b"
+snyk@^1.36.2:
+  version "1.36.2"
+  resolved "https://registry.npmjs.org/snyk/-/snyk-1.36.2.tgz#88be72a8da75a02e920f2be7f5830402b5e0eb41"
   dependencies:
     abbrev "^1.0.7"
     ansi-escapes "^1.3.0"
@@ -2226,12 +2331,15 @@ snyk@^1.34.4:
     request "^2.74.0"
     semver "^5.1.0"
     snyk-config "1.0.1"
+    snyk-gradle-plugin "1.0.2"
     snyk-module "1.8.1"
+    snyk-mvn-plugin "1.0.0"
     snyk-policy "1.7.1"
-    snyk-python-plugin "1.0.0"
+    snyk-python-plugin "1.2.2"
     snyk-recursive-readdir "^2.0.0"
     snyk-resolve "1.0.0"
     snyk-resolve-deps "1.7.0"
+    snyk-sbt-plugin "1.0.2"
     snyk-tree "^1.0.0"
     snyk-try-require "^1.2.0"
     tempfile "^1.1.1"
@@ -2368,6 +2476,12 @@ strip-json-comments@~2.0.1:
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
+
+supports-color@^4.0.0:
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/supports-color/-/supports-color-4.2.0.tgz#ad986dc7eb2315d009b4d77c8169c2231a684037"
+  dependencies:
+    has-flag "^2.0.0"
 
 table-layout@^0.4.0:
   version "0.4.0"
