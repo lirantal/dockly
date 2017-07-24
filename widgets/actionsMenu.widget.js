@@ -1,0 +1,115 @@
+'use strict'
+
+const util = require('util')
+const baseWidget = require('../src/baseWidget')
+
+class myWidget extends baseWidget() {
+  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+    super()
+    this.blessed = blessed
+    this.contrib = contrib
+    this.screen = screen
+
+    this.widget = this.getWidget()
+
+    this.toggleVisibility = 0
+
+    this.menuItems = {
+      'Stop All Containers': this.stopAllContainers,
+      'Remove All Containers': this.removeAllContainers,
+    }
+
+    this.widget.setItems(Object.keys(this.menuItems))
+  }
+
+  stopAllContainers () {
+    this.utilsRepo.get('docker').stopAllContainers((res) => {
+      // @TODO not doing anything yet with the result
+    })
+  }
+
+  removeAllContainers () {
+    this.utilsRepo.get('docker').removeAllContainers((res) => {
+      // @TODO not doing anything yet with the result
+    })
+  }
+
+  init () {
+    if (!this.widgetsRepo.has('toolbar')) {
+      return null
+    }
+
+    this.widget.on('keypress', (ch, key) => {
+      if (key.name === 'escape' || key.name === 'return') {
+        this.widget.destroy()
+      }
+    })
+
+    this.widget.on('select', (el, selected) => {
+      const option = el.getText()
+
+      this.toggleVisibility = !this.toggleVisibility
+
+      const optionFunction = this.menuItems[option]
+      if (typeof optionFunction === 'function') {
+        optionFunction.call(this)
+      }
+
+    })
+
+    const toolbar = this.widgetsRepo.get('toolbar')
+    toolbar.on('key', (keyString) => {
+      // on info keypress m
+      if (keyString === 'm') {
+        this.toggleVisibility = !this.toggleVisibility
+        if (this.toggleVisibility) {
+          // show the widget and focus on it,
+          // widget showing a 'loading...' state
+          this.screen.append(this.widget)
+          this.screen.render()
+          this.widget.focus()
+        } else {
+          this.screen.remove(this.widget)
+        }
+      }
+    })
+  }
+
+  getWidget () {
+    return this.blessed.list({
+      label: 'Menu',
+      scrollable: true,
+      alwaysScroll: true,
+      keys: true,
+      vi: true,
+      tags: true,
+      interactive: true,
+      style: {
+        selected: {
+          bg: 'green'
+        }
+      },
+      border: {
+        type: 'line'
+      },
+      hover: {
+        bg: 'blue'
+      },
+      scrollbar: {
+        fg: 'blue',
+        ch: '|'
+      },
+      width: '25%',
+      height: '25%',
+      top: 'center',
+      left: 'center',
+      align: 'left'
+    })
+  }
+
+  renderWidget () {
+    return null
+  }
+}
+
+module.exports = myWidget

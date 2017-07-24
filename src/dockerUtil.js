@@ -58,6 +58,30 @@ util.prototype.listContainers = function (cb) {
   })
 }
 
+util.prototype.stopAllContainers = function (cb) {
+  this.listContainers((err, containers) => {
+    if (err) {
+      return cb(err, {})
+    }
+
+    containers.forEach((containerInfo) => {
+      this.stopContainer(containerInfo.Id, cb)
+    })
+  })
+}
+
+util.prototype.removeAllContainers = function (cb) {
+  this.listContainers((err, containers) => {
+    if (err) {
+      return cb(err, {})
+    }
+
+    containers.forEach((containerInfo) => {
+      this.removeContainer(containerInfo.Id, cb)
+    })
+  })
+}
+
 util.prototype.getInfo = function (cb) {
   const host = {}
   dockerCon.info(function (err, data) {
@@ -102,6 +126,13 @@ util.prototype.restartContainer = function (containerId, cb) {
 util.prototype.stopContainer = function (containerId, cb) {
   const container = dockerCon.getContainer(containerId)
   container.stop(cb)
+}
+
+util.prototype.removeContainer = function (containerId, cb) {
+  const container = dockerCon.getContainer(containerId)
+  container.remove({
+    force: true
+  }, cb)
 }
 
 util.prototype.getContainerStats = function (containerId, cb) {
