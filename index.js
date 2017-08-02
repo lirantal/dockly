@@ -17,8 +17,8 @@ initDockerConnection()
       exitError(err)
     })
   })
-  .catch(() => {
-    process.exit(-1)
+  .catch((err) => {
+    return exitError(err)
   })
 
 function initDockerConnection () {
