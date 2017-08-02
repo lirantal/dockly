@@ -53,12 +53,13 @@ class myWidget extends baseWidget() {
   }
 
   update (data) {
-    if (!data || Object.keys(data).length === 0) {
+    if (!data || (typeof data !== 'object')) {
       return
     }
 
     if (data.cpu_stats.cpu_usage.total_usage === undefined || data.precpu_stats.cpu_usage.total_usage === undefined ||
-      data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined) {
+      data.cpu_stats.system_cpu_usage === undefined || data.precpu_stats.system_cpu_usage === undefined
+      || data.cpu_stats.cpu_usage.percpu_usage === undefined) {
       this.widget.setData({
         titles: ['CPU', 'Memory'],
         data: [

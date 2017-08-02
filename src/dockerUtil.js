@@ -65,7 +65,7 @@ util.prototype.getInfo = function (cb) {
       return cb(null)
     }
 
-    if (!data || Object.keys(data).length === 0) {
+    if (!data || (typeof data !== 'object')) {
       return cb(host)
     }
 

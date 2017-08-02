@@ -52,7 +52,7 @@ class myWidget extends baseWidget() {
   }
 
   update (data) {
-    if (!data || Object.keys(data).length === 0) {
+    if (!data || (typeof data !== 'object')) {
       return
     }
 
