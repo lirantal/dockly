@@ -65,8 +65,8 @@ function exitError (err) {
 
   if (err && err.message) {
     console.log('\x1b[31m')
+    console.trace(err)
 
-    console.trace('Error: ' + err.message)
     if (err.message === 'Unable to determine the domain name') {
       console.log('-> check your connection options to the docker daemon and confirm containers exist')
     }
