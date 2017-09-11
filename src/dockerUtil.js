@@ -82,6 +82,18 @@ util.prototype.removeAllContainers = function (cb) {
   })
 }
 
+util.prototype.removeAllImages = function (cb) {
+  this.listImages((err, images) => {
+    if (err) {
+      return cb(err, {})
+    }
+
+    images.forEach((imageInfo) => {
+      this.removeImage(imageInfo.Id, cb)
+    })
+  })
+}
+
 util.prototype.getInfo = function (cb) {
   const host = {}
   dockerCon.info(function (err, data) {
@@ -131,6 +143,13 @@ util.prototype.stopContainer = function (containerId, cb) {
 util.prototype.removeContainer = function (containerId, cb) {
   const container = dockerCon.getContainer(containerId)
   container.remove({
+    force: true
+  }, cb)
+}
+
+util.prototype.removeImage = function (imageId, cb) {
+  const image = dockerCon.getImage(imageId)
+  image.remove({
     force: true
   }, cb)
 }

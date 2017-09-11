@@ -17,6 +17,7 @@ class myWidget extends baseWidget() {
     this.menuItems = {
       'Stop All Containers': this.stopAllContainers,
       'Remove All Containers': this.removeAllContainers,
+      'Remove All Images': this.removeAllImages,
     }
 
     this.widget.setItems(Object.keys(this.menuItems))
@@ -31,6 +32,12 @@ class myWidget extends baseWidget() {
   removeAllContainers () {
     this.utilsRepo.get('docker').removeAllContainers((res) => {
       // @TODO not doing anything yet with the result
+    })
+  }
+
+  removeAllImages () {
+    this.utilsRepo.get('docker').removeAllImages((res) => {
+      // @TODO not doing anything yet with the results
     })
   }
 
@@ -64,7 +71,6 @@ class myWidget extends baseWidget() {
         this.toggleVisibility = !this.toggleVisibility
         if (this.toggleVisibility) {
           // show the widget and focus on it,
-          // widget showing a 'loading...' state
           this.screen.append(this.widget)
           this.screen.render()
           this.widget.focus()
@@ -81,8 +87,6 @@ class myWidget extends baseWidget() {
       scrollable: true,
       alwaysScroll: true,
       keys: true,
-      vi: true,
-      tags: true,
       interactive: true,
       style: {
         selected: {
@@ -103,7 +107,7 @@ class myWidget extends baseWidget() {
       height: '25%',
       top: 'center',
       left: 'center',
-      align: 'left'
+      align: 'center'
     })
   }
 
