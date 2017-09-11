@@ -63,10 +63,15 @@ class myWidget extends baseWidget(EventEmitter) {
           keys: ['s'],
           callback: () => { this.emit('key', 's') }
         },
+        'menu': {
+          keys: ['m'],
+          callback: () => { this.emit('key', 'm') }
+        },
         'quit': {
           keys: ['q'],
           callback: () => { this.emit('key', 'q') }
-        }
+        },
+
       }
     })
 
