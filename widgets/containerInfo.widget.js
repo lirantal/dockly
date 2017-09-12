@@ -22,6 +22,7 @@ class myWidget extends baseWidget() {
 
     this.widget.on('keypress', (ch, key) => {
       if (key.name === 'escape' || key.name === 'return') {
+        this.toggleVisibility = !this.toggleVisibility
         this.widget.destroy()
       }
     })
