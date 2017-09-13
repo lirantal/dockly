@@ -4,11 +4,12 @@ const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.createWidget()
   }
@@ -22,7 +23,7 @@ class myWidget extends baseWidget(EventEmitter) {
   }
 
   createWidget () {
-    let widget = this.blessed.listbar({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listbar, {
       keys: false,
       vi: true,
       mouse: true,

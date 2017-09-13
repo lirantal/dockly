@@ -4,11 +4,12 @@ const util = require('util')
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.getWidget()
 
@@ -82,7 +83,7 @@ class myWidget extends baseWidget() {
   }
 
   getWidget () {
-    return this.blessed.list({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.list, {
       label: 'Menu',
       scrollable: true,
       alwaysScroll: true,
@@ -103,10 +104,6 @@ class myWidget extends baseWidget() {
         fg: 'blue',
         ch: '|'
       },
-      width: '25%',
-      height: '25%',
-      top: 'center',
-      left: 'center',
       align: 'center'
     })
   }

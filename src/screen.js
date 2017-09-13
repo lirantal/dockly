@@ -8,6 +8,7 @@ const assetsLoader = require(path.join(__dirname, '/assetsLoader'))
 class screen {
   constructor (utils = new Map()) {
     this.screen = undefined
+    this.grid = undefined
     this.title = 'Dockly'
 
     this.utils = utils
@@ -27,6 +28,9 @@ class screen {
       dockBorders: true,
       smartCSR: true
     })
+
+    // initialize 12x12 grid
+    this.grid = new contrib.grid({rows: 12, cols: 12, screen: this.screen})
   }
 
   init () {
@@ -61,11 +65,29 @@ class screen {
   }
 
   initWidgets () {
+    // @TODO should be moved outside and used as a config
+    // from the user (index.js)
+    const gridLayout = {
+      'actionsMenu': [4, 4, 4, 4],
+      'containerInfo': [2, 2, 8, 8],
+      'containerList': [0, 0, 7, 10],
+      'containerLogs': [7, 0, 4, 12],
+      'containerPopup': [4, 2, 2, 7],
+      'containerStatus': [0, 10, 2, 2],
+      'containerUtilization': [2, 10, 3, 2],
+      'containerVsImages': [5, 10, 2, 2],
+      'toolbar': [11, 0, 1, 12]
+    }
+
     for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
       let widget = new WidgetObject({
         blessed,
         contrib,
-        screen: this.screen
+        screen: this.screen,
+        grid: {
+          gridObj: this.grid,
+          gridLayout: gridLayout[widgetName]
+        }
       })
 
       this.widgets.set(widgetName, widget)
@@ -125,6 +147,15 @@ class screen {
   }
 
   render () {
+
+    // var grid = new contrib.grid({rows: 12, cols: 12, screen: this.screen})
+
+    //grid.set(row, col, rowSpan, colSpan, obj, opts)
+    // var map = grid.set(0, 0, 4, 4, this.widgetsRepository.get('containerInfo').widget)
+    // var box = grid.set(4, 4, 4, 4, blessed.box, {content: 'My Box'})
+
+    // console.log(this.widgetsRepository.get('containerInfo').widget)
+
     this.screen.render()
   }
 

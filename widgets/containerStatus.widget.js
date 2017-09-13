@@ -3,11 +3,12 @@
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.getWidget()
   }
@@ -24,7 +25,7 @@ class myWidget extends baseWidget() {
   }
 
   getWidget () {
-    return this.contrib.gauge({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.gauge, {
       label: 'Running/Paused/Stopped',
       style: {
         fg: 'blue',

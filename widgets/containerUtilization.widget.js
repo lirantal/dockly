@@ -2,11 +2,12 @@
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.getWidget()
   }
@@ -23,7 +24,7 @@ class myWidget extends baseWidget() {
   }
 
   getWidget () {
-    return this.contrib.bar({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.bar, {
       label: 'Containers Utilization (%)',
       style: {
         fg: 'blue',
@@ -44,11 +45,7 @@ class myWidget extends baseWidget() {
       barWidth: 6,
       barSpacing: 15,
       xOffset: 3,
-      maxHeight: 15,
-      width: '20%',
-      height: '22%',
-      top: '18%',
-      left: '80%'
+      maxHeight: 15
     })
   }
 

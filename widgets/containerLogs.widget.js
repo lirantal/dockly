@@ -3,11 +3,12 @@
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.getWidget()
   }
@@ -17,7 +18,7 @@ class myWidget extends baseWidget() {
   }
 
   getWidget () {
-    return this.blessed.log({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.log, {
       label: 'Container Logs',
       mouse: true,
       scrollable: true,
@@ -46,10 +47,6 @@ class myWidget extends baseWidget() {
         fg: 'blue',
         ch: '|'
       },
-      width: '100%',
-      height: '45%',
-      top: '55%',
-      left: '0',
       align: 'left',
       content: ''
     })

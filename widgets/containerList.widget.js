@@ -8,11 +8,12 @@ const figures = require('figures')
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
+    this.grid = grid
 
     this.widget = this.getWidget()
     this.toggleWidgetContainerListColor = 0
@@ -66,7 +67,7 @@ class myWidget extends baseWidget(EventEmitter) {
   }
 
   getWidget () {
-    return this.blessed.listtable({
+    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listtable, {
       parent: this.screen,
       label: 'Containers',
       keys: true,
@@ -90,10 +91,6 @@ class myWidget extends baseWidget(EventEmitter) {
           }
         }
       },
-      width: '80%',
-      height: '55%',
-      top: '0',
-      left: '0',
       align: 'center'
     })
   }
