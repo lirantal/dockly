@@ -30,7 +30,7 @@ class screen {
     })
 
     // initialize 12x12 grid
-    this.grid = new contrib.grid({rows: 12, cols: 12, screen: this.screen})
+    this.grid = new contrib.grid({rows: 12, cols: 12, hideBorder: true, screen: this.screen})
   }
 
   init () {

@@ -25,15 +25,22 @@ class myWidget extends baseWidget(EventEmitter) {
   createWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listbar, {
       keys: false,
-      vi: true,
       mouse: true,
       style: {
-        bg: 'green'
+        bg: 'green',
+        item: {
+          bg: 'black',
+          hover: {
+            bg: 'blue'
+          },
+          focus: {
+           bg: 'blue'
+          }
+        },
+        selected: {
+          bg: 'blue'
+        }
       },
-      height: 'shrink',
-      bottom: '0',
-      left: '0',
-      right: '0',
       autoCommandKeys: false,
       commands: {
         'refresh': {
@@ -44,10 +51,6 @@ class myWidget extends baseWidget(EventEmitter) {
           keys: ['i'],
           callback: () => { this.emit('key', 'i') }
         },
-        // 'host info': {
-        //   keys: ['0'],
-        //   callback: () => { this.emit('key', '0') }
-        // },
         'shell': {
           keys: ['l'],
           callback: () => { this.emit('key', 'l') }
@@ -71,12 +74,9 @@ class myWidget extends baseWidget(EventEmitter) {
         'quit': {
           keys: ['q'],
           callback: () => { this.emit('key', 'q') }
-        },
-
+        }
       }
     })
-
-    return widget
   }
 }
 
