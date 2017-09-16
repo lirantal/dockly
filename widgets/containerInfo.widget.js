@@ -60,13 +60,19 @@ class myWidget extends baseWidget() {
   }
 
   getWidget () {
-    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.box, {
+    // @TODO
+    //    `return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.box, {`
+    // removed the container popup information box from the grid because it would
+    // have been expected to be drawn on the screen and take actual grid space
+    // but instead its just a popup.
+    // The @TODO is to create another kind of dashboard that will represent the
+    // container info with its own grid and we can display/hide it on the screen
+    // on toggle on and off
+    return this.blessed.box({
       label: 'Container Info',
       scrollable: true,
       alwaysScroll: true,
       keys: true,
-      vi: true,
-      tags: true,
       style: {
         selected: {
           bg: 'green'
@@ -83,6 +89,10 @@ class myWidget extends baseWidget() {
         ch: '|'
       },
       align: 'left',
+      width: '70%',
+      height: '70%',
+      top: 'center',
+      left: 'center',
       content: 'Loading...'
     })
   }

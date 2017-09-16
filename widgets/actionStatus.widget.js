@@ -42,8 +42,6 @@ class myWidget extends baseWidget() {
       label: 'Status',
       scrollable: true,
       alwaysScroll: true,
-      keys: true,
-      vi: true,
       tags: true,
       style: {
         selected: {

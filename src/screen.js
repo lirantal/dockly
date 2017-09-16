@@ -69,10 +69,10 @@ class screen {
     // from the user (index.js)
     const gridLayout = {
       'actionsMenu': [4, 4, 4, 4],
+      'actionStatus': [6, 0, 1, 10],
       'containerInfo': [2, 2, 8, 8],
-      'containerList': [0, 0, 7, 10],
+      'containerList': [0, 0, 6, 10],
       'containerLogs': [7, 0, 4, 12],
-      'containerPopup': [4, 2, 2, 7],
       'containerStatus': [0, 10, 2, 2],
       'containerUtilization': [2, 10, 3, 2],
       'containerVsImages': [5, 10, 2, 2],
