@@ -75,7 +75,6 @@ class myWidget extends baseWidget() {
     }
 
     this.screen.render()
-    this.widget.focus()
   }
 }
 
