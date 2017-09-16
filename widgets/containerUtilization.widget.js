@@ -41,7 +41,8 @@ class myWidget extends baseWidget() {
         type: 'line',
         fg: '#00ff00'
       },
-      barBgColor: 'blue',
+      barBgColor: 'cyan',
+      barFgColor: 'white',
       barWidth: 6,
       barSpacing: 15,
       xOffset: 3,
