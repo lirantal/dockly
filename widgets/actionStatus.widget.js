@@ -64,14 +64,16 @@ class myWidget extends baseWidget() {
   }
 
   update (data) {
-    this.screen.append(this.widget)
-
     if (data && data.label) {
       this.widget.setLabel(data.label)
     }
 
     if (data && data.message) {
-      this.widget.setContent(data.message)
+
+      let dateTime = new Date().toLocaleString()
+      let actionStatus = `${dateTime} - ${data.message}`
+
+      this.widget.setContent(actionStatus)
     }
 
     this.screen.render()
