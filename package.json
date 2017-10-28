@@ -7,7 +7,9 @@
     "test": "yarn run snyk:test && yarn run lint",
     "snyk:test": "snyk test",
     "lint": "standard",
-    "lint:fix": "standard --fix"
+    "lint:fix": "standard --fix",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": ">=6.10.0"
@@ -45,10 +47,11 @@
     "dockerode": "^2.5.0",
     "figures": "^2.0.0",
     "glob": "^7.1.2",
-    "opn": "^5.1.0"
+    "opn": "^5.1.0",
+    "snyk": "^1.46.0"
   },
   "devDependencies": {
-    "snyk": "^1.36.2",
     "standard": "^10.0.2"
-  }
+  },
+  "snyk": true
 }
