@@ -4,8 +4,7 @@
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "yarn run snyk:test && yarn run lint",
-    "snyk:test": "snyk test",
+    "test": "yarn run lint",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
@@ -48,7 +47,6 @@
     "opn": "^5.1.0"
   },
   "devDependencies": {
-    "snyk": "^1.36.2",
     "standard": "^10.0.2"
   }
 }
