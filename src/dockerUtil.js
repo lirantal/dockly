@@ -17,7 +17,7 @@ function util (connection) {
     // the docker daemon socket
     if (DOCKER_HOST) {
       const parsedUrl = parseUrl(DOCKER_HOST)
-      dockerCon = new DockerLib({host: parsedUrl.host, port: parsedUrl.port})
+      dockerCon = new DockerLib({host: parsedUrl.hostname, port: parsedUrl.port})
     } else {
       dockerCon = new DockerLib({socketPath: DOCKER_SOCKET})
     }
