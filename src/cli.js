@@ -8,18 +8,6 @@ const pkg = require('../package.json')
 function Cli () {
   this.cliOpts = [
     {
-      name: 'host',
-      alias: 'u',
-      type: String,
-      description: 'Docker daemon hostname to connect to'
-    },
-    {
-      name: 'port',
-      alias: 'p',
-      type: String,
-      description: 'Docker daemon port to connect to'
-    },
-    {
       name: 'socketPath',
       alias: 's',
       type: String,

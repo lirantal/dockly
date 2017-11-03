@@ -1,28 +1,19 @@
 'use strict'
 
-const url = require('url')
 const DockerLib = require('dockerode')
-
-const DOCKER_SOCKET = process.env.DOCKER_SOCKET || '/var/run/docker.sock'
-const DOCKER_HOST = process.env.DOCKER_HOST || false
 let dockerCon
 
 function util (connection) {
+
   if (typeof connection !== 'object') {
     throw new Error('Error: docker connection string is faulty, please review command line arguments.')
   }
 
-  if (!connection.hasOwnProperty('socketPath') && !connection.hasOwnProperty('host')) {
-    // attempt honoring the DOCKER_HOST variable, and fallback to connect using the
-    // the docker daemon socket
-    if (DOCKER_HOST) {
-      const parsedUrl = parseUrl(DOCKER_HOST)
-      dockerCon = new DockerLib({host: parsedUrl.hostname, port: parsedUrl.port})
-    } else {
-      dockerCon = new DockerLib({socketPath: DOCKER_SOCKET})
-    }
-  } else {
+  // If a socketPath was explicitly specified, attempt connection based on it
+  if (connection.socketPath) {
     dockerCon = new DockerLib(connection)
+  } else {
+    dockerCon = new DockerLib()
   }
 }
 
@@ -178,14 +169,6 @@ util.prototype.getContainerLogs = function (containerId, cb) {
     tail: 50,
     timestamps: true
   }, cb)
-}
-
-function parseUrl (urlString) {
-  if (urlString.indexOf('://') === -1) {
-    return url.parse(`http://${urlString}`)
-  }
-
-  return url.parse(urlString)
 }
 
 module.exports = util
