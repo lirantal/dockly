@@ -4,7 +4,6 @@ const DockerLib = require('dockerode')
 let dockerCon
 
 function util (connection) {
-
   if (typeof connection !== 'object') {
     throw new Error('Error: docker connection string is faulty, please review command line arguments.')
   }

@@ -34,7 +34,7 @@ class myWidget extends baseWidget(EventEmitter) {
             bg: 'blue'
           },
           focus: {
-           bg: 'blue'
+            bg: 'blue'
           }
         },
         selected: {

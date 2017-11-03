@@ -30,6 +30,7 @@ class screen {
     })
 
     // initialize 12x12 grid
+    // eslint-disable-next-line new-cap
     this.grid = new contrib.grid({rows: 12, cols: 12, hideBorder: true, screen: this.screen})
   }
 
@@ -147,10 +148,9 @@ class screen {
   }
 
   render () {
-
     // var grid = new contrib.grid({rows: 12, cols: 12, screen: this.screen})
 
-    //grid.set(row, col, rowSpan, colSpan, obj, opts)
+    // grid.set(row, col, rowSpan, colSpan, obj, opts)
     // var map = grid.set(0, 0, 4, 4, this.widgetsRepository.get('containerInfo').widget)
     // var box = grid.set(4, 4, 4, 4, blessed.box, {content: 'My Box'})
 

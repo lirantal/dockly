@@ -1,6 +1,5 @@
 'use strict'
 
-const util = require('util')
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
@@ -18,7 +17,7 @@ class myWidget extends baseWidget() {
     this.menuItems = {
       'Stop All Containers': this.stopAllContainers,
       'Remove All Containers': this.removeAllContainers,
-      'Remove All Images': this.removeAllImages,
+      'Remove All Images': this.removeAllImages
     }
 
     this.widget.setItems(Object.keys(this.menuItems))
@@ -62,7 +61,6 @@ class myWidget extends baseWidget() {
       if (typeof optionFunction === 'function') {
         optionFunction.call(this)
       }
-
     })
 
     const toolbar = this.widgetsRepo.get('toolbar')

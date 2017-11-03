@@ -69,7 +69,6 @@ class myWidget extends baseWidget() {
     }
 
     if (data && data.message) {
-
       let dateTime = new Date().toLocaleString()
       let actionStatus = `${dateTime} - ${data.message}`
 
