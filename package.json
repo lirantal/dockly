@@ -1,6 +1,6 @@
 {
   "name": "dockly",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
