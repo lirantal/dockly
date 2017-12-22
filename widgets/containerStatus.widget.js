@@ -10,6 +10,12 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.color = {
+      'ContainersRunning': 'green',
+      'ContainersPaused': 'yellow',
+      'ContainersStopped': 'red'
+    }
+
     this.widget = this.getWidget()
   }
 
@@ -62,21 +68,21 @@ class myWidget extends baseWidget() {
       if (data.ContainersRunning !== 0) {
         stack.push({
           percent: Math.round((data.ContainersRunning / data.Containers) * 100),
-          stroke: 'green'
+          stroke: this.color['ContainersRunning']
         })
       }
 
       if (data.ContainersPaused !== 0) {
         stack.push({
           percent: Math.round((data.ContainersPaused / data.Containers) * 100),
-          stroke: 'yellow'
+          stroke: this.color['ContainersPaused']
         })
       }
 
       if (data.ContainersStopped !== 0) {
         stack.push({
           percent: Math.round((data.ContainersStopped / data.Containers) * 100),
-          stroke: 'red'
+          stroke: this.color['ContainersStopped']
         })
       }
 
