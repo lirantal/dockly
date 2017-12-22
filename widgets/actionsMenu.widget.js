@@ -10,6 +10,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Menu'
     this.widget = this.getWidget()
 
     this.toggleVisibility = 0
@@ -82,7 +83,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.list, {
-      label: 'Menu',
+      label: this.label,
       scrollable: true,
       alwaysScroll: true,
       keys: true,

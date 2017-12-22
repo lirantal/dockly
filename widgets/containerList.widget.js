@@ -15,6 +15,7 @@ class myWidget extends baseWidget(EventEmitter) {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Containers'
     this.widget = this.getWidget()
     this.toggleWidgetContainerListColor = 0
   }
@@ -69,7 +70,7 @@ class myWidget extends baseWidget(EventEmitter) {
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listtable, {
       parent: this.screen,
-      label: 'Containers',
+      label: this.label,
       keys: true,
       mouse: true,
       data: null,

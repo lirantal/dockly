@@ -9,6 +9,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Containers Utilization (%)'
     this.widget = this.getWidget()
   }
 
@@ -25,7 +26,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.bar, {
-      label: 'Containers Utilization (%)',
+      label: this.label,
       style: {
         fg: 'blue',
         bg: 'default',

@@ -11,6 +11,7 @@ class myWidget extends baseWidget(EventEmitter) {
     this.screen = screen
     this.grid = grid
 
+    this.label = ''
     this.widget = this.createWidget()
   }
 

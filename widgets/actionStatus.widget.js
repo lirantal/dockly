@@ -9,6 +9,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Status'
     this.widget = this.getWidget()
   }
 
@@ -39,7 +40,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.box, {
-      label: 'Status',
+      label: this.label,
       scrollable: true,
       alwaysScroll: true,
       tags: true,

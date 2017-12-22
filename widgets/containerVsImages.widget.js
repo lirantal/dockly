@@ -9,6 +9,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Containers vs Images'
     this.widget = this.getWidget()
   }
 
@@ -28,7 +29,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.bar, {
-      label: 'Containers vs Images',
+      label: this.label,
       style: {
         fg: 'blue',
         bg: 'default',

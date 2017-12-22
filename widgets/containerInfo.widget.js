@@ -11,6 +11,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Container Info'
     this.widget = this.getWidget()
 
     this.toggleVisibility = 0
@@ -69,7 +70,7 @@ class myWidget extends baseWidget() {
     // container info with its own grid and we can display/hide it on the screen
     // on toggle on and off
     return this.blessed.box({
-      label: 'Container Info',
+      label: this.label,
       scrollable: true,
       alwaysScroll: true,
       keys: true,

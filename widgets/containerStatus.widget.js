@@ -10,6 +10,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Running/Paused/Stopped'
     this.color = {
       'ContainersRunning': 'green',
       'ContainersPaused': 'yellow',
@@ -32,7 +33,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.gauge, {
-      label: 'Running/Paused/Stopped',
+      label: this.label,
       style: {
         fg: 'blue',
         bg: 'default',

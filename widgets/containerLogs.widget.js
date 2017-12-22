@@ -10,6 +10,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
+    this.label = 'Container Logs'
     this.widget = this.getWidget()
   }
 
@@ -19,7 +20,7 @@ class myWidget extends baseWidget() {
 
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.log, {
-      label: 'Container Logs',
+      label: this.label,
       mouse: true,
       scrollable: true,
       alwaysScroll: true,
