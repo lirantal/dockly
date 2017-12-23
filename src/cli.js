@@ -12,7 +12,19 @@ function Cli () {
       alias: 's',
       type: String,
       description: 'Docker daemon socket to connect to'
-    }
+    },
+    {
+      name: 'help',
+      alias: 'h',
+      type: Boolean,
+      description: 'Display this usage guide.'
+    },
+    {
+      name: 'version',
+      alias: 'v',
+      type: Boolean,
+      description: 'Display version'
+    },
   ]
 }
 
@@ -23,8 +35,10 @@ Cli.prototype.showVersion = function () {
 }
 
 Cli.prototype.showUsage = function () {
+  console.log()
+
+  console.log(pkg.name + ' ' + pkg.version)
   console.log('Usage: dockly [OPTIONS]')
-  console.log('dockly [ --help | -v | --version ]')
 
   const usage = commandLineUsage([
     {

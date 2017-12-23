@@ -8,6 +8,17 @@ const Screen = require('./src/screen')
 const DockerUtil = require('./src/dockerUtil')
 const cli = require('./src/cli')
 
+const cliOptions = cli.cliParse()
+if (cliOptions.help) {
+  cli.showUsage()
+  process.exit(0)
+}
+
+if (cliOptions.version) {
+  cli.showVersion()
+  process.exit(0)
+}
+
 initDockerConnection()
   .then(initScreens)
   .then(function (screen) {
