@@ -24,7 +24,7 @@ function Cli () {
       alias: 'v',
       type: Boolean,
       description: 'Display version'
-    },
+    }
   ]
 }
 
