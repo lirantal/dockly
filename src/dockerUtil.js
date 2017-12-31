@@ -72,7 +72,7 @@ class Util {
     })
   }
 
-  removeAllImages (db) {
+  removeAllImages (cb) {
     this.listImages((err, images) => {
       if (err) {
         return cb(err, {})
