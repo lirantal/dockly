@@ -131,8 +131,8 @@ class Util {
   }
 
   getService (serviceId, cb) {
-    const container = this.dockerCon.getService(serviceId)
-    return container.inspect(cb)
+    const service = this.dockerCon.getService(serviceId)
+    return service.inspect(cb)
   }
 
   restartContainer (containerId, cb) {

@@ -10,24 +10,20 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
-    this.label = 'Running/Paused/Stopped'
+    this.label = 'Running/Stopped'
     this.color = {
-      'ContainersRunning': 'green',
-      'ContainersPaused': 'yellow',
-      'ContainersStopped': 'red'
+      'ServicesRunning': 'green',
+      'ServicesStopped': 'red'
     }
 
     this.widget = this.getWidget()
   }
 
   init () {
-    if (!this.widgetsRepo.has('containers')) {
-      return null
-    }
-
-    const dockerHook = this.widgetsRepo.get('containers')
-    dockerHook.on('containerStatus', (data) => {
-      return this.update(data)
+    this.utilsRepo.get('docker').listServices((err, data) => {
+      if (!err) {
+        this.update(data)
+      }
     })
   }
 
@@ -59,35 +55,39 @@ class myWidget extends baseWidget() {
     })
   }
 
-  update (data) {
-    if (!data || (typeof data !== 'object')) {
+  update (services) {
+    if (!services || (typeof services !== 'object')) {
       return
     }
 
-    if (data.Containers !== 0) {
+    let running = 0
+    services.forEach((service) => {
+      const replicas = service.Spec.Mode.Replicated ? '' + service.Spec.Mode.Replicated.Replicas : ''
+      if (replicas) {
+        running++
+      }
+    })
+
+    const stopped = services.length - running
+
+    if (services.length !== 0) {
       let stack = []
-      if (data.ContainersRunning !== 0) {
+      if (running !== 0) {
         stack.push({
-          percent: Math.round((data.ContainersRunning / data.Containers) * 100),
-          stroke: this.color['ContainersRunning']
+          percent: Math.round((running / services.length) * 100),
+          stroke: this.color['ServicesRunning']
         })
       }
 
-      if (data.ContainersPaused !== 0) {
+      if (stopped !== 0) {
         stack.push({
-          percent: Math.round((data.ContainersPaused / data.Containers) * 100),
-          stroke: this.color['ContainersPaused']
-        })
-      }
-
-      if (data.ContainersStopped !== 0) {
-        stack.push({
-          percent: Math.round((data.ContainersStopped / data.Containers) * 100),
-          stroke: this.color['ContainersStopped']
+          percent: Math.round((stopped / services.length) * 100),
+          stroke: this.color['ServicesStopped']
         })
       }
 
       this.widget.setStack(stack)
+      console.log(stack)
       this.screen.render()
     }
   }
