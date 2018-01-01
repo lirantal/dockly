@@ -48,6 +48,16 @@ class Util {
     })
   }
 
+  listServices (cb) {
+    this.dockerCon.listServices({'all': true}, function (err, containers) {
+      if (err) {
+        return cb(err, {})
+      }
+
+      return cb(null, containers)
+    })
+  }
+
   stopAllContainers (cb) {
     this.listContainers((err, containers) => {
       if (err) {
@@ -117,6 +127,11 @@ class Util {
 
   getContainer (containerId, cb) {
     const container = this.dockerCon.getContainer(containerId)
+    return container.inspect(cb)
+  }
+
+  getService (serviceId, cb) {
+    const container = this.dockerCon.getService(serviceId)
     return container.inspect(cb)
   }
 

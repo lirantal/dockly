@@ -1,5 +1,5 @@
 'use strict'
-const baseWidget = require('../src/baseWidget')
+const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
   constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
