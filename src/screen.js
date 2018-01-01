@@ -110,6 +110,7 @@ class screen {
         let widget = new WidgetObject({
           blessed,
           contrib,
+          mode: this.mode,
           screen: this.screen,
           grid: {
             gridObj: this.grid,
