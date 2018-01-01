@@ -184,6 +184,18 @@ class Util {
       timestamps: true
     }, cb)
   }
+
+  getServiceLogs (serviceId, cb) {
+    const service = this.dockerCon.getService(serviceId)
+    return service.logs({
+      follow: true,
+      stdout: true,
+      stderr: true,
+      details: false,
+      tail: 50,
+      timestamps: true
+    }, cb)
+  }
 }
 
 module.exports = Util

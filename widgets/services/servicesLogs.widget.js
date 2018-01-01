@@ -10,7 +10,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
-    this.label = 'Container Logs'
+    this.label = 'Service Logs'
     this.widget = this.getWidget()
   }
 

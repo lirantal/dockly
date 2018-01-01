@@ -31,8 +31,7 @@ const SERVICES_GRID_LAYOUT = {
   'servicesList': [0, 0, 6, 10],
   'servicesLogs': [7, 0, 4, 12],
   'servicesStatus': [0, 10, 2, 2],
-  'servicesUtilization': [2, 10, 3, 2],
-  'servicesVsImages': [5, 10, 2, 2],
+  'servicesVsImages': [2, 10, 2, 2],
   'toolbar': [11, 0, 1, 12]
 }
 

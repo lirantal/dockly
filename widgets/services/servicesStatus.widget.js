@@ -87,7 +87,6 @@ class myWidget extends baseWidget() {
       }
 
       this.widget.setStack(stack)
-      console.log(stack)
       this.screen.render()
     }
   }

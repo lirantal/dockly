@@ -31,7 +31,7 @@ class myWidget extends baseWidget(EventEmitter) {
       }
 
       // get logs for the service
-      this.utilsRepo.get('docker').getContainerLogs(serviceId, (err, stream) => {
+      this.utilsRepo.get('docker').getServiceLogs(serviceId, (err, stream) => {
         if (err) {
           return null
         }

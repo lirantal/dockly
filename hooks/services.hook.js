@@ -16,7 +16,6 @@ class hook extends baseWidget(EventEmitter) {
 
     // on startup bind a periodical updates emitter
     this.notifyOnServiceInfo()
-    this.notifyOnServiceUtilization()
 
     if (!this.widgetsRepo.has('toolbar')) {
       return null
@@ -44,19 +43,6 @@ class hook extends baseWidget(EventEmitter) {
         this.utilsRepo.get('docker').getInfo((data) => {
           this.emit('servicesStatus', data)
         })
-      }
-    }, 500)
-  }
-
-  notifyOnServiceUtilization () {
-    setInterval(() => {
-      if (this.widgetsRepo && this.widgetsRepo.has('servicesList')) {
-        const servicesId = this.widgetsRepo.get('servicesList').getSelectedService()
-        if (servicesId && servicesId !== 0) {
-          // this.utilsRepo.get('docker').getServiceStats(servicesId, (data) => {
-          //   this.emit('servicesUtilization', data)
-          // })
-        }
       }
     }, 500)
   }
