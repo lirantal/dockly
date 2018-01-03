@@ -1,5 +1,5 @@
 'use strict'
-const baseWidget = require('../src/baseWidget')
+const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
   constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
@@ -9,19 +9,19 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
-    this.label = 'Containers vs Images'
+    this.label = 'Services vs Images'
     this.widget = this.getWidget()
   }
 
   init () {
-    if (!this.widgetsRepo.has('containers')) {
+    if (!this.widgetsRepo.has('services')) {
       return null
     }
 
-    const dockerHook = this.widgetsRepo.get('containers')
-    dockerHook.on('containersAndImagesList', (data) => {
+    const dockerHook = this.widgetsRepo.get('services')
+    dockerHook.on('servicesAndImagesList', (data) => {
       return this.update({
-        containers: data && data.containers ? data.containers.length : 0,
+        services: data && data.services ? data.services.length : 0,
         images: data && data.images ? data.images.length : 0
       })
     })
@@ -57,9 +57,9 @@ class myWidget extends baseWidget() {
 
   update (data) {
     this.widget.setData({
-      titles: ['Containers', 'Images'],
+      titles: ['Services', 'Images'],
       data: [
-        data.containers,
+        data.services,
         data.images
       ]
     })

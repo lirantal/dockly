@@ -1,7 +1,7 @@
 'use strict'
 
 const util = require('util')
-const baseWidget = require('../src/baseWidget')
+const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
   constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
@@ -11,7 +11,7 @@ class myWidget extends baseWidget() {
     this.screen = screen
     this.grid = grid
 
-    this.label = 'Container Info'
+    this.label = 'Service Info'
     this.widget = this.getWidget()
 
     this.toggleVisibility = 0
@@ -33,8 +33,8 @@ class myWidget extends baseWidget() {
     toolbar.on('key', (keyString) => {
       // on info keypress i
       if (keyString === 'i') {
-        const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-        if (!containerId) {
+        const serviceId = this.widgetsRepo.get('servicesList').getSelectedService()
+        if (!serviceId) {
           return null
         }
 
@@ -46,8 +46,8 @@ class myWidget extends baseWidget() {
           this.screen.render()
           this.widget.focus()
 
-          // then show the information on the container
-          this.utilsRepo.get('docker').getContainer(containerId, (err, data) => {
+          // then show the information on the service
+          this.utilsRepo.get('docker').getService(serviceId, (err, data) => {
             if (!err) {
               this.update(util.inspect(data))
               this.screen.render()
@@ -63,11 +63,11 @@ class myWidget extends baseWidget() {
   getWidget () {
     // @TODO
     //    `return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.box, {`
-    // removed the container popup information box from the grid because it would
+    // removed the service popup information box from the grid because it would
     // have been expected to be drawn on the screen and take actual grid space
     // but instead its just a popup.
     // The @TODO is to create another kind of dashboard that will represent the
-    // container info with its own grid and we can display/hide it on the screen
+    // service info with its own grid and we can display/hide it on the screen
     // on toggle on and off
     return this.blessed.box({
       label: this.label,

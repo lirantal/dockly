@@ -4,7 +4,7 @@ const path = require('path')
 const glob = require('glob')
 const config = {
   'hooks': path.join(__dirname, '/../hooks/*.hook.js'),
-  'widgets': path.join(__dirname, '/../widgets/*.widget.js')
+  'widgets': path.join(__dirname, '/../widgets/**/*.widget.js')
 }
 
 class assetsLoader {

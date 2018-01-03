@@ -48,6 +48,16 @@ class Util {
     })
   }
 
+  listServices (cb) {
+    this.dockerCon.listServices({'all': true}, function (err, containers) {
+      if (err) {
+        return cb(err, {})
+      }
+
+      return cb(null, containers)
+    })
+  }
+
   stopAllContainers (cb) {
     this.listContainers((err, containers) => {
       if (err) {
@@ -120,6 +130,11 @@ class Util {
     return container.inspect(cb)
   }
 
+  getService (serviceId, cb) {
+    const service = this.dockerCon.getService(serviceId)
+    return service.inspect(cb)
+  }
+
   restartContainer (containerId, cb) {
     const container = this.dockerCon.getContainer(containerId)
     container.restart(cb)
@@ -161,6 +176,18 @@ class Util {
   getContainerLogs (containerId, cb) {
     const container = this.dockerCon.getContainer(containerId)
     return container.logs({
+      follow: true,
+      stdout: true,
+      stderr: true,
+      details: false,
+      tail: 50,
+      timestamps: true
+    }, cb)
+  }
+
+  getServiceLogs (serviceId, cb) {
+    const service = this.dockerCon.getService(serviceId)
+    return service.logs({
       follow: true,
       stdout: true,
       stderr: true,

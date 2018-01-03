@@ -5,8 +5,36 @@ const blessed = require('blessed')
 const contrib = require('blessed-contrib')
 const assetsLoader = require(path.join(__dirname, '/assetsLoader'))
 
+const MODES = require('../lib/modes')
+
+// @TODO should be moved outside and used as a config
+// from the user (index.js)
+const CONTAINERS_GRID_LAYOUT = {
+  'actionsMenu': [4, 4, 4, 4],
+  'actionStatus': [6, 0, 1, 10],
+  'containerInfo': [2, 2, 8, 8],
+  'containerList': [0, 0, 6, 10],
+  'containerLogs': [7, 0, 4, 12],
+  'containerStatus': [0, 10, 2, 2],
+  'containerUtilization': [2, 10, 3, 2],
+  'containerVsImages': [5, 10, 2, 2],
+  'toolbar': [11, 0, 1, 12]
+}
+
+const SERVICES_GRID_LAYOUT = {
+  'actionsMenu': [4, 4, 4, 4],
+  'actionStatus': [6, 0, 1, 10],
+  'servicesInfo': [2, 2, 8, 8],
+  'servicesList': [0, 0, 6, 10],
+  'servicesLogs': [7, 0, 4, 12],
+  'servicesStatus': [0, 10, 2, 2],
+  'servicesVsImages': [2, 10, 2, 2],
+  'toolbar': [11, 0, 1, 12]
+}
+
 class screen {
   constructor (utils = new Map()) {
+    this.mode = MODES.container
     this.screen = undefined
     this.grid = undefined
     this.title = 'Dockly'
@@ -65,34 +93,31 @@ class screen {
     }
   }
 
-  initWidgets () {
-    // @TODO should be moved outside and used as a config
-    // from the user (index.js)
-    const gridLayout = {
-      'actionsMenu': [4, 4, 4, 4],
-      'actionStatus': [6, 0, 1, 10],
-      'containerInfo': [2, 2, 8, 8],
-      'containerList': [0, 0, 6, 10],
-      'containerLogs': [7, 0, 4, 12],
-      'containerStatus': [0, 10, 2, 2],
-      'containerUtilization': [2, 10, 3, 2],
-      'containerVsImages': [5, 10, 2, 2],
-      'toolbar': [11, 0, 1, 12]
+  clearHooks () {
+    for (let [hookName] of this.assets.get('hooks').entries()) {
+      this.hooks.delete(hookName)
+      this.widgetsRepository.delete(hookName)
     }
+  }
 
+  initWidgets () {
+    const layout = this.mode === MODES.container ? CONTAINERS_GRID_LAYOUT : SERVICES_GRID_LAYOUT
     for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
-      let widget = new WidgetObject({
-        blessed,
-        contrib,
-        screen: this.screen,
-        grid: {
-          gridObj: this.grid,
-          gridLayout: gridLayout[widgetName]
-        }
-      })
+      if (layout[widgetName]) {
+        let widget = new WidgetObject({
+          blessed,
+          contrib,
+          mode: this.mode,
+          screen: this.screen,
+          grid: {
+            gridObj: this.grid,
+            gridLayout: layout[widgetName]
+          }
+        })
 
-      this.widgets.set(widgetName, widget)
-      this.widgetsRepository.set(widgetName, widget)
+        this.widgets.set(widgetName, widget)
+        this.widgetsRepository.set(widgetName, widget)
+      }
     }
   }
 
@@ -120,6 +145,20 @@ class screen {
     }
   }
 
+  toggleMode () {
+    const availableModes = Object.values(MODES)
+    if (!availableModes.includes(this.mode)) {
+      this.mode = availableModes[0]
+    } else {
+      const modeIndex = availableModes.indexOf(this.mode)
+      if (modeIndex < availableModes.length - 1) {
+        this.mode = availableModes[modeIndex + 1]
+      } else {
+        this.mode = availableModes[0]
+      }
+    }
+  }
+
   registerEvents () {
     this.screen.on('keypress', (ch, key) => {
       if (key.name === 'tab') {
@@ -144,6 +183,13 @@ class screen {
     this.screen.key('q', () => {
       this.screen.destroy()
       return process.exit(0)
+    })
+
+    this.screen.key('v', () => {
+      this.clearHooks()
+      this.toggleMode()
+      this.screen.destroy()
+      this.init()
     })
   }
 

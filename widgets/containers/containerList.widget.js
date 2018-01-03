@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const os = require('os')
 const figures = require('figures')
 
-const baseWidget = require('../src/baseWidget')
+const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
   constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
