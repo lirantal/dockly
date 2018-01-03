@@ -5,10 +5,7 @@ const blessed = require('blessed')
 const contrib = require('blessed-contrib')
 const assetsLoader = require(path.join(__dirname, '/assetsLoader'))
 
-const MODES = {
-  container: 'containers',
-  service: 'services'
-}
+const MODES = require('../lib/modes')
 
 // @TODO should be moved outside and used as a config
 // from the user (index.js)
@@ -149,10 +146,16 @@ class screen {
   }
 
   toggleMode () {
-    if (this.mode === MODES.container) {
-      this.mode = MODES.service
+    const availableModes = Object.values(MODES)
+    if (!availableModes.includes(this.mode)) {
+      this.mode = availableModes[0]
     } else {
-      this.mode = MODES.container
+      const modeIndex = availableModes.indexOf(this.mode)
+      if (modeIndex < availableModes.length - 1) {
+        this.mode = availableModes[modeIndex + 1]
+      } else {
+        this.mode = availableModes[0]
+      }
     }
   }
 

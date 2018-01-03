@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const MODES = require('../lib/modes')
 
 class myWidget extends baseWidget(EventEmitter) {
   constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}, mode}) {
@@ -64,7 +65,7 @@ class myWidget extends baseWidget(EventEmitter) {
       }
     }
 
-    const commands = this.mode === 'containers' ? Object.assign({}, baseCommands, containerCommands) : baseCommands
+    const commands = this.mode === MODES.container ? Object.assign({}, baseCommands, containerCommands) : baseCommands
 
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listbar, {
       keys: false,
