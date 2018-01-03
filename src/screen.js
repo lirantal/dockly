@@ -182,7 +182,7 @@ class screen {
       return process.exit(0)
     })
 
-    this.screen.key('t', () => {
+    this.screen.key('v', () => {
       this.clearHooks()
       this.toggleMode()
       this.screen.destroy()

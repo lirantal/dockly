@@ -111,7 +111,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
     if (services) {
       services.forEach((service) => {
-        const replicas = service.Spec.Mode.Replicated ? '' + service.Spec.Mode.Replicated.Replicas : 'n/a'
+        const replicas = service.Spec.Mode.Replicated ? '' + service.Spec.Mode.Replicated.Replicas : '0'
         list.push([
           service.ID.substring(0, 5),
           service.Spec.Name.substring(0, 25),
