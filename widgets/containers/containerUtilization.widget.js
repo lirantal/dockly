@@ -71,13 +71,13 @@ class myWidget extends baseWidget() {
     }
 
     // Calculate CPU usage based on delta from previous measurement
-    var cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage
-    var systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage
-    var cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage ? data.cpu_stats.cpu_usage.percpu_usage.length : 0
+    let cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage
+    let systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage
+    let cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage ? data.cpu_stats.cpu_usage.percpu_usage.length : 0
 
-    var cpuUsagePercent = 0
+    let cpuUsagePercent = 0
     if (systemUsageDelta !== 0 || cpuCoresAvail !== 0) {
-      var totalUsage = systemUsageDelta * cpuCoresAvail * 100
+      let totalUsage = systemUsageDelta * cpuCoresAvail * 100
       cpuUsagePercent = 0
       if (totalUsage && totalUsage !== 0) {
         cpuUsagePercent = cpuUsageDelta / totalUsage
@@ -85,10 +85,10 @@ class myWidget extends baseWidget() {
     }
 
     // Calculate Memory usage
-    var memUsage = data.memory_stats.usage
-    var memAvail = data.memory_stats.limit
+    let memUsage = data.memory_stats.usage
+    let memAvail = data.memory_stats.limit
 
-    var memUsagePercent = 0
+    let memUsagePercent = 0
     if ((memUsage !== undefined && memAvail !== undefined) && memAvail !== 0) {
       memUsagePercent = memUsage / memAvail * 100
     }
