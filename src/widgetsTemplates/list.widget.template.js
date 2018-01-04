@@ -7,14 +7,13 @@ const os = require('os')
 const baseWidget = require('../baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}, label}) {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
     super()
     this.blessed = blessed
     this.contrib = contrib
     this.screen = screen
     this.grid = grid
 
-    this.label = label
     this.widget = this.getWidget()
     this.toggleWidgetListColor = 0
   }
