@@ -1,8 +1,8 @@
 'use strict'
 
-const infoWidget = require('../../src/widgetsTemplates/info.widget.template')
+const InfoWidget = require('../../src/widgetsTemplates/info.widget.template')
 
-class myWidget extends infoWidget {
+class myWidget extends InfoWidget {
   constructor (args) {
     super(args)
     this.label = 'Container Info'
