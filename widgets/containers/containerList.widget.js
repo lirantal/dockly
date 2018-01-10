@@ -1,113 +1,28 @@
 'use strict'
 
-const EventEmitter = require('events')
 const chalk = require('chalk')
-const os = require('os')
 const figures = require('figures')
 
-const baseWidget = require('../../src/baseWidget')
+const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
-class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
-    super()
-    this.blessed = blessed
-    this.contrib = contrib
-    this.screen = screen
-    this.grid = grid
-
-    this.label = 'Containers'
-    this.widget = this.getWidget()
-    this.toggleWidgetContainerListColor = 0
+class myWidget extends ListWidget {
+  getLabel () {
+    return 'Containers'
   }
 
-  init () {
-    this.refreshContainers()
-    this.focus()
-
-    this.widget.on('select', (item, idx) => {
-      // extract the first column out of the table row which is the container id
-      const containerId = item.getContent().toString().trim().split(' ').shift()
-      if (!containerId) {
-        return null
-      }
-
-      // get logs for the container
-      this.utilsRepo.get('docker').getContainerLogs(containerId, (err, stream) => {
-        if (err) {
-          return null
-        }
-
-        let str
-        if (stream && stream.pipe) {
-          stream.on('data', (chunk) => {
-            // toggle for alternating the colors
-            this.toggleWidgetContainerListColor = !this.toggleWidgetContainerListColor
-
-            if (this.toggleWidgetContainerListColor) {
-              str = chalk.cyan(chunk.toString('utf-8').trim())
-            } else {
-              str = chalk.green(chunk.toString('utf-8').trim())
-            }
-
-            this.widgetsRepo.get('containerLogs').update(str + os.EOL)
-          })
-        }
-      })
-    })
-
-    if (!this.widgetsRepo.has('toolbar')) {
-      return null
-    }
-
-    const toolbar = this.widgetsRepo.get('toolbar')
-    toolbar.on('key', (keyString) => {
-      if (keyString === '=') {
-        this.refreshContainers()
-      }
-    })
+  getItemLogs (containerId, cb) {
+    return this.utilsRepo.get('docker').getContainerLogs(containerId, cb)
   }
 
-  getWidget () {
-    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listtable, {
-      parent: this.screen,
-      label: this.label,
-      keys: true,
-      mouse: true,
-      data: null,
-      tags: true,
-      interactive: true,
-      border: 'line',
-      hover: {
-        bg: 'blue'
-      },
-      style: {
-        header: {
-          fg: 'blue',
-          bold: true
-        },
-        cell: {
-          fg: 'magenta',
-          selected: {
-            bg: 'blue'
-          }
-        }
-      },
-      align: 'center'
-    })
+  updateItemLogs (str) {
+    return this.widgetsRepo.get('containerLogs').update(str)
   }
 
-  refreshContainers () {
-    this.utilsRepo.get('docker').listContainers((err, data) => {
-      if (!err) {
-        this.update(this.formatContainersList(data))
-        this.widget.select(1)
-        this.focus()
-        this.screen.render()
-      }
-    })
+  getListItems (cb) {
+    this.utilsRepo.get('docker').listContainers(cb)
   }
 
-  formatContainersList (containers) {
+  formatList (containers) {
     const list = []
 
     if (containers) {
@@ -173,10 +88,6 @@ class myWidget extends baseWidget(EventEmitter) {
    */
   getSelectedContainer () {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
-  }
-
-  update (data) {
-    return this.widget.setData(data)
   }
 
   /**
