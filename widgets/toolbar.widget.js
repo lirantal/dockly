@@ -55,10 +55,6 @@ class myWidget extends baseWidget(EventEmitter) {
         keys: ['s'],
         callback: () => { this.emit('key', 's') }
       },
-      'view mode': {
-        keys: ['v'],
-        callback: () => { this.emit('key', 't') }
-      },
       'menu': {
         keys: ['m'],
         callback: () => { this.emit('key', 'm') }
@@ -88,6 +84,10 @@ class myWidget extends baseWidget(EventEmitter) {
       autoCommandKeys: false,
       commands: {
         ...commands,
+        'view mode': {
+          keys: ['v'],
+          callback: () => { this.emit('key', 't') }
+        },
         'quit': {
           keys: ['q'],
           callback: () => { this.emit('key', 'q') }
