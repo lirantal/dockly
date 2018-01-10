@@ -3,10 +3,8 @@
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
-  constructor (args) {
-    super(args)
-
-    this.label = 'Services'
+  getLabel () {
+    return 'Services'
   }
 
   getItemLogs (serviceId, cb) {

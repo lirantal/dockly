@@ -13,6 +13,7 @@ class myWidget extends baseWidget(EventEmitter) {
     this.contrib = contrib
     this.screen = screen
     this.grid = grid
+    this.label = this.getLabel()
 
     this.widget = this.getWidget()
     this.toggleWidgetListColor = 0
@@ -103,6 +104,10 @@ class myWidget extends baseWidget(EventEmitter) {
         this.screen.render()
       }
     })
+  }
+
+  getLabel () {
+    throw new Error('method getLabel not implemented')
   }
 
   getListItems (cb) {

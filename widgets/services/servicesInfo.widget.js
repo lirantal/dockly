@@ -3,9 +3,8 @@
 const InfoWidget = require('../../src/widgetsTemplates/info.widget.template')
 
 class myWidget extends InfoWidget {
-  constructor (args) {
-    super(args)
-    this.label = 'Service Info'
+  getLabel () {
+    return 'Service Info'
   }
 
   getSelectedItemId () {

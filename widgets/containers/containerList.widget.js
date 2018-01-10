@@ -6,10 +6,8 @@ const figures = require('figures')
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
-  constructor (args) {
-    super(args)
-
-    this.label = 'Containers'
+  getLabel () {
+    return 'Containers'
   }
 
   getItemLogs (containerId, cb) {

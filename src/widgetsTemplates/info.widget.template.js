@@ -10,6 +10,7 @@ class myWidget extends baseWidget() {
     this.contrib = contrib
     this.screen = screen
     this.grid = grid
+    this.label = this.getLabel()
 
     this.widget = this.getWidget()
 
@@ -108,6 +109,10 @@ class myWidget extends baseWidget() {
 
   renderWidget () {
     return null
+  }
+
+  getLabel () {
+    throw new Error('method getLabel not implemented')
   }
 
   update (data) {
