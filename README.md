@@ -43,18 +43,23 @@ It's also possible to provide command line options for dockly to customize the d
 
 # Docker Support
 
+## Run from docker
+
+You can run dockly using docker:
+
+```
+docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly
+```
+
+
 ## Build
-You can build dockly as a docker image yourself, using the following command:
+
+If you wish to build dockly as a docker image yourself, you can run the following:
 
 ```
-docker build -t dockly .
-```
+$ docker build -t dockly .
 
-## Run
-To run dockly as a container, invoke the following command:
-
-```
-docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
+$ docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
 ```
 
 # Author
