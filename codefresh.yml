@@ -1,0 +1,20 @@
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: lirantal/dockly
+    working_directory: ./
+    dockerfile: Dockerfile
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+  PushToRegistry:
+      title: Pushing to Docker Registry
+      type: push
+      candidate: '${{BuildingDockerImage}}'
+      tags: ['master', 'latest']
+      when:
+        branch:
+          only:
+            - master
+
+
