@@ -37,9 +37,9 @@ It's also possible to provide command line options for dockly to customize the d
 
 | Param | Type | Description |
 | --- | --- | --- |
-| -h or --host | string | Docker host to connect to |
-| -p or --port | string | Docker port to connect to |
 | -s or --socketPath | string | Docker socket to connect to |
+| -h or --help | null | Display help |
+| -v or --version | null | Display version information |
 
 # Docker Support
 
