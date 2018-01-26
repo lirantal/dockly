@@ -5,7 +5,7 @@ const baseWidget = require('../src/baseWidget')
 const MODES = require('../lib/modes')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}, mode}) {
+  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {}, mode }) {
     super()
     this.createWidget = this.createWidget.bind(this)
     this.blessed = blessed
@@ -18,15 +18,15 @@ class myWidget extends baseWidget(EventEmitter) {
     this.widget = this.createWidget()
   }
 
-  init () {
+  init() {
     return null
   }
 
-  getWidget () {
+  getWidget() {
     return this.widget
   }
 
-  createWidget () {
+  createWidget() {
     const baseCommands = {
       'refresh': {
         keys: ['='],
@@ -82,17 +82,20 @@ class myWidget extends baseWidget(EventEmitter) {
         }
       },
       autoCommandKeys: false,
-      commands: {
-        ...commands,
-        'view mode': {
-          keys: ['v'],
-          callback: () => { this.emit('key', 't') }
-        },
-        'quit': {
-          keys: ['q'],
-          callback: () => { this.emit('key', 'q') }
-        }
-      }
+      commands:
+        Object.assign(
+          {},
+          commands,
+          {
+            'view mode': {
+              keys: ['v'],
+              callback: () => { this.emit('key', 't') }
+            },
+            'quit': {
+              keys: ['q'],
+              callback: () => { this.emit('key', 'q') }
+            }
+          })
     })
   }
 }
