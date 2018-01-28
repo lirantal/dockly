@@ -29,7 +29,8 @@ function Cli () {
 }
 
 Cli.prototype.showVersion = function () {
-  console.log(pkg.name + ' ' + pkg.version + ' by ' + pkg.author)
+  const author = pkg.author.name + '<' + pkg.author.email + '>'
+  console.log(pkg.name + ' ' + pkg.version + ' by ' + author)
   console.log(pkg.description)
   console.log()
 }
