@@ -15,7 +15,7 @@
 
 
 # Dockly
-Docker console UI and Dashboard for quick manging and inspecting of Containers and Images
+Docker console UI and Dashboard for quick managing and inspecting of Containers and Images
 
 ![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
