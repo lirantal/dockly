@@ -58,7 +58,8 @@
     "dockerode": "^2.5.0",
     "figures": "^2.0.0",
     "glob": "^7.1.2",
-    "opn": "^5.1.0"
+    "opn": "^5.1.0",
+    "semver": "^5.5.0"
   },
   "devDependencies": {
     "standard": "^10.0.2"
