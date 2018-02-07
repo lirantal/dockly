@@ -22,7 +22,8 @@ if (cliOptions.version) {
 }
 
 if (semver.lt(process.version, nodeVersion.minimum)) {
-  console.log('unsupported node version please use a version equal or greater than ' + nodeVersion.minimum)
+  cli.showUsage()
+  console.log('unsupported node version, please use a version equal or greater than ' + nodeVersion.minimum)
   process.exit(0)
 }
 
