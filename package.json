@@ -1,12 +1,13 @@
 {
   "name": "dockly",
-  "version": "3.2.4",
+  "version": "0.0.0-development",
   "description": "Interactive shell for managing Docker containers",
   "main": "index.js",
   "scripts": {
     "test": "yarn run lint",
     "lint": "standard",
-    "lint:fix": "standard --fix"
+    "lint:fix": "standard --fix",
+    "semantic-release": "semantic-release"
   },
   "engines": {
     "node": ">=8.9.4"
@@ -62,6 +63,7 @@
     "semver": "^5.5.0"
   },
   "devDependencies": {
+    "semantic-release": "^12.4.1",
     "standard": "^10.0.2"
   }
 }
