@@ -10,7 +10,7 @@
     "semantic-release": "semantic-release"
   },
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=7.6.0"
   },
   "bin": {
     "dockly": "./index.js"
