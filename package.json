@@ -65,5 +65,8 @@
   "devDependencies": {
     "semantic-release": "^12.4.1",
     "standard": "^10.0.2"
+  },
+  "release": {
+    "branch": "master"
   }
 }
