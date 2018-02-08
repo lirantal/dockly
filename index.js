@@ -5,6 +5,7 @@
  * Project dependencies
  */
 const semver = require('semver')
+const chalk = require('chalk')
 const nodeVersion = require('./lib/node.version')
 const Screen = require('./src/screen')
 const DockerUtil = require('./src/dockerUtil')
@@ -23,7 +24,7 @@ if (cliOptions.version) {
 
 if (semver.lt(process.version, nodeVersion.minimum)) {
   cli.showUsage()
-  console.log('unsupported node version, please use a version equal or greater than ' + nodeVersion.minimum)
+  console.log(chalk.red('unsupported node version, please use a version equal or greater than ' + nodeVersion.minimum))
   process.exit(0)
 }
 
