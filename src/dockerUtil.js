@@ -118,7 +118,7 @@ class Util {
       host.ServerVersion = data.ServerVersion
 
       this.dockerCon.version(function (vErr, vData) {
-        host.ApiVersion = vData.ApiVersion
+        host.ApiVersion = vData && vData.ApiVersion ? vData.ApiVersion : ''
 
         cb(host)
       })
