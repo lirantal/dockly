@@ -69,5 +69,35 @@ $ docker build -t dockly .
 $ docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
 ```
 
+# FAQ
+
+1. Unsuported Node.js Version
+If you're getting the following error in your CLI:
+```
+root@neo:~# dockly
+/usr/local/lib/node_modules/dockly/src/screen.js:36
+constructor (utils = new Map()) {
+^
+
+SyntaxError: Unexpected token =
+at exports.runInThisContext (vm.js:53:16)
+at Module._compile (module.js:374:25)
+```
+
+Or this kind of error:
+```
+Trace: TypeError: Object.values is not a function                                                                                                            
+    at screen.toggleMode (/home/vokiel/.nvm/versions/node/v6.11.1/lib/node_modules/dockly/src/screen.js:149:35)
+    at Screen.screen.key (/home/vokiel/.nvm/versions/node/v6.11.1/lib/node_modules/dockly/src/screen.js:190:12)
+    at Screen.EventEmitter._emit
+    (/home/vokiel/.nvm/versions/node/v6.11.1/lib/node_modules/dockly/node_modules/blessed/lib/events.js:98:20)
+```
+
+This is most likely you're using an unsupported Node.js version.
+Dockly requires Node.js v7.6 and above
+
+
+
+
 # Author
 Liran Tal <liran.tal@gmail.com>
