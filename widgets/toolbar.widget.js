@@ -67,6 +67,9 @@ class myWidget extends baseWidget(EventEmitter) {
       keys: false,
       mouse: true,
       style: {
+        prefix: {
+          fg: 'yellow'
+        },
         bg: 'green',
         item: {
           bg: 'black',
