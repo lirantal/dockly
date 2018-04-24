@@ -90,6 +90,10 @@ class myWidget extends baseWidget(EventEmitter) {
           {},
           commands,
           {
+            'help': {
+              keys: ['h'],
+              callback: () => { this.emit('key', 'h') }
+            },
             'view mode': {
               keys: ['v'],
               callback: () => { this.emit('key', 't') }

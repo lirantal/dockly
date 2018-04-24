@@ -18,12 +18,14 @@ const CONTAINERS_GRID_LAYOUT = {
   'containerStatus': [0, 10, 2, 2],
   'containerUtilization': [2, 10, 3, 2],
   'containerVsImages': [5, 10, 2, 2],
+  'help': [4, 4, 4, 4],
   'toolbar': [11, 0, 1, 12]
 }
 
 const SERVICES_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
   'actionStatus': [6, 0, 1, 10],
+  'help': [4, 4, 4, 4],
   'servicesInfo': [2, 2, 8, 8],
   'servicesList': [0, 0, 6, 10],
   'servicesLogs': [7, 0, 4, 12],
