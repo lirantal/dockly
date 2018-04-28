@@ -1,4 +1,10 @@
-<img width="200" src="https://user-images.githubusercontent.com/316371/28937414-67ee5ffa-7893-11e7-95f9-5059cacf9170.png">
+<p align="center">
+	<br>
+  <img width="200" src="https://user-images.githubusercontent.com/316371/28937414-67ee5ffa-7893-11e7-95f9-5059cacf9170.png">
+	<br>
+Docker console UI and Dashboard for quick managing and inspecting of Containers and Images
+</p>
+
 
 [![Node Version](https://img.shields.io/badge/node-%3E=7.6.0-brightgreen.svg)]()
 [![view on npm](http://img.shields.io/npm/v/dockly.svg)](https://www.npmjs.org/package/dockly)
@@ -16,10 +22,6 @@
 )](https://github.com/k4m4/terminals-are-sexy) 
 
 
-
-
-# Dockly
-Docker console UI and Dashboard for quick managing and inspecting of Containers and Images
 
 ![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
