@@ -51,6 +51,10 @@ class myWidget extends baseWidget(EventEmitter) {
         keys: ['r'],
         callback: () => { this.emit('key', 'r') }
       },
+      'delete': {
+        keys: ['d'],
+        callback: () => { this.emit('key', 'd')}
+      },
       'stop': {
         keys: ['s'],
         callback: () => { this.emit('key', 's') }

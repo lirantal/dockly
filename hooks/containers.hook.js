@@ -42,6 +42,10 @@ class hook extends baseWidget(EventEmitter) {
       if (keyString === 's') {
         this.stopContainer()
       }
+
+      if (keyString === 'd') {
+        this.deleteContainer()
+      }
     })
   }
 
@@ -105,6 +109,42 @@ class hook extends baseWidget(EventEmitter) {
           this.emit('loaderEnd', {
             title: title,
             message: message
+          })
+        })
+      }
+    }
+  }
+
+  deleteContainer() {
+    if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
+      const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+      if (containerId && containerId !== 0 && containerId !== false) {
+        const title = 'Deleting container'
+        let message = `Deleting container ${containerId}`
+
+        this.emit('loaderStart', {
+          title: title,
+          message: message
+        })
+
+        this.utilsRepo.get('docker').removeContainer(containerId, (err, data) => {
+          if (err && err.statusCode === 500) {
+            message = err.json.message
+          } else {
+            message = 'Container removed successfully'
+          }
+
+          this.emit('loaderEnd', {
+            title: title,
+            message: message
+          })
+
+          this.getFreshData((err, fre) => {
+            if (err) {
+              data = {}
+            }
+            // emit an even for a refreshed list of containers and images
+            this.emit('containersAndImagesList', data)
           })
         })
       }
