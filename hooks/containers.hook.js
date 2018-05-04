@@ -115,7 +115,7 @@ class hook extends baseWidget(EventEmitter) {
     }
   }
 
-  deleteContainer() {
+  deleteContainer () {
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId && containerId !== 0 && containerId !== false) {
