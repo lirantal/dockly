@@ -17,6 +17,7 @@ class myWidget extends baseWidget() {
 
     this.menuItems = {
       'Stop All Containers': this.stopAllContainers,
+      'Remove Selected Container': this.deleteSelectedContainer,
       'Remove All Containers': this.removeAllContainers,
       'Remove All Images': this.removeAllImages
     }
@@ -40,6 +41,17 @@ class myWidget extends baseWidget() {
     this.utilsRepo.get('docker').removeAllImages((res) => {
       // @TODO not doing anything yet with the results
     })
+  }
+
+  deleteSelectedContainer () {
+    if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
+      const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+      if (containerId && containerId !== 0 && containerId !== false) {
+        this.utilsRepo.get('docker').removeContainer(containerId, () => {
+          // TODO: emit an event for a refreshed list of containers and images
+        })
+      }
+    }
   }
 
   init () {
