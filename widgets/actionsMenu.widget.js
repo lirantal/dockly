@@ -47,7 +47,7 @@ class myWidget extends baseWidget() {
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId && containerId !== 0 && containerId !== false) {
-        this.utilsRepo.get('docker').removeContainer(containerId, (err, data) => {
+        this.utilsRepo.get('docker').removeContainer(containerId, () => {
           // TODO: emit an event for a refreshed list of containers and images
         })
       }
