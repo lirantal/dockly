@@ -78,7 +78,7 @@ class hook extends baseWidget(EventEmitter) {
         if (err) {
           return cb(err, {})
         }
-        return cb(null, {containers, images})
+        return cb(null, { containers, images })
       })
     })
   }
@@ -87,10 +87,12 @@ class hook extends baseWidget(EventEmitter) {
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId && containerId !== 0 && containerId !== false) {
+        const actionStatus = this.widgetsRepo.get('actionStatus')
+
         const title = 'Restarting container'
         let message = 'Restarting container...'
 
-        this.emit('loaderStart', {
+        actionStatus.emit('message', {
           title: title,
           message: message
         })
@@ -102,7 +104,7 @@ class hook extends baseWidget(EventEmitter) {
             message = 'Container restarted successfully'
           }
 
-          this.emit('loaderEnd', {
+          actionStatus.emit('message', {
             title: title,
             message: message
           })
@@ -115,10 +117,12 @@ class hook extends baseWidget(EventEmitter) {
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId && containerId !== 0 && containerId !== false) {
+        const actionStatus = this.widgetsRepo.get('actionStatus')
+
         const title = 'Stop container'
         let message = 'Stopping container...'
 
-        this.emit('loaderStart', {
+        actionStatus.emit('message', {
           title: title,
           message: message
         })
@@ -130,7 +134,7 @@ class hook extends baseWidget(EventEmitter) {
             message = 'Container stopped successfully'
           }
 
-          this.emit('loaderEnd', {
+          actionStatus.emit('message', {
             title: title,
             message: message
           })

@@ -3,7 +3,7 @@
 const baseWidget = require('../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -26,29 +26,54 @@ class myWidget extends baseWidget() {
   }
 
   stopAllContainers () {
+    const actionStatus = this.widgetsRepo.get('actionStatus')
+    const data = {
+      title: 'Stopping all containers',
+      message: 'Stopping all containers...'
+    }
+
+    actionStatus.emit('message', data)
     this.utilsRepo.get('docker').stopAllContainers((res) => {
-      // @TODO not doing anything yet with the result
+      actionStatus.emit('message', Object.assign(data, { message: 'All containers stopped successfully' }))
     })
   }
 
   removeAllContainers () {
+    const actionStatus = this.widgetsRepo.get('actionStatus')
+    const data = {
+      title: 'Removing all containers',
+      message: 'Removing all containers...'
+    }
+
     this.utilsRepo.get('docker').removeAllContainers((res) => {
-      // @TODO not doing anything yet with the result
+      actionStatus.emit('message', Object.assign(data, { message: 'All containers removed successfully' }))
     })
   }
 
   removeAllImages () {
+    const actionStatus = this.widgetsRepo.get('actionStatus')
+    const data = {
+      title: 'Removing all images',
+      message: 'Removing all images...'
+    }
+
     this.utilsRepo.get('docker').removeAllImages((res) => {
-      // @TODO not doing anything yet with the results
+      actionStatus.emit('message', Object.assign(data, { message: 'All images removed successfully' }))
     })
   }
 
   deleteSelectedContainer () {
+    const actionStatus = this.widgetsRepo.get('actionStatus')
+    const data = {
+      title: 'Removing selected container',
+      message: 'Removing selected container...'
+    }
+
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
       if (containerId && containerId !== 0 && containerId !== false) {
         this.utilsRepo.get('docker').removeContainer(containerId, () => {
-          // TODO: emit an event for a refreshed list of containers and images
+          actionStatus.emit('message', Object.assign(data, { message: `Container removed successfully: ${containerId}` }))
         })
       }
     }
