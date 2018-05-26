@@ -1,8 +1,10 @@
 'use strict'
+
+const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
 
-class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+class myWidget extends baseWidget(EventEmitter) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -14,22 +16,7 @@ class myWidget extends baseWidget() {
   }
 
   init () {
-    if (!this.widgetsRepo.has('containers')) {
-      return null
-    }
-
-    this.widget.on('keypress', (ch, key) => {
-      if (key.name === 'escape') {
-        this.widget.destroy()
-      }
-    })
-
-    const dockerHook = this.widgetsRepo.get('containers')
-    dockerHook.on('loaderStart', (data) => {
-      return this.update(data)
-    })
-
-    dockerHook.on('loaderEnd', (data) => {
+    this.on('message', (data) => {
       return this.update(data)
     })
   }
