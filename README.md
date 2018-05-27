@@ -2,7 +2,7 @@
 	<br>
   <img width="200" src="https://user-images.githubusercontent.com/316371/28937414-67ee5ffa-7893-11e7-95f9-5059cacf9170.png">
 	<br>
-Docker console UI and Dashboard for quick managing and inspecting of Containers and Images
+ Immersive terminal interface for managing docker containers and services
 </p>
 
 
