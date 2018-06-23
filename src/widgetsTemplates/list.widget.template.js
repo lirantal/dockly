@@ -25,7 +25,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
     this.widget.on('select', (item, idx) => {
       // extract the first column out of the table row which is the item id
-      const itemId = item.getContent().toString().trim().split(' ').shift()
+      const itemId = this.getItemId(item)
       if (!itemId) {
         return null
       }
@@ -98,12 +98,21 @@ class myWidget extends baseWidget(EventEmitter) {
   refreshList () {
     this.getListItems((err, data) => {
       if (!err) {
+        const selectedIndex = this.widget.selected
         this.update(this.formatList(data))
-        this.widget.select(1)
+        this.widget.select(selectedIndex)
         this.focus()
         this.screen.render()
       }
     })
+  }
+
+  getItemId (item) {
+    if (!item) {
+      return null
+    }
+
+    return item.getContent().toString().trim().split(' ').shift()
   }
 
   getLabel () {

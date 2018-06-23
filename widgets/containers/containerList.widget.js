@@ -6,6 +6,11 @@ const figures = require('figures')
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
+  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+    super({blessed, contrib, screen, grid})
+    this.containersList = {}
+  }
+
   getLabel () {
     return 'Containers'
   }
@@ -23,19 +28,27 @@ class myWidget extends ListWidget {
   }
 
   formatList (containers) {
-    const list = []
-
     if (containers) {
       containers.forEach((container) => {
-        list.push([container.Id.substring(0, 5), container.Names[0].substring(0, 20), container.Image.substring(0, 19), container.Command.substring(0, 30), container.State, container.Status])
+        this.containersList[container.Id] = [
+          container.Id.substring(0, 5),
+          container.Names[0].substring(0, 40),
+          container.Image.substring(0, 35),
+          container.Command.substring(0, 30),
+          container.State,
+          container.Status
+        ]
       })
     }
 
-    list.sort(this.sortContainers)
+    let list = []
+    list = Object.keys(this.containersList).map((key) => {
+      let container = []
 
-    list.map((container) => {
+      container = this.containersList[key]
       container[4] = this.formatContainerState(container[4])
       container[5] = this.formatContainerStatus(container[5])
+
       return container
     })
 
