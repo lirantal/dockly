@@ -26,7 +26,7 @@
 ![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
 # Install
-Install the API module as a depdency in your project so you can easily use it to query Operations Orchestration REST API
+Install the API module as a dependency in your project so you can easily use it to query Operations Orchestration REST API
 
 ```javascript
 npm install -g dockly
@@ -73,7 +73,8 @@ $ docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dock
 
 # FAQ
 
-1. Unsuported Node.js Version
+1. Unsupported Node.js Version
+
 If you're getting the following error in your CLI:
 ```
 root@neo:~# dockly
@@ -95,7 +96,7 @@ Trace: TypeError: Object.values is not a function
     (/home/vokiel/.nvm/versions/node/v6.11.1/lib/node_modules/dockly/node_modules/blessed/lib/events.js:98:20)
 ```
 
-This is most likely you're using an unsupported Node.js version.
+This is most likely because you're using an unsupported Node.js version.
 Dockly requires Node.js v7.6 and above
 
 
