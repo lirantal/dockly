@@ -51,7 +51,7 @@ Cli.prototype.showUsage = function () {
       optionList: this.cliOpts
     },
     {
-      content: 'Project home: [underline]{https://github.com/lirantal/dockly}'
+      content: 'Project home: {underline https://github.com/lirantal/dockly}'
     }
   ])
 

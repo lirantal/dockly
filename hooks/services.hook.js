@@ -56,7 +56,7 @@ class hook extends baseWidget(EventEmitter) {
         if (err) {
           return cb(err, {})
         }
-        return cb(null, {services, images})
+        return cb(null, { services, images })
       })
     })
   }

@@ -59,9 +59,9 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.7.5",
-    "chalk": "^2.0.1",
-    "command-line-args": "^4.0.6",
-    "command-line-usage": "^4.0.0",
+    "chalk": "^2.4.1",
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5",
     "dockerode": "^2.5.0",
     "figures": "^2.0.0",
     "glob": "^7.1.2",
@@ -69,8 +69,8 @@
     "semver": "^5.5.0"
   },
   "devDependencies": {
-    "semantic-release": "^12.4.1",
-    "standard": "^10.0.2"
+    "semantic-release": "^15.9.12",
+    "standard": "^12.0.1"
   },
   "release": {
     "branch": "master"
