@@ -2,7 +2,6 @@
 
 const EventEmitter = require('events')
 const chalk = require('chalk')
-const os = require('os')
 
 const baseWidget = require('../baseWidget')
 
@@ -48,7 +47,7 @@ class myWidget extends baseWidget(EventEmitter) {
               str = chalk.green(chunk.toString('utf-8').trim())
             }
 
-            this.updateItemLogs(str + os.EOL)
+            this.updateItemLogs(str)
           })
         }
       })
