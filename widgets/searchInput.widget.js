@@ -7,7 +7,7 @@ const ASCII_CHAR_START = 33
 const ASCII_CHAR_END = 126
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -21,15 +21,15 @@ class myWidget extends baseWidget(EventEmitter) {
     this.inputValue = []
   }
 
-  getLabel () {
+  getLabel() {
     return ''
   }
 
-  renderWidget () {
+  renderWidget() {
     return null
   }
 
-  captureText (key) {
+  captureText(key) {
     if (!key || typeof key !== 'object') {
       return ''
     }
@@ -52,7 +52,7 @@ class myWidget extends baseWidget(EventEmitter) {
     return this.inputValue.join('')
   }
 
-  init () {
+  init() {
     if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
@@ -61,6 +61,7 @@ class myWidget extends baseWidget(EventEmitter) {
       if (key.name === 'escape' || key.name === 'return' || key.name === 'enter') {
         this.toggleVisibility = !this.toggleVisibility
         this.widget.clearValue()
+        this.inputValue = []
         this.widget.destroy()
         this.widgetsRepo.get('containerList').focus()
       } else {
@@ -86,7 +87,7 @@ class myWidget extends baseWidget(EventEmitter) {
     this.screen.remove(this.widget)
   }
 
-  getWidget () {
+  getWidget() {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.textbox, {
       focused: false,
       border: 'line',
