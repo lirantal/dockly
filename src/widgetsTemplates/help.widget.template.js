@@ -3,7 +3,7 @@
 const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -108,6 +108,7 @@ class myWidget extends baseWidget() {
 
     ▸ h: Show/hide this window
     ▸ =: Refresh the current view
+    ▸ /: Search the containers list view
     ▸ i: Display information dialog about the selected container or service
     ▸ ⏎: Show the logs of the current container or service
     ▸ v: Toggle between Containers and Services view

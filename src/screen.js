@@ -11,6 +11,7 @@ const MODES = require('../lib/modes')
 // from the user (index.js)
 const CONTAINERS_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
+  'searchInput': [11, 0, 1, 12],
   'actionStatus': [6, 0, 1, 10],
   'containerInfo': [2, 2, 8, 8],
   'containerList': [0, 0, 6, 10],
@@ -61,7 +62,7 @@ class screen {
 
     // initialize 12x12 grid
     // eslint-disable-next-line new-cap
-    this.grid = new contrib.grid({rows: 12, cols: 12, hideBorder: true, screen: this.screen})
+    this.grid = new contrib.grid({ rows: 12, cols: 12, hideBorder: true, screen: this.screen })
   }
 
   init () {

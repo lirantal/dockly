@@ -7,7 +7,7 @@ const os = require('os')
 const baseWidget = require('../baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -63,6 +63,11 @@ class myWidget extends baseWidget(EventEmitter) {
       if (keyString === '=') {
         this.refreshList()
       }
+    })
+
+    const searchInput = this.widgetsRepo.get('searchInput')
+    searchInput.on('keypress', (data) => {
+      this.filterList(data)
     })
   }
 
@@ -129,6 +134,10 @@ class myWidget extends baseWidget(EventEmitter) {
 
   updateItemLogs (str) {
     throw new Error('method updateItemLogs not implemented')
+  }
+
+  filterList (data) {
+    throw new Error('method filterList not implemented')
   }
 
   formatList (data) {

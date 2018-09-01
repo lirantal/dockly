@@ -6,9 +6,10 @@ const figures = require('figures')
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
-    super({blessed, contrib, screen, grid})
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+    super({ blessed, contrib, screen, grid })
     this.containersList = {}
+    this.containersListData = []
   }
 
   getLabel () {
@@ -25,6 +26,30 @@ class myWidget extends ListWidget {
 
   getListItems (cb) {
     this.utilsRepo.get('docker').listContainers(cb)
+  }
+
+  filterList (data) {
+    let filteredContainersList = this.containersListData[0]
+    let containersList = this.containersListData.slice(1)
+    let filteredContainers = []
+
+    if (data) {
+      filteredContainers = containersList.filter((container, index, containerItems) => {
+        const containerName = container[1]
+        const containerImageName = container[2]
+
+        if ((containerName.indexOf(data) !== -1) || (containerImageName.indexOf(data) !== -1)) {
+          return true
+        }
+      })
+    }
+
+    if (filteredContainers.length > 0) {
+      filteredContainers.unshift(filteredContainersList)
+      this.update(filteredContainers)
+    } else {
+      this.update(this.containersListData)
+    }
   }
 
   formatList (containers) {
@@ -53,6 +78,7 @@ class myWidget extends ListWidget {
     })
 
     list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status'])
+    this.containersListData = list
 
     return list
   }
