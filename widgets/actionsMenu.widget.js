@@ -86,14 +86,14 @@ class myWidget extends baseWidget() {
 
     this.widget.on('keypress', (ch, key) => {
       if (key.name === 'escape' || key.name === 'return') {
+        this.toggleVisibility = !this.toggleVisibility
         this.widget.destroy()
       }
     })
 
     this.widget.on('select', (el, selected) => {
-      const option = el.getText()
-
       this.toggleVisibility = !this.toggleVisibility
+      const option = el.getText()
 
       const optionFunction = this.menuItems[option]
       if (typeof optionFunction === 'function') {
