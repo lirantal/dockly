@@ -39,7 +39,7 @@ class Util {
   }
 
   listContainers (cb) {
-    this.dockerCon.listContainers({'all': true}, function (err, containers) {
+    this.dockerCon.listContainers({ 'all': true }, function (err, containers) {
       if (err) {
         return cb(err, {})
       }
@@ -49,7 +49,7 @@ class Util {
   }
 
   listServices (cb) {
-    this.dockerCon.listServices({'all': true}, function (err, containers) {
+    this.dockerCon.listServices({ 'all': true }, function (err, containers) {
       if (err) {
         return cb(err, {})
       }
@@ -165,7 +165,7 @@ class Util {
     }
 
     const container = this.dockerCon.getContainer(containerId)
-    container.stats({stream: false}, function (err, stream) {
+    container.stats({ stream: false }, function (err, stream) {
       if (err) {
         return cb(null)
       }

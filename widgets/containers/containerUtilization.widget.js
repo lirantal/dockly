@@ -2,7 +2,7 @@
 const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor ({blessed = {}, contrib = {}, screen = {}, grid = {}}) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
