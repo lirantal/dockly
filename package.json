@@ -7,7 +7,9 @@
     "test": "yarn run lint",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": ">=7.6.0"
@@ -66,7 +68,8 @@
     "figures": "^2.0.0",
     "glob": "^7.1.2",
     "opn": "^5.1.0",
-    "semver": "^5.5.0"
+    "semver": "^5.5.0",
+    "snyk": "^1.94.0"
   },
   "devDependencies": {
     "semantic-release": "^15.9.12",
@@ -74,5 +77,6 @@
   },
   "release": {
     "branch": "master"
-  }
+  },
+  "snyk": true
 }
