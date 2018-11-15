@@ -1,9 +1,8 @@
 'use strict'
-
 const path = require('path')
-const opn = require('opn')
 const fs = require('fs')
 const baseWidget = require('../src/baseWidget')
+const TerminalLauncher = require('../lib/TerminalLauncher')
 
 class hook extends baseWidget() {
   init () {
@@ -26,18 +25,18 @@ class hook extends baseWidget() {
       let containerIdFile = path.join(__dirname, '/../containerId.txt')
       fs.writeFile(containerIdFile, containerId, 'utf8', (err) => {
         if (!err) {
-          return opn(`${__dirname}/../dockerRunScript.sh`)
-            .catch((err) => {
-              const actionStatus = this.widgetsRepo.get('actionStatus')
+          TerminalLauncher.launchTerminal().catch((err) => {
+            console.log(err)
+            const actionStatus = this.widgetsRepo.get('actionStatus')
 
-              const title = 'Shell login to container'
-              const message = 'Failed opening shell login for container: ' + containerId + ' - ' + err
+            const title = 'Shell login to container'
+            const message = 'Failed opening shell login for container: ' + containerId + ' - ' + err
 
-              actionStatus.emit('message', {
-                title: title,
-                message: message
-              })
+            actionStatus.emit('message', {
+              title: title,
+              message: message
             })
+          })
         }
       })
     }
