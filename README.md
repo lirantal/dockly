@@ -58,7 +58,7 @@ It's also possible to provide command line options for dockly to customize the d
 You can run dockly using docker:
 
 ```
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly
 ```
 
 
@@ -69,7 +69,7 @@ If you wish to build dockly as a docker image yourself, you can run the followin
 ```
 $ docker build -t dockly .
 
-$ docker run -it --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
+$ docker run -it --rm --name dockly -v /var/run/docker.sock:/var/run/docker.sock dockly
 ```
 
 # FAQ
