@@ -15,6 +15,10 @@ class myWidget extends ListWidget {
     return this.widgetsRepo.get('servicesLogs').update(str)
   }
 
+  clearItemLogs () {
+    return this.widgetsRepo.get('servicesLogs').clear()
+  }
+
   getListItems (cb) {
     this.utilsRepo.get('docker').listServices(cb)
   }

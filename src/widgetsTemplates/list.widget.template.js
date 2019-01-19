@@ -29,6 +29,9 @@ class myWidget extends baseWidget(EventEmitter) {
         return null
       }
 
+      // clear log box of previous logs
+      this.clearItemLogs()
+
       // get logs for the items
       this.getItemLogs(itemId, (err, stream) => {
         if (err) {
@@ -133,6 +136,10 @@ class myWidget extends baseWidget(EventEmitter) {
 
   updateItemLogs (str) {
     throw new Error('method updateItemLogs not implemented')
+  }
+
+  clearItemLogs (str) {
+    throw new Error('method clearItemlogs not implemented')
   }
 
   filterList (data) {

@@ -60,6 +60,10 @@ class myWidget extends baseWidget() {
   update (data) {
     return this.widget.add(data)
   }
+
+  clear () {
+    return this.widget.setContent()
+  }
 }
 
 module.exports = myWidget
