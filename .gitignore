@@ -2,3 +2,4 @@ node_modules/
 *.log
 .idea/
 containerId.txt
+package-lock.json
