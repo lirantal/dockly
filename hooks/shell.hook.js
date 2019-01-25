@@ -5,7 +5,7 @@ const baseWidget = require('../src/baseWidget')
 const TerminalLauncher = require('opn-shell')
 
 class hook extends baseWidget() {
-  init() {
+  init () {
     if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
@@ -19,7 +19,7 @@ class hook extends baseWidget() {
     })
   }
 
-  openShell() {
+  openShell () {
     const dockerRunScriptPath = `${__dirname}/../dockerRunScript.sh`
     let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
 
