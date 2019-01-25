@@ -2,7 +2,7 @@
 const path = require('path')
 const fs = require('fs')
 const baseWidget = require('../src/baseWidget')
-const TerminalLauncher = require('../lib/TerminalLauncher')
+const TerminalLauncher = require('opn-shell')
 
 class hook extends baseWidget() {
   init () {
@@ -20,12 +20,14 @@ class hook extends baseWidget() {
   }
 
   openShell () {
+    const dockerRunScriptPath = `${__dirname}/../dockerRunScript.sh`
     let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+
     if (containerId) {
       let containerIdFile = path.join(__dirname, '/../containerId.txt')
       fs.writeFile(containerIdFile, containerId, 'utf8', (err) => {
         if (!err) {
-          TerminalLauncher.launchTerminal().catch((err) => {
+          TerminalLauncher.launchTerminal({ path: dockerRunScriptPath }).catch((err) => {
             console.log(err)
             const actionStatus = this.widgetsRepo.get('actionStatus')
 
