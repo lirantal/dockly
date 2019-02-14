@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const baseWidget = require('../src/baseWidget');
-const cp = require('child_process');
-const console = require('console');
+const baseWidget = require('../src/baseWidget')
+const cp = require('child_process')
+const console = require('console')
 
 class hook extends baseWidget() {
   init () {
@@ -27,18 +27,17 @@ class hook extends baseWidget() {
       this.utilsRepo.get('docker').getContainer(containerId, (_, container) => {
         if (!container.State.Running) {
           this.emitActionStatus('Oops!', 'Cannot attach interactive shell - Container is not running.')
-
           return
         }
 
         try {
           console.clear()
+
           cp.execSync(`docker exec -it "${containerId}" /bin/sh`, {
             'stdio': 'inherit'
           })
 
           this.emitActionStatus('Ok', 'Exitted shell.')
-
         } catch (error) {
           this.emitActionStatus('Error', error)
         } finally {
