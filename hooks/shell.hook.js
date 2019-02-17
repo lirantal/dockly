@@ -33,7 +33,7 @@ class hook extends baseWidget() {
         try {
           console.clear()
 
-          cp.execSync(`docker exec -it "${containerId}" /bin/sh`, {
+          cp.execFileSync('docker', ['exec', '-it', containerId, '/bin/sh'], {
             'stdio': 'inherit'
           })
 
