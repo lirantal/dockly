@@ -1,8 +1,8 @@
 'use strict'
-const path = require('path')
-const fs = require('fs')
+
 const baseWidget = require('../src/baseWidget')
-const TerminalLauncher = require('opn-shell')
+const cp = require('child_process')
+const console = require('console')
 
 class hook extends baseWidget() {
   init () {
@@ -20,28 +20,41 @@ class hook extends baseWidget() {
   }
 
   openShell () {
-    const dockerRunScriptPath = `${__dirname}/../dockerRunScript.sh`
-    let containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+    const containerList = this.widgetsRepo.get('containerList')
+    const containerId = containerList.getSelectedContainer()
 
     if (containerId) {
-      let containerIdFile = path.join(__dirname, '/../containerId.txt')
-      fs.writeFile(containerIdFile, containerId, 'utf8', (err) => {
-        if (!err) {
-          TerminalLauncher.launchTerminal({ path: dockerRunScriptPath }).catch((err) => {
-            console.log(err)
-            const actionStatus = this.widgetsRepo.get('actionStatus')
+      this.utilsRepo.get('docker').getContainer(containerId, (_, container) => {
+        if (!container.State.Running) {
+          this.emitActionStatus('Oops!', 'Cannot attach interactive shell - Container is not running.')
+          return
+        }
 
-            const title = 'Shell login to container'
-            const message = 'Failed opening shell login for container: ' + containerId + ' - ' + err
+        try {
+          console.clear()
 
-            actionStatus.emit('message', {
-              title: title,
-              message: message
-            })
+          cp.execFileSync('docker', ['exec', '-it', containerId, '/bin/sh'], {
+            'stdio': 'inherit'
           })
+
+          this.emitActionStatus('Ok', 'Exitted shell.')
+        } catch (error) {
+          this.emitActionStatus('Error', error)
+        } finally {
+          console.clear()
+          // Force realloc buffers because tracked history is not valid anymore
+          containerList.screen.realloc()
         }
       })
     }
+  }
+
+  emitActionStatus (title, message) {
+    const actionStatus = this.widgetsRepo.get('actionStatus')
+    actionStatus.emit('message', {
+      message,
+      title
+    })
   }
 }
 
