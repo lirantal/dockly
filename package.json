@@ -58,7 +58,7 @@
   "homepage": "https://github.com/lirantal/dockly#readme",
   "dependencies": {
     "blessed": "^0.1.81",
-    "blessed-contrib": "4.8.10",
+    "blessed-contrib": "4.8.12",
     "chalk": "2.4.2",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
