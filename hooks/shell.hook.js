@@ -37,7 +37,7 @@ class hook extends baseWidget() {
             'stdio': 'inherit'
           })
 
-          this.emitActionStatus('Ok', 'Exitted shell.')
+          this.emitActionStatus('Ok', 'Exited shell.')
         } catch (error) {
           this.emitActionStatus('Error', error)
         } finally {
