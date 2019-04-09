@@ -450,17 +450,17 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-blessed-contrib@4.8.12:
-  version "4.8.12"
-  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.12.tgz#659cc00934a53e936d1a778bb61837644a379196"
-  integrity sha512-1pyMHriPTUo0U7H04Q4DGgO09iKHkldBOnaizIbnpMhEfY3N1WkWhBYnHSpikOYhSWt31Un/pwjF437NDknfyg==
+blessed-contrib@^4.8.13:
+  version "4.8.13"
+  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.13.tgz#860fb3f5b9b04edb9a615b165b49aaa4d98bcc83"
+  integrity sha512-rMhOS7Xc43JbYuJjEnVVaalIlAOFmwNVWhX0hhkw8TN0x+4PKlSHqezJ9yvys4DE3cjrU+3KqVbk2HEQAtSrvg==
   dependencies:
     ansi-term ">=0.0.2"
     chalk "^1.1.0"
     drawille-canvas-blessed-contrib ">=0.1.3"
-    lodash ">=3.0.0"
+    lodash ">4.17.11"
     map-canvas ">=0.1.5"
-    marked "^0.4.0"
+    marked "^0.6.2"
     marked-terminal "^1.5.0"
     memory-streams "^0.1.0"
     memorystream "^0.3.1"
@@ -2871,7 +2871,7 @@ lodash.without@~4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.without/-/lodash.without-4.4.0.tgz#3cd4574a00b67bae373a94b748772640507b7aac"
 
-lodash@>=3.0.0:
+lodash@>4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -3011,15 +3011,15 @@ marked-terminal@^3.2.0:
     node-emoji "^1.4.1"
     supports-hyperlinks "^1.0.1"
 
-marked@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.4.0.tgz#9ad2c2a7a1791f10a852e0112f77b571dce10c66"
-  integrity sha512-tMsdNBgOsrUophCAFQl0XPe6Zqk/uy9gnue+jIIKhykO51hxyu6uNx7zBPy0+y/WKYVZZMspV9YeXLNdKk+iYw==
-
 marked@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.0.tgz#a18d01cfdcf8d15c3c455b71c8329e5e0f01faa1"
   integrity sha512-HduzIW2xApSXKXJSpCipSxKyvMbwRRa/TwMbepmlZziKdH8548WSoDP4SxzulEKjlo8BE39l+2fwJZuRKOln6g==
+
+marked@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.2.tgz#c574be8b545a8b48641456ca1dbe0e37b6dccc1a"
+  integrity sha512-LqxwVH3P/rqKX4EKGz7+c2G9r98WeM/SW34ybhgNGhUQNKtf1GmmSkJ6cDGJ/t6tiyae49qRkpyTw2B9HOrgUA==
 
 meant@~1.0.1:
   version "1.0.1"
