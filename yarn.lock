@@ -450,15 +450,15 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-blessed-contrib@^4.8.13:
-  version "4.8.13"
-  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.13.tgz#860fb3f5b9b04edb9a615b165b49aaa4d98bcc83"
-  integrity sha512-rMhOS7Xc43JbYuJjEnVVaalIlAOFmwNVWhX0hhkw8TN0x+4PKlSHqezJ9yvys4DE3cjrU+3KqVbk2HEQAtSrvg==
+blessed-contrib@^4.8.14:
+  version "4.8.14"
+  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.14.tgz#4585b7e87d69266a2765ea1734bcdec667cb5385"
+  integrity sha512-X4EQBjmruIkPsjUSlfD4UcCmaKrP9W75KZcfPTiXAUBmIUiHDGyI6YluUrY9vpvpol3cX979cQE6rGMYIJmVXA==
   dependencies:
     ansi-term ">=0.0.2"
     chalk "^1.1.0"
     drawille-canvas-blessed-contrib ">=0.1.3"
-    lodash ">4.17.11"
+    lodash "~>=4.17.11"
     map-canvas ">=0.1.5"
     marked "^0.6.2"
     marked-terminal "^1.5.0"
@@ -2871,11 +2871,6 @@ lodash.without@~4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.without/-/lodash.without-4.4.0.tgz#3cd4574a00b67bae373a94b748772640507b7aac"
 
-lodash@>4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
 lodash@^4.17.4, lodash@^4.2.1:
   version "4.17.5"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -2883,6 +2878,11 @@ lodash@^4.17.4, lodash@^4.2.1:
 lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@~>=4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
 longest@^1.0.1:
   version "1.0.1"
