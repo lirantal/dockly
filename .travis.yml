@@ -1,6 +1,6 @@
 language: node_js
 before_script:
-  - "npm i -g gatsby"
+  - npm install -g gatsby
 node_js:
   - "8"
   - "10"
