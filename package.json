@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "yarn run lint",
-    "lint": "standard",
+    "lint": "standard && yarn run lint:lockfile",
     "lint:fix": "standard --fix",
+    "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts npm yarn",
     "semantic-release": "semantic-release"
   },
   "engines": {
@@ -65,6 +66,7 @@
     "dockerode": "2.5.8",
     "figures": "^2.0.0",
     "glob": "^7.1.2",
+    "lockfile-lint": "^2.0.1",
     "semver": "5.6.0"
   },
   "devDependencies": {
