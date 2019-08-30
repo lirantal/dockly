@@ -1,6 +1,13 @@
 language: node_js
+before_script:
+  - "npm i -g gatsby"
 node_js:
   - "8"
   - "10"
 after_success:
   - yarn run semantic-release
+deploy:
+  provider: script
+  script: yarn run deploy
+  on:
+    branch: master
