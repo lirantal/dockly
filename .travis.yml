@@ -8,6 +8,6 @@ after_success:
   - yarn run semantic-release
 deploy:
   provider: script
-  script: yarn run deploy
+  script: cd docs/ && yarn install && yarn run deploy
   on:
     branch: master
