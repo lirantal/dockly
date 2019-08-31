@@ -75,5 +75,10 @@
   },
   "release": {
     "branch": "master"
+  },
+  "standard": {
+    "ignore": [
+      "docs/**"
+    ]
   }
 }
