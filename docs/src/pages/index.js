@@ -34,9 +34,12 @@ class Index extends React.Component {
           <meta property="og:description" content="immersive terminal interface for managing docker containers and services" />
           <meta property="og:image" content={featured_image} />
           <meta property="og:url" content="https://lirantal.github.io/dockly" />
-          <meta name="twitter:card" content="summary" />
           <meta property="og:type" content="article" />
           <meta property="og:locale" content="en_US" />
+          <meta name="twitter:title" content="dockly" />
+          <meta name="twitter:description" content="immersive terminal interface for managing docker containers and services" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content={featured_image} />
           <script
             async
             src="https://platform.twitter.com/widgets.js"
