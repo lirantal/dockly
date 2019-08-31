@@ -1,6 +1,6 @@
 import React from 'react'
 
-import dockly_animated from '../../public/static/dockly-animation.gif'
+import dockly_animated from '../assets/images/dockly-animation.gif'
 
 const Header = props => (
   <header id="header" className="alt">
