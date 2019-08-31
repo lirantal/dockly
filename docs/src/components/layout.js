@@ -30,7 +30,7 @@ class Template extends React.Component {
       <div className={`body ${this.state.loading}`}>
         <div id="wrapper">
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </div>
     )

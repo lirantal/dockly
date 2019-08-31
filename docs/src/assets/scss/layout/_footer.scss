@@ -25,6 +25,13 @@
 			text-align: center;
 		}
 
+		.copyright_nomargin {
+			width: 100%;
+			margin: 1em 0em 0em 0em;
+			font-size: 0.8em;
+			text-align: center;
+		}
+
 		@include breakpoint(large) {
 			@include padding(4em, 4em);
 		}
