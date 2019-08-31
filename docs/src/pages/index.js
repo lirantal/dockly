@@ -4,6 +4,7 @@ import Waypoint from 'react-waypoint'
 
 import Layout from '../components/layout'
 import Header from '../components/Header'
+import featured_image from '../assets/images/dockly-featured-image.png'
 
 class Index extends React.Component {
   constructor(props) {
@@ -29,6 +30,13 @@ class Index extends React.Component {
             dockly - immersive terminal interface for managing docker containers
             and services
           </title>
+          <meta property="og:title" content="dockly" />
+          <meta property="og:description" content="immersive terminal interface for managing docker containers and services" />
+          <meta property="og:image" content={featured_image} />
+          <meta property="og:url" content="https://lirantal.github.io/dockly" />
+          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="article" />
+          <meta property="og:locale" content="en_US" />
           <script
             async
             src="https://platform.twitter.com/widgets.js"
