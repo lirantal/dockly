@@ -2,7 +2,7 @@
 
 const baseWidget = require('../../src/baseWidget')
 
-const EXPANDED_LAYOUT = [0, 0, 11, 10]
+const EXPANDED_LAYOUT = [0, 0, 11, 12]
 
 class myWidget extends baseWidget() {
   constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
@@ -36,6 +36,8 @@ class myWidget extends baseWidget() {
         // set data to widget after recreation
         this.widget.setContent(data)
         this.screen.render()
+        // render the logs if in full view mode, or the containers if we drop to regular view
+        this.isExpanded ? this.widgetsRepo.get('containerLogs').focus() : this.widgetsRepo.get('containerList').focus()
       }
     })
   }
