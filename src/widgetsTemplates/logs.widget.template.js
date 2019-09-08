@@ -2,6 +2,8 @@
 
 const baseWidget = require('../../src/baseWidget')
 
+const EXPANDED_LAYOUT = [0, 0, 11, 10]
+
 class myWidget extends baseWidget() {
   constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
@@ -15,11 +17,33 @@ class myWidget extends baseWidget() {
   }
 
   init () {
-    return null
+    if (!this.widgetsRepo.has('toolbar')) {
+      return null
+    }
+
+    const toolbar = this.widgetsRepo.get('toolbar')
+    toolbar.on('key', (keyString) => {
+      // trigger resize on keypress -
+      if (keyString === '-') {
+        // get data from widget before destroy
+        var data = this.widget.getContent()
+        // remove existing log widget
+        this.widget.destroy()
+        // toggle isExpanded boolean
+        this.isExpanded = !this.isExpanded
+        // refresh widget
+        this.widget = this.getWidget()
+        // set data to widget after recreation
+        this.widget.setContent(data)
+        this.screen.render()
+      }
+    })
   }
 
   getWidget () {
-    return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.log, {
+    // conditional grid formation based upon `isExpanded` boolean variable
+    const formation = (this.isExpanded ? EXPANDED_LAYOUT : this.grid.gridLayout)
+    return this.grid.gridObj.set(...formation, this.blessed.log, {
       label: this.label,
       mouse: true,
       scrollable: true,

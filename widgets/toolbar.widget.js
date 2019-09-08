@@ -39,6 +39,10 @@ class myWidget extends baseWidget(EventEmitter) {
       'logs': {
         keys: ['[RETURN]'],
         callback: () => { this.emit('key', '[RETURN]') }
+      },
+      'expand logs': {
+        keys: ['-'],
+        callback: () => { this.emit('key', '-') }
       }
     }
 
