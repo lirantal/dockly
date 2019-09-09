@@ -10,6 +10,13 @@
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts npm yarn",
     "semantic-release": "semantic-release"
   },
+  "files": [
+    "hooks",
+    "lib",
+    "src",
+    "widgets",
+    "index.js"
+  ],
   "engines": {
     "node": ">=7.6.0"
   },
