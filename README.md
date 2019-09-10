@@ -48,8 +48,16 @@ It's also possible to provide command line options for dockly to customize the d
 | Param | Type | Description |
 | --- | --- | --- |
 | -s or --socketPath | string | Docker socket to connect to |
+| --containerFilters | string | String to apply to filter shown containers |
 | -h or --help | null | Display help |
 | -v or --version | null | Display version information |
+
+### `--containerFilters`
+
+This is a string that could be used to filter the shown containers;
+its format is in the x-www-form-urlencoded style and the filters you could apply are listed here: [https://docs.docker.com/engine/api/v1.37/#operation/ContainerList](https://docs.docker.com/engine/api/v1.37/#operation/ContainerList)
+
+Example: `--containerFilters="name=test&status=running"` to only show *running* container which name match *test*.
 
 # Docker Support
 

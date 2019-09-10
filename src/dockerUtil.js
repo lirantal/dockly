@@ -3,16 +3,29 @@
 const DockerLib = require('dockerode')
 
 class Util {
-  constructor (connection) {
-    if (typeof connection !== 'object') {
+  constructor (config) {
+    if (typeof config !== 'object') {
       throw new Error('Error: docker connection string is faulty, please review command line arguments.')
     }
 
     // If a socketPath was explicitly specified, attempt connection based on it
-    if (connection.socketPath) {
-      this.dockerCon = new DockerLib(connection)
+    if (config.socketPath) {
+      this.dockerCon = new DockerLib({
+        socketPath: config.socketPath
+      })
     } else {
       this.dockerCon = new DockerLib()
+    }
+
+    if (config.containerFilters) {
+      this.containerFilters = JSON.stringify(config.containerFilters.split('&').reduce((carry, e) => {
+        let [left, right] = e.split('=')
+        right = right.split(',')
+        carry[left] = right
+        return carry
+      }, {}))
+    } else {
+      this.containerFilters = ''
     }
   }
 
@@ -39,7 +52,10 @@ class Util {
   }
 
   listContainers (cb) {
-    this.dockerCon.listContainers({ 'all': true }, function (err, containers) {
+    this.dockerCon.listContainers({
+      'all': true,
+      'filters': this.containerFilters
+    }, function (err, containers) {
       if (err) {
         return cb(err, {})
       }

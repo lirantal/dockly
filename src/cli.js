@@ -24,6 +24,11 @@ function Cli () {
       alias: 'v',
       type: Boolean,
       description: 'Display version'
+    },
+    {
+      name: 'containerFilters',
+      type: String,
+      description: 'Filter containers'
     }
   ]
 }
