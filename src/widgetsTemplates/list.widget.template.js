@@ -71,6 +71,11 @@ class myWidget extends baseWidget(EventEmitter) {
     searchInput.on('keypress', (data) => {
       this.filterList(data)
     })
+
+    const sortAction = this.widgetsRepo.get('actionSort')
+    sortAction.on('sort', (filter) => {
+      this.filterList([], filter)
+    })
   }
 
   getWidget () {

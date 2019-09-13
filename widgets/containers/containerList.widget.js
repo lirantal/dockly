@@ -32,7 +32,7 @@ class myWidget extends ListWidget {
     this.utilsRepo.get('docker').listContainers(cb)
   }
 
-  filterList (data) {
+  filterList (data, sort = 'state') {
     let filteredContainersList = this.containersListData[0]
     let containersList = this.containersListData.slice(1)
     let filteredContainers = []
@@ -50,10 +50,40 @@ class myWidget extends ListWidget {
 
     if (filteredContainers.length > 0) {
       filteredContainers.unshift(filteredContainersList)
-      this.update(filteredContainers)
+      this.update(this.sortList(filteredContainers, sort))
     } else {
-      this.update(this.containersListData)
+      this.update(this.sortList(this.containersListData, sort))
     }
+  }
+
+  sortList (data, sortBy) {
+    let header = data.shift()
+
+    switch (sortBy) {
+      case 'name':
+        data = this.sortByIndex(data, 0)
+        break
+      case 'state':
+        data = this.sortByIndex(data, 4)
+        break
+      case 'image':
+        data = this.sortByIndex(data, 2)
+        break
+    }
+
+    data.unshift(header)
+    return data
+  }
+
+  sortByIndex (data, index) {
+    return data.sort((item1, item2) => {
+      const val1 = item1[index]
+      const val2 = item2[index]
+
+      if (val1 === val2) { return 0 }
+      if (val1 < val2) { return -1 }
+      return 1
+    })
   }
 
   formatList (containers) {

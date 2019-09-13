@@ -11,7 +11,7 @@ const MODES = require('../lib/modes')
 // from the user (index.js)
 const CONTAINERS_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
-  'searchInput': [11, 0, 1, 12],
+  'actionSort': [4, 4, 4, 4],
   'actionStatus': [6, 0, 1, 10],
   'containerInfo': [2, 2, 8, 8],
   'containerList': [0, 0, 6, 10],
@@ -20,11 +20,13 @@ const CONTAINERS_GRID_LAYOUT = {
   'containerUtilization': [2, 10, 3, 2],
   'containerVsImages': [5, 10, 2, 2],
   'help': [4, 4, 4, 4],
+  'searchInput': [11, 0, 1, 12],
   'toolbar': [11, 0, 1, 12]
 }
 
 const SERVICES_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
+  'actionSort': [4, 4, 4, 4],
   'actionStatus': [6, 0, 1, 10],
   'help': [4, 4, 4, 4],
   'servicesInfo': [2, 2, 8, 8],

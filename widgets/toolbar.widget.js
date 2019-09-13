@@ -66,6 +66,10 @@ class myWidget extends baseWidget(EventEmitter) {
       'search': {
         keys: ['/'],
         callback: () => { this.emit('key', '/') }
+      },
+      'sort': {
+        keys: ['x'],
+        callback: () => { this.emit('key', 'x') }
       }
     }
 
