@@ -3,6 +3,7 @@
 const baseWidget = require('../src/baseWidget')
 const cp = require('child_process')
 const console = require('console')
+const os = require('os')
 
 class hook extends baseWidget() {
   init () {
@@ -33,9 +34,15 @@ class hook extends baseWidget() {
         try {
           console.clear()
 
-          cp.execFileSync('docker', ['exec', '-it', containerId, '/bin/sh', '-c', '[ -e /bin/bash ] && /bin/bash || /bin/sh'], {
-            'stdio': 'inherit'
-          })
+          if (os.platform() === 'win32') {
+            cp.execFileSync('docker', ['exec', '-it', containerId, '/bin/sh', '-c', '[ -e /bin/bash ] && /bin/bash || /bin/sh'], {
+              'stdio': 'inherit'
+            })
+          } else {
+            cp.execFileSync(`${__dirname}/../dockerRunScript.sh`, [containerId], {
+              'stdio': 'inherit'
+            })
+          }
 
           this.emitActionStatus('Ok', 'Exited shell.')
         } catch (error) {
