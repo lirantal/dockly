@@ -9,10 +9,10 @@ const Header = props => (
     </span>
 
     <span className="logo">
-      <img src={dockly_animated} />
+      <img src={dockly_animated} alt="immersive terminal interface for managing docker containers and services" />
     </span>
 
-    <p class="small">
+    <p className="small">
       immersive terminal interface for managing docker containers and services
     </p>
 

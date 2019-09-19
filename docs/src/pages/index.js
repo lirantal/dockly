@@ -58,7 +58,7 @@ class Index extends React.Component {
         <div id="main">
           <section id="intro" className="main special">
             <header className="major">
-              <h2>A Node.js CLI application made with 💚</h2>
+              <h2>A Node.js CLI application made with <span role="img" aria-label="heart">💚</span></h2>
               <p></p>
             </header>
             <ul className="statistics">
@@ -124,7 +124,7 @@ class Index extends React.Component {
                   No need to remember the container id and execute a docker
                   command. Simply press <code>l</code> on one of the containers
                   in the list and dockly will create a new bash session for you
-                  👌
+                  <span role="img" aria-label="ok">👌</span>
                 </p>
               </li>
             </ul>
@@ -134,7 +134,7 @@ class Index extends React.Component {
               <h2>From twitter</h2>
             </header>
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <p lang="en" dir="ltr">
                   If you&#39;re working with
                   <a href="https://twitter.com/hashtag/Docker?src=hash&amp;ref_src=twsrc%5Etfw">
@@ -158,7 +158,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <p lang="en" dir="ltr">
                   dockly - Docker console UI and Dashboard for quick managing
                   and inspecting of Containers and Images{' '}
@@ -175,7 +175,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/elijahmanor/status/1124380634653310976?ref_src=twsrc%5Etfw">
                   May 3, 2019
                 </a>
@@ -183,7 +183,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/liran_tal/status/1039876482754113538?ref_src=twsrc%5Etfw">
                   September 12, 2018
                 </a>
@@ -191,7 +191,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/francoisz/status/1034079869020319746?ref_src=twsrc%5Etfw">
                   August 27, 2018
                 </a>
@@ -199,7 +199,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/utos/status/1025033727129346049?ref_src=twsrc%5Etfw">
                   August 2, 2018
                 </a>
@@ -207,7 +207,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/linuxtoday/status/1131894875153084416?ref_src=twsrc%5Etfw">
                   May 24, 2019
                 </a>
@@ -215,7 +215,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/waxzce/status/1123886351924043777?ref_src=twsrc%5Etfw">
                   May 2, 2019
                 </a>
@@ -223,7 +223,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/hasdid/status/1124399986303746048?ref_src=twsrc%5Etfw">
                   May 3, 2019
                 </a>
@@ -231,7 +231,7 @@ class Index extends React.Component {
             </span>
 
             <span className="tweets">
-              <blockquote class="twitter-tweet">
+              <blockquote className="twitter-tweet">
                 <a href="https://twitter.com/opexxx/status/1122942042643021825?ref_src=twsrc%5Etfw">
                   April 29, 2019
                 </a>
