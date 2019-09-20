@@ -15,7 +15,8 @@
     "lib",
     "src",
     "widgets",
-    "index.js"
+    "index.js",
+    "dockerRunScript.sh"
   ],
   "engines": {
     "node": ">=7.6.0"
