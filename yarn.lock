@@ -460,17 +460,17 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-blessed-contrib@^4.8.14:
-  version "4.8.14"
-  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.14.tgz#4585b7e87d69266a2765ea1734bcdec667cb5385"
-  integrity sha512-X4EQBjmruIkPsjUSlfD4UcCmaKrP9W75KZcfPTiXAUBmIUiHDGyI6YluUrY9vpvpol3cX979cQE6rGMYIJmVXA==
+blessed-contrib@^4.8.17:
+  version "4.8.17"
+  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.17.tgz#05abdc626412271090092c417fb9d8576dc81bd1"
+  integrity sha512-uhywRrzJQxtpkowgDHdejIE911Pgt0raYOQUoFC/qREyQvXsz5DMj2J2JVjwcx2bpzbDdHRoP/lcWLE1Ol3vCQ==
   dependencies:
     ansi-term ">=0.0.2"
     chalk "^1.1.0"
     drawille-canvas-blessed-contrib ">=0.1.3"
     lodash "~>=4.17.11"
     map-canvas ">=0.1.5"
-    marked "^0.6.2"
+    marked "^0.7.0"
     marked-terminal "^1.5.0"
     memory-streams "^0.1.0"
     memorystream "^0.3.1"
@@ -3067,10 +3067,10 @@ marked@^0.6.0:
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.0.tgz#a18d01cfdcf8d15c3c455b71c8329e5e0f01faa1"
   integrity sha512-HduzIW2xApSXKXJSpCipSxKyvMbwRRa/TwMbepmlZziKdH8548WSoDP4SxzulEKjlo8BE39l+2fwJZuRKOln6g==
 
-marked@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.2.tgz#c574be8b545a8b48641456ca1dbe0e37b6dccc1a"
-  integrity sha512-LqxwVH3P/rqKX4EKGz7+c2G9r98WeM/SW34ybhgNGhUQNKtf1GmmSkJ6cDGJ/t6tiyae49qRkpyTw2B9HOrgUA==
+marked@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
+  integrity sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
 
 meant@~1.0.1:
   version "1.0.1"
