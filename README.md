@@ -10,12 +10,9 @@
 [![view on npm](http://img.shields.io/npm/v/dockly.svg)](https://www.npmjs.org/package/dockly)
 [![view on npm](http://img.shields.io/npm/l/dockly.svg)](https://www.npmjs.org/package/dockly)
 [![npm module downloads](http://img.shields.io/npm/dt/dockly.svg)](https://www.npmjs.org/package/dockly)
-[![Dependency Status](https://david-dm.org/lirantal/dockly.svg)](https://david-dm.org/lirantal/dockly)
-[![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=lirantal&repoName=dockly&branch=master&pipelineName=dockly&accountName=lirantal&type=cf-1)]( https://g.codefresh.io/repositories/lirantal/dockly/builds?filter=trigger:build;branch:master;service:58127ed36b0e230100f421f6~dockly)
-[![Install Size](https://packagephobia.now.sh/badge?p=dockly)](https://packagephobia.now.sh/result?p=dockly)
+[![Known Vulnerabilities](https://snyk.io/test/npm/dockly/badge.svg)](https://snyk.io/test/npm/dockly)
 [![Security Responsible Disclosure](https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg)](./SECURITY.md
 )
-
 
 🌟 Featured on [![Awesome Docker](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/veggiemonk/awesome-docker) [![DevOps Weekly](https://img.shields.io/badge/DevOpsWeekly-%F0%9F%95%B6-yellow.svg
 )](http://devopsweekly.com) 
