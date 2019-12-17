@@ -75,7 +75,7 @@
     "figures": "^2.0.0",
     "glob": "^7.1.2",
     "lockfile-lint": "^2.0.1",
-    "semver": "5.6.0"
+    "semver": "6.3.0"
   },
   "devDependencies": {
     "semantic-release": "15.13.3",
