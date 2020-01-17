@@ -79,7 +79,7 @@ $ docker run -it --rm --name dockly -v /var/run/docker.sock:/var/run/docker.sock
 
 # FAQ
 
-1. Unsupported Node.js Version
+1. Unsupported Node.js version
 
 If you're getting the following error in your CLI:
 ```
@@ -105,7 +105,9 @@ Trace: TypeError: Object.values is not a function
 This is most likely because you're using an unsupported Node.js version.
 Dockly requires Node.js v7.6 and above
 
+2. PuTTY displays garbled text
 
+Follow the steps [in this comment](https://github.com/lirantal/dockly/issues/50#issuecomment-536190949) to enable VT100 support on the settings for the window
 
 
 # Author
