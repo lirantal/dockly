@@ -67,15 +67,15 @@
   "homepage": "https://github.com/lirantal/dockly#readme",
   "dependencies": {
     "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.17",
+    "blessed-contrib": "^4.8.18",
     "chalk": "2.4.2",
-    "command-line-args": "^5.0.2",
+    "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
     "dockerode": "2.5.8",
     "figures": "^2.0.0",
-    "glob": "^7.1.2",
+    "glob": "^7.1.6",
     "lockfile-lint": "^3.0.3",
-    "semver": "5.6.0"
+    "semver": "6.3.0"
   },
   "devDependencies": {
     "semantic-release": "15.13.3",
