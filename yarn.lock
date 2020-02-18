@@ -2875,21 +2875,22 @@ lock-verify@^2.0.2:
     npm-package-arg "^5.1.2 || 6"
     semver "^5.4.1"
 
-lockfile-lint-api@^5.0.7:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/lockfile-lint-api/-/lockfile-lint-api-5.0.7.tgz#c781390bc0e116725a5ac7b5023a4efdbfe4ceb5"
-  integrity sha512-jG6ebLOMLEhMd0OU+XKnj66bbXz1c8PEqnaDq4TGC7qHSXdTgBRF+oCh1zdQLmGLfxSRo0w6U84CfqENL7XokA==
+lockfile-lint-api@^5.0.12:
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/lockfile-lint-api/-/lockfile-lint-api-5.0.12.tgz#6ad928126dc2f87762bb520695f58c73a501b7fd"
+  integrity sha512-8OSMww33l0xghDl1aK450UHYzKZjMaPjdbtvt7A/iEdD2AAH6h3xyVkVIHSJmD2KfD1lh819tdpOukui+qSEsw==
   dependencies:
     "@yarnpkg/lockfile" "^1.1.0"
     debug "^4.1.1"
+    object-hash "^2.0.1"
 
-lockfile-lint@^3.0.5:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/lockfile-lint/-/lockfile-lint-3.0.8.tgz#b816237feab6ef7c0fe61f290ca85d44735395fc"
-  integrity sha512-WRPB3aLj+CZhRdLQIhARV+1GqI6OHmMB3N8yltHlj07ncx/ug9sQwaxFp+2/e+Pi+F6I3NsS31yUlAhNFSwZUg==
+lockfile-lint@^3.0.9:
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/lockfile-lint/-/lockfile-lint-3.0.18.tgz#bf39fdfdcc412bd75b82c5744268a9d826e255d7"
+  integrity sha512-CvG+CkrJzdHOB2JdTWQpvigHmv55Bhm31G1y9/4Ak3RrKJPmIQbVElFq2rGjR5QI3km2xNNouR19Vu0edo1low==
   dependencies:
     debug "^4.1.1"
-    lockfile-lint-api "^5.0.7"
+    lockfile-lint-api "^5.0.12"
     yargs "^15.0.2"
 
 lockfile@^1.0.4:
@@ -3710,6 +3711,11 @@ object-copy@^0.1.0:
     copy-descriptor "^0.1.0"
     define-property "^0.2.5"
     kind-of "^3.0.3"
+
+object-hash@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.0.3.tgz#d12db044e03cd2ca3d77c0570d87225b02e1e6ea"
+  integrity sha512-JPKn0GMu+Fa3zt3Bmr66JhokJU5BaNBIh4ZeTlaCBzrBsOeXzwcKKAK1tbLiPKgvwmPXsDvvLHoWh5Bm7ofIYg==
 
 object-keys@^1.0.12:
   version "1.0.12"
