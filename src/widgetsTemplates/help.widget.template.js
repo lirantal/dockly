@@ -106,19 +106,20 @@ class myWidget extends baseWidget() {
     
     Available key commands:
 
-    ▸ h: Show/hide this window
-    ▸ =: Refresh the current view
-    ▸ /: Search the containers list view
-    ▸ i: Display information dialog about the selected container or service
-    ▸ ⏎: Show the logs of the current container or service
-    ▸ v: Toggle between Containers and Services view
-    ▸ q: Quit dockly
+    ▸ h:       Show/hide this window
+    ▸ <space>: Refresh the current view
+    ▸ /:       Search the containers list view
+    ▸ i:       Display information dialog about the selected container or service
+    ▸ ⏎:       Show the logs of the current container or service
+    ▸ v:       Toggle between Containers and Services view
+    ▸ q:       Quit dockly
     
     The following commands are only available in Container view:
-    ▸ l: Launch a /bin/bash session on the selected container
-    ▸ r: Restart the selected container
-    ▸ s: Stop the selected container
-    ▸ m: Show a menu with additional actions
+    
+    ▸ l:       Launch a /bin/bash session on the selected container
+    ▸ r:       Restart the selected container
+    ▸ s:       Stop the selected container
+    ▸ m:       Show a menu with additional actions
 
     Thanks for using dockly!
     `
