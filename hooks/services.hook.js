@@ -24,7 +24,7 @@ class hook extends baseWidget(EventEmitter) {
     const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
       // on refresh keypress, update all services and images information
-      if (keyString === '=') {
+      if (keyString === 'space') { // refresh key
         this.getFreshData((err, data) => {
           if (err) {
             data = {}
