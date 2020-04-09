@@ -3,7 +3,7 @@
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
 
-const ASCII_CHAR_START = 33
+const ASCII_CHAR_START = 32
 const ASCII_CHAR_END = 126
 
 class myWidget extends baseWidget(EventEmitter) {

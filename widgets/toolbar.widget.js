@@ -29,8 +29,8 @@ class myWidget extends baseWidget(EventEmitter) {
   createWidget () {
     const baseCommands = {
       'refresh': {
-        keys: ['='],
-        callback: () => { this.emit('key', '=') }
+        keys: ['space'], // refresh key
+        callback: () => { this.emit('key', 'space') } // key space
       },
       'info': {
         keys: ['i'],

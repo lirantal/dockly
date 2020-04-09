@@ -62,7 +62,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
     const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
-      if (keyString === '=') {
+      if (keyString === 'space') { // refresh key
         this.refreshList()
       }
     })
