@@ -3,6 +3,7 @@ steps:
   BuildingDockerImage:
     title: Building Docker Image
     type: build
+    registry: dockerhub
     image_name: lirantal/dockly
     working_directory: ./
     dockerfile: Dockerfile
