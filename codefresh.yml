@@ -10,6 +10,7 @@ steps:
   PushToRegistry:
       title: Pushing to Docker Registry
       type: push
+      registry: dockerhub
       candidate: '${{BuildingDockerImage}}'
       tags: ['master', 'latest']
       when:
