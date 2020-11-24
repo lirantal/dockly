@@ -9,7 +9,9 @@
     "lint:fix": "standard --fix",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts npm yarn",
     "semantic-release": "semantic-release",
-    "debug": "node --inspect=0.0.0.0:9222 ./index.js "
+    "debug": "node --inspect=0.0.0.0:9222 ./index.js ",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "files": [
     "hooks",
@@ -76,7 +78,8 @@
     "figures": "^2.0.0",
     "glob": "^7.1.6",
     "lockfile-lint": "^3.0.9",
-    "semver": "6.3.0"
+    "semver": "6.3.0",
+    "snyk": "^1.430.2"
   },
   "devDependencies": {
     "semantic-release": "15.13.3",
@@ -89,5 +92,6 @@
     "ignore": [
       "docs/**"
     ]
-  }
+  },
+  "snyk": true
 }
