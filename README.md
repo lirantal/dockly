@@ -112,3 +112,7 @@ Follow the steps [in this comment](https://github.com/lirantal/dockly/issues/50#
 
 # Author
 Liran Tal <liran.tal@gmail.com>
+
+## Alternatives
+
+See [Awesome Docker list](https://github.com/veggiemonk/awesome-docker/blob/master/README.md#terminal) for similar tools to work with Docker.
