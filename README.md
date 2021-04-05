@@ -13,6 +13,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/dockly/badge.svg)](https://snyk.io/test/npm/dockly)
 [![Security Responsible Disclosure](https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg)](./SECURITY.md
 )
+[![dockly](https://snyk.io/advisor/npm-package/dockly/badge.svg)](https://snyk.io/advisor/npm-package/dockly)
 
 🌟 Featured on [![Awesome Docker](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/veggiemonk/awesome-docker) [![DevOps Weekly](https://img.shields.io/badge/DevOpsWeekly-%F0%9F%95%B6-yellow.svg
 )](http://devopsweekly.com) 
