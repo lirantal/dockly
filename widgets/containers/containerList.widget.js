@@ -57,9 +57,10 @@ class myWidget extends ListWidget {
   }
 
   formatList (containers) {
+    const containerList = {}
     if (containers) {
       containers.forEach((container) => {
-        this.containersList[container.Id] = [
+        containerList[container.Id] = [
           container.Id.substring(0, 5),
           container.Names[0].substring(0, 40),
           container.Image.substring(0, 35),
@@ -71,10 +72,10 @@ class myWidget extends ListWidget {
     }
 
     let list = []
-    list = Object.keys(this.containersList).map((key) => {
+    list = Object.keys(containerList).map((key) => {
       let container = []
 
-      container = this.containersList[key]
+      container = containerList[key]
       container[4] = this.formatContainerState(container[4])
       container[5] = this.formatContainerStatus(container[5])
 
@@ -83,6 +84,7 @@ class myWidget extends ListWidget {
 
     list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status'])
     this.containersListData = list
+    this.containersList = containerList
 
     return list
   }

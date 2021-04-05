@@ -151,6 +151,7 @@ class myWidget extends baseWidget(EventEmitter) {
   }
 
   update (data) {
+    this.widget.clearItems()
     return this.widget.setData(data)
   }
 }
