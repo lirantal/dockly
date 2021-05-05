@@ -151,11 +151,11 @@ class hook extends baseWidget(EventEmitter) {
   copyContainerIdToClipboard () {
     if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
       const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
-      if (containerId && containerId !== 0 && containerId !== false) {
+      if (containerId) {
         clipboardy.writeSync(containerId)
 
         const actionStatus = this.widgetsRepo.get('actionStatus')
-        let message = `Container Id ${containerId} was copied to the clipboard`
+        const message = `Container Id ${containerId} was copied to the clipboard`
 
         actionStatus.emit('message', {
           message: message
