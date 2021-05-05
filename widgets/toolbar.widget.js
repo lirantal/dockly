@@ -43,6 +43,10 @@ class myWidget extends baseWidget(EventEmitter) {
       'expand logs': {
         keys: ['-'],
         callback: () => { this.emit('key', '-') }
+      },
+      'copy container id': {
+        keys: ['c'],
+        callback: () => { this.emit('key', 'c') }
       }
     }
 
