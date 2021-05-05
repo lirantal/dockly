@@ -52,17 +52,7 @@ class myWidget extends baseWidget() {
       alwaysScroll: true,
       keys: true,
       vi: true,
-      style: {
-        fg: 'default',
-        bg: 'default',
-        border: {
-          fg: 'default',
-          bg: 'default'
-        },
-        selected: {
-          bg: 'green'
-        }
-      },
+      style: this.getWidgetStyle(),
       border: {
         type: 'line',
         fg: '#00ff00'

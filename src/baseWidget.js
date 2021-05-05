@@ -1,4 +1,5 @@
 'use strict'
+const getTheme = require('./themes/theme.selector')
 
 module.exports = (extendsClass = class {}) => {
   return class extends extendsClass {
@@ -16,6 +17,10 @@ module.exports = (extendsClass = class {}) => {
 
     focus () {
       this.widget.focus()
+    }
+
+    getWidgetStyle (customStyle = {}) {
+      return Object.assign({}, getTheme(), customStyle)
     }
   }
 }

@@ -83,11 +83,7 @@ class myWidget extends baseWidget() {
       scrollable: true,
       alwaysScroll: true,
       keys: true,
-      style: {
-        selected: {
-          bg: 'green'
-        }
-      },
+      style: this.getWidgetStyle(),
       border: {
         type: 'line'
       },
