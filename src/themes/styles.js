@@ -42,7 +42,7 @@ const lightStyle = {
     fg: 'black'
   },
   selected: {
-    bg: 'green',
+    bg: 'green'
   },
   cell: {
     fg: 'black',

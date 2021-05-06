@@ -1,4 +1,4 @@
-const {darkStyle, lightStyle} = require('./styles')
+const { darkStyle, lightStyle } = require('./styles')
 const cli = require('../cli')
 
 const themeStyleMap = {

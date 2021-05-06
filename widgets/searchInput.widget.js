@@ -91,7 +91,7 @@ class myWidget extends baseWidget(EventEmitter) {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.textbox, {
       focused: false,
       border: 'line',
-      style: this.getWidgetStyle({bg: 'yellow', fg: 'black'}),
+      style: this.getWidgetStyle({ bg: 'yellow', fg: 'black' }),
       align: 'left',
       inputOnFocus: true,
       value: ''
