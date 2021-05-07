@@ -1,0 +1,45 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build_docs:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        node: ['14']
+    name: Node ${{ matrix.node }} (${{ matrix.platform }})
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - name: install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+      - name: install the gatsby cli
+        run: npm install -g gatsby-cli
+        env:
+          CI: true
+      - name: deploy github docs
+        run: cd docs/ && yarn install && yarn run deploy
+        env:
+          CI: true
+
+  release:
+    name: do semantic release
+    runs-on: 'ubuntu-latest'
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+      - name: release
+        run: yarn run semantic-release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
