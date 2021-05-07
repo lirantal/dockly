@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const clipboardy = require('clipboardy')
 
 class hook extends baseWidget(EventEmitter) {
   init () {
@@ -41,6 +42,10 @@ class hook extends baseWidget(EventEmitter) {
 
       if (keyString === 's') {
         this.stopContainer()
+      }
+
+      if (keyString === 'c') {
+        this.copyContainerIdToClipboard()
       }
     })
   }
@@ -138,6 +143,22 @@ class hook extends baseWidget(EventEmitter) {
             title: title,
             message: message
           })
+        })
+      }
+    }
+  }
+
+  copyContainerIdToClipboard () {
+    if (this.widgetsRepo && this.widgetsRepo.has('containerList')) {
+      const containerId = this.widgetsRepo.get('containerList').getSelectedContainer()
+      if (containerId) {
+        clipboardy.writeSync(containerId)
+
+        const actionStatus = this.widgetsRepo.get('actionStatus')
+        const message = `Container Id ${containerId} was copied to the clipboard`
+
+        actionStatus.emit('message', {
+          message: message
         })
       }
     }

@@ -111,6 +111,7 @@ class myWidget extends baseWidget() {
     ▸ /:       Search the containers list view
     ▸ i:       Display information dialog about the selected container or service
     ▸ ⏎:       Show the logs of the current container or service
+    ▸ c:       Copy container id to the clipboard
     ▸ v:       Toggle between Containers and Services view
     ▸ q:       Quit dockly
     
