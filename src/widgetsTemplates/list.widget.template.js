@@ -86,18 +86,7 @@ class myWidget extends baseWidget(EventEmitter) {
       hover: {
         bg: 'blue'
       },
-      style: {
-        header: {
-          fg: 'blue',
-          bold: true
-        },
-        cell: {
-          fg: 'magenta',
-          selected: {
-            bg: 'blue'
-          }
-        }
-      },
+      style: this.getWidgetStyle(),
       align: 'center'
     })
   }

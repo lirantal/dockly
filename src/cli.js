@@ -29,6 +29,11 @@ function Cli () {
       name: 'containerFilters',
       type: String,
       description: 'Filter containers'
+    },
+    {
+      name: 'theme',
+      type: String,
+      description: 'Theme: light or dark (e.g. --theme light)'
     }
   ]
 }

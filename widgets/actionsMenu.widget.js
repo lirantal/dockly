@@ -125,11 +125,7 @@ class myWidget extends baseWidget() {
       alwaysScroll: true,
       keys: true,
       interactive: true,
-      style: {
-        selected: {
-          bg: 'green'
-        }
-      },
+      style: this.getWidgetStyle(),
       border: {
         type: 'line'
       },

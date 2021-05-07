@@ -31,11 +31,7 @@ class myWidget extends baseWidget(EventEmitter) {
       scrollable: true,
       alwaysScroll: true,
       tags: true,
-      style: {
-        selected: {
-          bg: 'green'
-        }
-      },
+      style: this.getWidgetStyle(),
       border: {
         type: 'line'
       },

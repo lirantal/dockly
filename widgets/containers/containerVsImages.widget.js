@@ -30,17 +30,7 @@ class myWidget extends baseWidget() {
   getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.bar, {
       label: this.label,
-      style: {
-        fg: 'blue',
-        bg: 'default',
-        border: {
-          fg: 'default',
-          bg: 'default'
-        },
-        selected: {
-          bg: 'green'
-        }
-      },
+      style: this.getWidgetStyle(),
       border: {
         type: 'line',
         fg: '#00ff00'
@@ -51,7 +41,8 @@ class myWidget extends baseWidget() {
       barWidth: 6,
       barSpacing: 15,
       xOffset: 3,
-      maxHeight: 15
+      maxHeight: 15,
+      labelColor: this.getWidgetStyle().fg
     })
   }
 
