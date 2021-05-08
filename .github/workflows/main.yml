@@ -36,7 +36,7 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
       - name: release
-        run: yarn run semantic-release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
