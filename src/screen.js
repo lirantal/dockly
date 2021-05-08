@@ -35,6 +35,17 @@ const SERVICES_GRID_LAYOUT = {
   'toolbar': [11, 0, 1, 12]
 }
 
+const IMAGES_GRID_LAYOUT = {
+  'help': [4, 4, 4, 4],
+  'toolbar': [11, 0, 1, 12]
+}
+
+const GRID_LAYOUT = {
+  containers: CONTAINERS_GRID_LAYOUT,
+  services: SERVICES_GRID_LAYOUT,
+  images: IMAGES_GRID_LAYOUT
+}
+
 class screen {
   constructor (utils = new Map()) {
     this.mode = MODES.container
@@ -104,7 +115,7 @@ class screen {
   }
 
   initWidgets () {
-    const layout = this.mode === MODES.container ? CONTAINERS_GRID_LAYOUT : SERVICES_GRID_LAYOUT
+    const layout = GRID_LAYOUT[this.mode]
     for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
       if (layout[widgetName]) {
         let widget = new WidgetObject({
