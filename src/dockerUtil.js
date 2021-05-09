@@ -150,7 +150,7 @@ class Util {
     const service = this.dockerCon.getService(serviceId)
     return service.inspect(cb)
   }
-  
+
   getImage (imageId, cb) {
     const image = this.dockerCon.getImage(imageId)
     image.inspect(cb)
