@@ -39,6 +39,7 @@ const SERVICES_GRID_LAYOUT = {
 const IMAGES_GRID_LAYOUT = {
   'imageInfo': [2, 2, 8, 8],
   'imageList': [0, 0, 6, 10],
+  'imageSizes': [2, 10, 2, 2],
   'actionStatus': [6, 0, 1, 10],
   'help': [4, 4, 4, 4],
   'toolbar': [11, 0, 1, 12],
