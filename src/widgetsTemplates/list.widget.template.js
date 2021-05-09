@@ -67,10 +67,13 @@ class myWidget extends baseWidget(EventEmitter) {
       }
     })
 
-    const searchInput = this.widgetsRepo.get('searchInput')
-    searchInput.on('keypress', (data) => {
-      this.filterList(data)
-    })
+    if (this.widgetsRepo && this.widgetsRepo.has('searchInput')) {
+      const searchInput = this.widgetsRepo.get('searchInput')
+
+      searchInput.on('keypress', (data) => {
+        this.filterList(data)
+      })
+    }
   }
 
   getWidget () {

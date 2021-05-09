@@ -26,6 +26,7 @@ const CONTAINERS_GRID_LAYOUT = {
 const SERVICES_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
   'actionStatus': [6, 0, 1, 10],
+  'searchInput': [11, 0, 1, 12],
   'help': [4, 4, 4, 4],
   'servicesInfo': [2, 2, 8, 8],
   'servicesList': [0, 0, 6, 10],
@@ -124,6 +125,13 @@ class screen {
     }
   }
 
+  clearWidgets() {
+    for (let [widgetName] of this.assets.get('widgets').entries()) {
+      this.widgets.delete(widgetName)
+      this.widgetsRepository.delete(widgetName)
+    }
+  }
+
   setWidgetsRepo () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.setWidgetsRepo(this.widgetsRepository)
@@ -190,6 +198,7 @@ class screen {
 
     this.screen.key('v', () => {
       this.clearHooks()
+      this.clearWidgets()
       this.toggleMode()
       this.screen.destroy()
       this.init()
