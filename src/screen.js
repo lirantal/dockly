@@ -125,7 +125,7 @@ class screen {
     }
   }
 
-  clearWidgets() {
+  clearWidgets () {
     for (let [widgetName] of this.assets.get('widgets').entries()) {
       this.widgets.delete(widgetName)
       this.widgetsRepository.delete(widgetName)
