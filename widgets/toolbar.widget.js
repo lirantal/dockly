@@ -73,7 +73,20 @@ class myWidget extends baseWidget(EventEmitter) {
       }
     }
 
-    const commands = this.mode === MODES.container ? Object.assign({}, baseCommands, containerCommands) : baseCommands
+    const imageCommands = {
+      'Remove': {
+        keys: ['r'],
+        callback: () => { this.emit('key', 'r') }
+      }
+    }
+
+    const commandExtension = {
+      containers: containerCommands,
+      services: {},
+      images: imageCommands
+    }
+
+    const commands = Object.assign({}, baseCommands, commandExtension[this.mode])
 
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listbar, {
       keys: false,
