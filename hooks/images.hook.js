@@ -47,10 +47,11 @@ class hook extends baseWidget(EventEmitter) {
         })
 
         this.utilsRepo.get('docker').removeImage(imageId, (err, data) => {
-          if (err && err.statusCode === 500) {
+          if (err) {
             message = err.json.message
           } else {
             message = 'Removed image successfully'
+            this.widgetsRepo.get('imageList').refreshList()
           }
 
           actionStatus.emit('message', {
