@@ -19,7 +19,7 @@ class hook extends baseWidget(EventEmitter) {
     })
   }
 
-  removeImage() {
+  removeImage () {
     if (this.widgetsRepo && this.widgetsRepo.has('imageList')) {
       const imageId = this.widgetsRepo.get('imageList').getSelectedImage()
       if (imageId && imageId !== 0 && imageId !== false) {

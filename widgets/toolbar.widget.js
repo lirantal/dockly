@@ -2,7 +2,6 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
-const MODES = require('../lib/modes')
 
 class myWidget extends baseWidget(EventEmitter) {
   constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {}, mode }) {

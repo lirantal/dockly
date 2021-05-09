@@ -1,8 +1,5 @@
 'use strict'
 
-const chalk = require('chalk')
-const figures = require('figures')
-
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
@@ -43,7 +40,7 @@ class myWidget extends ListWidget {
 
   /**
    * Format raw bytes into human readable size.
-   * 
+   *
    * @param {number} bytes - number of bytes.
    * @returns {string} human readable size.
    */
