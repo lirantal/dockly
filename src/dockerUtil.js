@@ -51,6 +51,16 @@ class Util {
     })
   }
 
+  systemDf (cb) {
+    this.dockerCon.df((err, data) => {
+      if (err) {
+        return cb(err, {})
+      }
+
+      return cb(data)
+    })
+  }
+
   listContainers (cb) {
     this.dockerCon.listContainers({
       'all': true,

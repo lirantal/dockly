@@ -41,7 +41,8 @@ const IMAGES_GRID_LAYOUT = {
   'imageList': [0, 0, 6, 10],
   'actionStatus': [6, 0, 1, 10],
   'help': [4, 4, 4, 4],
-  'toolbar': [11, 0, 1, 12]
+  'toolbar': [11, 0, 1, 12],
+  'imageUtilization': [0, 10, 2, 2]
 }
 
 const GRID_LAYOUT = {

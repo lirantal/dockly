@@ -9,6 +9,8 @@ class hook extends baseWidget(EventEmitter) {
       return null
     }
 
+    this.notifyOnImageUpdate()
+
     const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
       // on refresh keypress, update all containers and images information
@@ -17,6 +19,17 @@ class hook extends baseWidget(EventEmitter) {
         this.removeImage()
       }
     })
+  }
+
+  notifyOnImageUpdate () {
+    setInterval(() => {
+      if (this.widgetsRepo && this.widgetsRepo.has('imageList')) {
+        // Update on Docker Info
+        this.utilsRepo.get('docker').systemDf((data) => {
+          this.emit('imagesUtilization', data)
+        })
+      }
+    }, 1000)
   }
 
   removeImage () {
