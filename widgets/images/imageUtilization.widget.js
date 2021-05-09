@@ -3,7 +3,7 @@
 const baseWidget = require('../../src/baseWidget')
 
 class myWidget extends baseWidget() {
-  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -19,7 +19,7 @@ class myWidget extends baseWidget() {
     this.widget = this.getWidget()
   }
 
-  init() {
+  init () {
     if (!this.widgetsRepo.has('images')) {
       return null
     }
@@ -30,7 +30,7 @@ class myWidget extends baseWidget() {
     })
   }
 
-  getWidget() {
+  getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.contrib.gauge, {
       label: this.label,
       style: this.getWidgetStyle({ fg: 'blue' }),
@@ -48,38 +48,23 @@ class myWidget extends baseWidget() {
     })
   }
 
-  update(data) {
+  update (data) {
     if (!data || (typeof data !== 'object')) {
       return
     }
 
-    if (!data.Images) {
-      return
-    }
-
-    const UseImages = []
-    const UnuseImages = []
-
-    data.Images.forEach(image => {
-      if (image.Containers > 0) {
-        UseImages.push(image)
-      } else {
-        UnuseImages.push(image)
-      }
-    })
-
     const stack = []
 
-    if (UseImages !== 0) {
+    if (data.UseImages.length !== 0) {
       stack.push({
-        percent: Math.round((UseImages.length / data.Images.length) * 100),
+        percent: Math.round((data.UseImages.length / data.Images.length) * 100),
         stroke: this.color['ImageInUse']
       })
     }
 
-    if (UnuseImages !== 0) {
+    if (data.UnuseImages.length !== 0) {
       stack.push({
-        percent: Math.round((UnuseImages.length / data.Images.length) * 100),
+        percent: Math.round((data.UnuseImages.length / data.Images.length) * 100),
         stroke: this.color['ImageNotInUse']
       })
     }

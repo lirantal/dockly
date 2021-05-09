@@ -26,7 +26,26 @@ class hook extends baseWidget(EventEmitter) {
       if (this.widgetsRepo && this.widgetsRepo.has('imageList')) {
         // Update on Docker Info
         this.utilsRepo.get('docker').systemDf((data) => {
+          if (!data.Images) {
+            return
+          }
+
+          const UseImages = []
+          const UnuseImages = []
+
+          data.Images.forEach(image => {
+            if (image.Containers > 0) {
+              UseImages.push(image)
+            } else {
+              UnuseImages.push(image)
+            }
+          })
+
+          data.UseImages = UseImages
+          data.UnuseImages = UnuseImages
+
           this.emit('imagesUtilization', data)
+          this.emit('imageSize', data)
         })
       }
     }, 1000)
