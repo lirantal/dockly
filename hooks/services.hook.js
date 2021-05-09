@@ -33,6 +33,10 @@ class hook extends baseWidget(EventEmitter) {
           this.emit('servicesAndImagesList', data)
         })
       }
+
+      if (keyString === 'c') {
+        this.copyServiceIdToClipboard()
+      }
     })
   }
 
@@ -59,6 +63,22 @@ class hook extends baseWidget(EventEmitter) {
         return cb(null, { services, images })
       })
     })
+  }
+
+  copyServiceIdToClipboard() {
+    if (this.widgetsRepo && this.widgetsRepo.has('servicesList')) {
+      const serviceId = this.widgetsRepo.get('servicesList').getSelectedService()
+      if (serviceId) {
+        clipboardy.writeSync(serviceId)
+
+        const actionStatus = this.widgetsRepo.get('actionStatus')
+        const message = `Service Id ${serviceId} was copied to the clipboard`
+
+        actionStatus.emit('message', {
+          message: message
+        })
+      }
+    }
   }
 }
 
