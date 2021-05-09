@@ -17,19 +17,11 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
-      - name: install the gatsby cli
-        run: npm install -g gatsby-cli
-        env:
-          CI: true
-      - name: Configure Git User
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-      - name: deploy github docs
-        run: cd docs/ && yarn install && yarn run deploy
-        env:
-          CI: true
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Gatsby Publish
+        uses: enriikke/gatsby-gh-pages-action@v2
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          working-dir: docs
 
   release:
     name: do semantic release
@@ -44,7 +36,7 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
       - name: release
-        run: yarn run semantic-release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}

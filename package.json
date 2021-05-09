@@ -8,7 +8,6 @@
     "lint": "standard && yarn run lint:lockfile",
     "lint:fix": "standard --fix",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts npm yarn",
-    "semantic-release": "semantic-release",
     "debug": "node --inspect=0.0.0.0:9222 ./index.js "
   },
   "files": [
@@ -80,7 +79,6 @@
     "semver": "6.3.0"
   },
   "devDependencies": {
-    "semantic-release": "15.13.3",
     "standard": "^12.0.1"
   },
   "release": {
