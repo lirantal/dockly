@@ -65,7 +65,7 @@ class hook extends baseWidget(EventEmitter) {
     })
   }
 
-  copyServiceIdToClipboard() {
+  copyServiceIdToClipboard () {
     if (this.widgetsRepo && this.widgetsRepo.has('servicesList')) {
       const serviceId = this.widgetsRepo.get('servicesList').getSelectedService()
       if (serviceId) {
