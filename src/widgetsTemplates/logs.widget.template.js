@@ -37,7 +37,7 @@ class myWidget extends baseWidget() {
         this.widget.setContent(data)
         this.screen.render()
         // render the logs if in full view mode, or the containers if we drop to regular view
-        this.isExpanded ? this.widgetsRepo.get('containerLogs').focus() : this.widgetsRepo.get('containerList').focus()
+        this.isExpanded ? this.focus() : this.getList().focus()
       }
     })
   }
@@ -79,6 +79,10 @@ class myWidget extends baseWidget() {
 
   clear () {
     return this.widget.setContent()
+  }
+
+  getList() {
+    throw new Error('method getList not implemented')
   }
 }
 
