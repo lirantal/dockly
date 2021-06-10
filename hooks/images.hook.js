@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const clipboardy = require('clipboardy')
 
 class hook extends baseWidget(EventEmitter) {
   init () {
@@ -18,7 +19,27 @@ class hook extends baseWidget(EventEmitter) {
       if (keyString === 'r') {
         this.removeImage()
       }
+
+      if (keyString === 'c') {
+        this.copyImageIdToClipboard()
+      }
     })
+  }
+
+  copyImageIdToClipboard () {
+    if (this.widgetsRepo && this.widgetsRepo.has('imageList')) {
+      const imageId = this.widgetsRepo.get('imageList').getSelectedImage()
+      if (imageId) {
+        clipboardy.writeSync(imageId)
+
+        const actionStatus = this.widgetsRepo.get('actionStatus')
+        const message = `Image Id ${imageId} was copied to the clipboard`
+
+        actionStatus.emit('message', {
+          message: message
+        })
+      }
+    }
   }
 
   notifyOnImageUpdate () {
