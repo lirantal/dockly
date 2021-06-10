@@ -76,7 +76,7 @@ class myWidget extends baseWidget(EventEmitter) {
     }
 
     const imageCommands = {
-      'Remove': {
+      'remove': {
         keys: ['r'],
         callback: () => { this.emit('key', 'r') }
       }
