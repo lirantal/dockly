@@ -6,6 +6,10 @@ class myWidget extends LogWidget {
   getLabel () {
     return 'Service Logs'
   }
+
+  getList() {
+    return this.widgetsRepo.get('servicesList')
+  }
 }
 
 module.exports = myWidget
