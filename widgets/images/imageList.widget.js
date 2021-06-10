@@ -16,6 +16,30 @@ class myWidget extends ListWidget {
     this.utilsRepo.get('docker').listImages(cb)
   }
 
+  filterList (data) {
+    let imageTitleList = this.imagesListData[0]
+    let imageList = this.imagesListData.slice(1)
+    let filteredimages = []
+
+    if (data) {
+      filteredimages = imageList.filter((container, index, containerItems) => {
+        const imageName = container[1]
+        const imageTag = container[2]
+
+        if ((imageName.indexOf(data) !== -1) || (imageTag.indexOf(data) !== -1)) {
+          return true
+        }
+      })
+    }
+
+    if (filteredimages.length > 0) {
+      filteredimages.unshift(imageTitleList)
+      this.update(filteredimages)
+    } else {
+      this.update(this.imagesListData)
+    }
+  }
+
   formatList (images) {
     const imageList = []
 
@@ -34,6 +58,8 @@ class myWidget extends ListWidget {
     }
 
     imageList.unshift(['Id', 'Name', 'Tag', 'Created', 'Size'])
+
+    this.imagesListData = imageList
 
     return imageList
   }
