@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const clipboardy = require('clipboardy')
 
 class hook extends baseWidget(EventEmitter) {
   init () {
