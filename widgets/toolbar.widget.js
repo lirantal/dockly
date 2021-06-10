@@ -35,6 +35,17 @@ class myWidget extends baseWidget(EventEmitter) {
         keys: ['i'],
         callback: () => { this.emit('key', 'i') }
       },
+      'copy id': {
+        keys: ['c'],
+        callback: () => { this.emit('key', 'c') }
+      },
+      'search': {
+        keys: ['/'],
+        callback: () => { this.emit('key', '/') }
+      }
+    }
+
+    const logCommands = {
       'logs': {
         keys: ['[RETURN]'],
         callback: () => { this.emit('key', '[RETURN]') }
@@ -42,10 +53,6 @@ class myWidget extends baseWidget(EventEmitter) {
       'expand logs': {
         keys: ['-'],
         callback: () => { this.emit('key', '-') }
-      },
-      'copy id': {
-        keys: ['c'],
-        callback: () => { this.emit('key', 'c') }
       }
     }
 
@@ -65,10 +72,6 @@ class myWidget extends baseWidget(EventEmitter) {
       'menu': {
         keys: ['m'],
         callback: () => { this.emit('key', 'm') }
-      },
-      'search': {
-        keys: ['/'],
-        callback: () => { this.emit('key', '/') }
       }
     }
 
@@ -80,8 +83,8 @@ class myWidget extends baseWidget(EventEmitter) {
     }
 
     const commandExtension = {
-      containers: containerCommands,
-      services: {},
+      containers: Object.assign({}, containerCommands, logCommands),
+      services: Object.assign({}, logCommands),
       images: imageCommands
     }
 
