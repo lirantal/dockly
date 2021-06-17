@@ -38,6 +38,25 @@ class hook extends baseWidget(EventEmitter) {
         this.copyServiceIdToClipboard()
       }
     })
+
+    if (this.widgetsRepo.has('servicesLogs') && this.widgetsRepo.has('servicesList')) {
+      this.setupSwitchFocus()
+    }
+  }
+
+  setupSwitchFocus () {
+    const containerLogs = this.widgetsRepo.get('servicesLogs')
+    const containerList = this.widgetsRepo.get('servicesList')
+    const screen = containerLogs.screen
+
+    this.toggleWidgetFocus = true
+
+    screen.on('keypress', (ch, key) => {
+      if (key && key.name === 'tab') {
+        this.toggleWidgetFocus ? containerLogs.focus() : containerList.focus()
+        this.toggleWidgetFocus = !this.toggleWidgetFocus
+      }
+    })
   }
 
   notifyOnServiceInfo () {
