@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const clipboardy = require('clipboardy')
 
 class hook extends baseWidget(EventEmitter) {
   init () {
@@ -65,7 +66,7 @@ class hook extends baseWidget(EventEmitter) {
     })
   }
 
-  copyServiceIdToClipboard() {
+  copyServiceIdToClipboard () {
     if (this.widgetsRepo && this.widgetsRepo.has('servicesList')) {
       const serviceId = this.widgetsRepo.get('servicesList').getSelectedService()
       if (serviceId) {
