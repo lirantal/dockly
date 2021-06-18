@@ -104,11 +104,11 @@ class myWidget extends baseWidget() {
 
     ▸ h:       Show/hide this window
     ▸ <space>: Refresh the current view
-    ▸ /:       Search the containers list view
-    ▸ i:       Display information dialog about the selected container or service
+    ▸ /:       Search the current list view
+    ▸ i:       Display information dialog about the selected container, service, or images
     ▸ ⏎:       Show the logs of the current container or service
     ▸ c:       Copy id to the clipboard
-    ▸ v:       Toggle between Containers and Services view
+    ▸ v:       Toggle between Containers, Services, and images view
     ▸ q:       Quit dockly
     
     The following commands are only available in Container view:
@@ -117,6 +117,10 @@ class myWidget extends baseWidget() {
     ▸ r:       Restart the selected container
     ▸ s:       Stop the selected container
     ▸ m:       Show a menu with additional actions
+
+    The following commands are only available in Image view:
+    
+    ▸ r:       Remove the selected image
 
     Thanks for using dockly!
     `
