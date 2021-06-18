@@ -26,7 +26,7 @@ class myWidget extends baseWidget() {
 
     const dockerHook = this.widgetsRepo.get('images')
     dockerHook.on('imagesUtilization', (data) => {
-      return this.update(data)
+      this.update(data)
     })
   }
 
