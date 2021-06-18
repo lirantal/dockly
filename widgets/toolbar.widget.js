@@ -85,7 +85,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
     const commandExtension = {}
 
-    commandExtension[MODES.container] = Object.assign({}, containerCommands, logCommands),
+    commandExtension[MODES.container] = Object.assign({}, containerCommands, logCommands)
     commandExtension[MODES.service] = Object.assign({}, logCommands)
     commandExtension[MODES.image] = imageCommands
 
