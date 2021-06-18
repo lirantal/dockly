@@ -58,7 +58,7 @@ class hook extends baseWidget(EventEmitter) {
     const containerLogs = this.widgetsRepo.get('containerLogs')
     const containerList = this.widgetsRepo.get('containerList')
     const screen = containerLogs.screen
-    
+
     this.toggleWidgetFocus = true
 
     screen.on('keypress', (ch, key) => {
