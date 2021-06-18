@@ -63,7 +63,7 @@ class myWidget extends baseWidget(EventEmitter) {
         this.widget.clearValue()
         this.inputValue = []
         this.widget.destroy()
-        this.widgetsRepo.get('containerList').focus()
+        this.emit('exitSearch')
       } else {
         this.emit('keypress', this.captureText(key))
       }
