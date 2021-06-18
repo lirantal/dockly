@@ -3,6 +3,11 @@
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+    super({ blessed, contrib, screen, grid })
+    this.servicesListData = []
+  }
+
   getLabel () {
     return 'Services'
   }
@@ -23,6 +28,30 @@ class myWidget extends ListWidget {
     this.utilsRepo.get('docker').listServices(cb)
   }
 
+  filterList (data) {
+    let filteredContainersList = this.servicesListData[0]
+    let serviceList = this.servicesListData.slice(1)
+    let filteredServices = []
+
+    if (data) {
+      filteredServices = serviceList.filter((service) => {
+        const serviceName = service[1]
+        const serviceImageName = service[2]
+
+        if ((serviceName.indexOf(data) !== -1) || (serviceImageName.indexOf(data) !== -1)) {
+          return true
+        }
+      })
+    }
+
+    if (filteredServices.length > 0) {
+      filteredServices.unshift(filteredContainersList)
+      this.update(filteredServices)
+    } else {
+      this.update(this.servicesListData)
+    }
+  }
+
   formatList (services) {
     const list = []
 
@@ -38,6 +67,8 @@ class myWidget extends ListWidget {
     }
 
     list.unshift(['Id', 'Name', 'Image', 'Replicas'])
+
+    this.servicesListData = list
 
     return list
   }

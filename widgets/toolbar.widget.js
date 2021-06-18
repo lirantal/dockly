@@ -47,6 +47,10 @@ class myWidget extends baseWidget(EventEmitter) {
       'copy id': {
         keys: ['c'],
         callback: () => { this.emit('key', 'c') }
+      },
+      'search': {
+        keys: ['/'],
+        callback: () => { this.emit('key', '/') }
       }
     }
 

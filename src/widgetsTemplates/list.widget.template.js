@@ -73,6 +73,10 @@ class myWidget extends baseWidget(EventEmitter) {
       searchInput.on('keypress', (data) => {
         this.filterList(data)
       })
+
+      searchInput.on('exitSearch', () => {
+        this.focus()
+      })
     }
   }
 
