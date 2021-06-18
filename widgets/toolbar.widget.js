@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events')
 const baseWidget = require('../src/baseWidget')
+const MODES = require('../lib/modes')
 
 class myWidget extends baseWidget(EventEmitter) {
   constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {}, mode }) {
@@ -82,11 +83,11 @@ class myWidget extends baseWidget(EventEmitter) {
       }
     }
 
-    const commandExtension = {
-      containers: Object.assign({}, containerCommands, logCommands),
-      services: Object.assign({}, logCommands),
-      images: imageCommands
-    }
+    const commandExtension = {}
+
+    commandExtension[MODES.container] = Object.assign({}, containerCommands, logCommands),
+    commandExtension[MODES.service] = imageCommands
+    commandExtension[MODES.image] = Object.assign({}, logCommands)
 
     const commands = Object.assign({}, baseCommands, commandExtension[this.mode])
 

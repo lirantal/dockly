@@ -46,11 +46,10 @@ const IMAGES_GRID_LAYOUT = {
   'imageUtilization': [0, 10, 2, 2]
 }
 
-const GRID_LAYOUT = {
-  containers: CONTAINERS_GRID_LAYOUT,
-  services: SERVICES_GRID_LAYOUT,
-  images: IMAGES_GRID_LAYOUT
-}
+const GRID_LAYOUT = {}
+GRID_LAYOUT[MODES.container] = CONTAINERS_GRID_LAYOUT
+GRID_LAYOUT[MODES.service] = SERVICES_GRID_LAYOUT
+GRID_LAYOUT[MODES.image] = IMAGES_GRID_LAYOUT
 
 class screen {
   constructor (utils = new Map()) {
