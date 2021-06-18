@@ -7,7 +7,7 @@ class myWidget extends LogWidget {
     return 'Container Logs'
   }
 
-  getList() {
+  getList () {
     return this.widgetsRepo.get('containerList')
   }
 }

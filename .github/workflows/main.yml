@@ -3,6 +3,23 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  lint:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        node: ['14']
+    name: lint
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - name: install dependencies
+        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+      - name: check lint
+        run: yarn lint
+
   build_docs:
     strategy:
       matrix:
