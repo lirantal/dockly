@@ -187,14 +187,6 @@ class screen {
   }
 
   registerEvents () {
-    this.screen.on('keypress', (ch, key) => {
-      if (key && key.name === 'tab') {
-        this.toggleWidgetFocus ? this.widgetsRepository.get('containerLogs').focus() : this.widgetsRepository.get('containerList').focus()
-        this.toggleWidgetFocus = !this.toggleWidgetFocus
-        this.screen.render()
-      }
-    })
-
     this.screen.on('element focus', (curr, old) => {
       if (old && old.border) {
         old.style.border.fg = 'default'

@@ -81,7 +81,7 @@ class myWidget extends baseWidget() {
     return this.widget.setContent()
   }
 
-  getList() {
+  getList () {
     throw new Error('method getList not implemented')
   }
 }

@@ -48,6 +48,25 @@ class hook extends baseWidget(EventEmitter) {
         this.copyContainerIdToClipboard()
       }
     })
+
+    if (this.widgetsRepo.has('containerLogs') && this.widgetsRepo.has('containerList')) {
+      this.setupSwitchFocus()
+    }
+  }
+
+  setupSwitchFocus () {
+    const containerLogs = this.widgetsRepo.get('containerLogs')
+    const containerList = this.widgetsRepo.get('containerList')
+    const screen = containerLogs.screen
+
+    this.toggleWidgetFocus = true
+
+    screen.on('keypress', (ch, key) => {
+      if (key && key.name === 'tab') {
+        this.toggleWidgetFocus ? containerLogs.focus() : containerList.focus()
+        this.toggleWidgetFocus = !this.toggleWidgetFocus
+      }
+    })
   }
 
   notifyOnContainerInfo () {
