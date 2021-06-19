@@ -2,7 +2,7 @@
 	<br>
   <img width="200" src="https://user-images.githubusercontent.com/316371/28937414-67ee5ffa-7893-11e7-95f9-5059cacf9170.png">
 	<br>
- Immersive terminal interface for managing docker containers and services
+ Immersive terminal interface for managing docker containers, services and images
 </p>
 
 

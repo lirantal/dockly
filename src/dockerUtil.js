@@ -51,6 +51,16 @@ class Util {
     })
   }
 
+  systemDf (cb) {
+    this.dockerCon.df((err, data) => {
+      if (err) {
+        return cb(err, {})
+      }
+
+      return cb(data)
+    })
+  }
+
   listContainers (cb) {
     this.dockerCon.listContainers({
       'all': true,
@@ -149,6 +159,11 @@ class Util {
   getService (serviceId, cb) {
     const service = this.dockerCon.getService(serviceId)
     return service.inspect(cb)
+  }
+
+  getImage (imageId, cb) {
+    const image = this.dockerCon.getImage(imageId)
+    image.inspect(cb)
   }
 
   restartContainer (containerId, cb) {
