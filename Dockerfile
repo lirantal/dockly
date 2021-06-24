@@ -8,6 +8,6 @@ RUN apk update && apk upgrade && apk add docker && rm -rf /var/apk/cache/*
 COPY . /app
 WORKDIR /app
 ENV NODE_ENV production
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 CMD ["node", "index.js"]
