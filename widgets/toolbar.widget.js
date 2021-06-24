@@ -36,14 +36,15 @@ class myWidget extends baseWidget(EventEmitter) {
         keys: ['i'],
         callback: () => { this.emit('key', 'i') }
       },
-      'copy id': {
-        keys: ['c'],
-        callback: () => { this.emit('key', 'c') }
-      },
       'search': {
         keys: ['/'],
         callback: () => { this.emit('key', '/') }
       }
+    }
+
+    baseCommands[`copy ${this.mode.slice(0, -1)} id`] = {
+      keys: ['c'],
+      callback: () => { this.emit('key', 'c') }
     }
 
     const logCommands = {
