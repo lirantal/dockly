@@ -165,7 +165,7 @@ class hook extends baseHook {
     }
   }
 
-  getSelectedItem() {
+  getSelectedItem () {
     if (!this.widgetsRepo.has('containerList')) {
       return null
     }

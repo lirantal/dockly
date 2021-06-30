@@ -4,7 +4,6 @@ const EventEmitter = require('events')
 const clipboardy = require('clipboardy')
 
 class myWidget extends baseWidget(EventEmitter) {
-
   copyItemIdToClipboard () {
     const itemId = this.getSelectedItem()
     if (!itemId) {
@@ -20,7 +19,7 @@ class myWidget extends baseWidget(EventEmitter) {
       message = error
     } finally {
       const actionStatus = this.widgetsRepo.get('actionStatus')
-      
+
       actionStatus.emit('message', {
         message: message
       })

@@ -24,7 +24,7 @@ class hook extends baseHook {
     })
   }
 
-  getSelectedItem() {
+  getSelectedItem () {
     if (!this.widgetsRepo.has('imageList')) {
       return null
     }

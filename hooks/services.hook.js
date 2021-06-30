@@ -83,7 +83,7 @@ class hook extends baseHook {
     })
   }
 
-  getSelectedItem() {
+  getSelectedItem () {
     if (!this.widgetsRepo.has('servicesList')) {
       return null
     }
