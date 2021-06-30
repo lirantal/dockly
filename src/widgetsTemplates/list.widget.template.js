@@ -122,10 +122,6 @@ class myWidget extends baseWidget(EventEmitter) {
     throw new Error('method getLabel not implemented')
   }
 
-  getLog () {
-    throw new Error('method getLog not implemented')
-  }
-
   getListItems (cb) {
     throw new Error('method getListItems not implemented')
   }
