@@ -29,14 +29,14 @@ class myWidget extends baseWidget(EventEmitter) {
         return null
       }
 
-      // clear log box of previous logs
-      this.clearItemLogs()
-
       // get logs for the items
       this.getItemLogs(itemId, (err, stream) => {
         if (err) {
           return null
         }
+
+        // clear log box of previous logs
+        this.clearItemLogs()
 
         let str
         if (stream && stream.pipe) {
@@ -120,6 +120,10 @@ class myWidget extends baseWidget(EventEmitter) {
 
   getLabel () {
     throw new Error('method getLabel not implemented')
+  }
+
+  getLog () {
+    throw new Error('method getLog not implemented')
   }
 
   getListItems (cb) {

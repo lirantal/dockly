@@ -111,6 +111,10 @@ class myWidget extends ListWidget {
   getSelectedImage () {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
   }
+
+  getItemLogs (itemId, cb) {
+    cb(new Error('image view don\'t have log widget'))
+  }
 }
 
 module.exports = myWidget
