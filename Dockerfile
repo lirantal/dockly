@@ -13,4 +13,7 @@ WORKDIR /app
 ENV NODE_ENV production
 RUN yarn install --frozen-lockfile
 
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 CMD ["node", "index.js"]
