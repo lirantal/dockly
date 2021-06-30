@@ -1,10 +1,8 @@
 'use strict'
 
-const EventEmitter = require('events')
-const baseWidget = require('../src/baseWidget')
-const clipboardy = require('clipboardy')
+const baseHook = require('../src/widgetsTemplates/base.hook.template')
 
-class hook extends baseWidget(EventEmitter) {
+class hook extends baseHook {
   init () {
     // on startup we first emit data from the docker server
     this.getFreshData((err, data) => {
@@ -36,7 +34,7 @@ class hook extends baseWidget(EventEmitter) {
       }
 
       if (keyString === 'c') {
-        this.copyServiceIdToClipboard()
+        this.copyItemIdToClipboard()
       }
     })
 
@@ -85,20 +83,12 @@ class hook extends baseWidget(EventEmitter) {
     })
   }
 
-  copyServiceIdToClipboard () {
-    if (this.widgetsRepo && this.widgetsRepo.has('servicesList')) {
-      const serviceId = this.widgetsRepo.get('servicesList').getSelectedService()
-      if (serviceId) {
-        clipboardy.writeSync(serviceId)
-
-        const actionStatus = this.widgetsRepo.get('actionStatus')
-        const message = `Service Id ${serviceId} was copied to the clipboard`
-
-        actionStatus.emit('message', {
-          message: message
-        })
-      }
+  getSelectedItem() {
+    if (!this.widgetsRepo.has('servicesList')) {
+      return null
     }
+
+    return this.widgetsRepo.get('servicesList').getSelectedService()
   }
 }
 
