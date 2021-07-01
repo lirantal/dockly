@@ -1,10 +1,8 @@
 'use strict'
 
-const EventEmitter = require('events')
-const baseWidget = require('../src/baseWidget')
-const clipboardy = require('clipboardy')
+const baseHook = require('../src/widgetsTemplates/base.hook.template')
 
-class hook extends baseWidget(EventEmitter) {
+class hook extends baseHook {
   init () {
     if (!this.widgetsRepo.has('toolbar')) {
       return null
@@ -21,25 +19,17 @@ class hook extends baseWidget(EventEmitter) {
       }
 
       if (keyString === 'c') {
-        this.copyImageIdToClipboard()
+        this.copyItemIdToClipboard()
       }
     })
   }
 
-  copyImageIdToClipboard () {
-    if (this.widgetsRepo && this.widgetsRepo.has('imageList')) {
-      const imageId = this.widgetsRepo.get('imageList').getSelectedImage()
-      if (imageId) {
-        clipboardy.writeSync(imageId)
-
-        const actionStatus = this.widgetsRepo.get('actionStatus')
-        const message = `Image Id ${imageId} was copied to the clipboard`
-
-        actionStatus.emit('message', {
-          message: message
-        })
-      }
+  getSelectedItem () {
+    if (!this.widgetsRepo.has('imageList')) {
+      return null
     }
+
+    return this.widgetsRepo.get('imageList').getSelectedImage()
   }
 
   notifyOnImageUpdate () {
