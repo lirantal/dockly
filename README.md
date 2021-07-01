@@ -110,6 +110,14 @@ Dockly requires Node.js v7.6 and above
 
 Follow the steps [in this comment](https://github.com/lirantal/dockly/issues/50#issuecomment-536190949) to enable VT100 support on the settings for the window
 
+3. Icons not working properly 
+
+set `LANG` and `LC_ALL` to c.UTF-8 like so
+```bash
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+```
+for more info please see [this issue](https://github.com/yaronn/blessed-contrib/issues/111)
 
 # Author
 Liran Tal <liran.tal@gmail.com>
