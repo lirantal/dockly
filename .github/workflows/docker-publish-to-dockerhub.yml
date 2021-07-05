@@ -1,0 +1,57 @@
+name: "Docker: Docker Hub"
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ github.repository_owner }}/dockly
+
+jobs:
+  build_and_publish:
+  
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=true
+            prefix=
+            suffix=
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
