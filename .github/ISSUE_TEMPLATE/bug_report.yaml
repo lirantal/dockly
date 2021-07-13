@@ -1,0 +1,38 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: [bug, triage]
+assignees:
+  - lirantal
+  - omribarzik
+body:
+  - type: markdown
+    attributes:
+      value: |
+        I appreciate you taking the time to fill out this bug report ❤️
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What went wrong?
+      description: Also tell us, how can we reproduce and what did you expect to happen?
+      placeholder: Tell us what you see! (a screenshot greatly helps :-))
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: env-info
+    attributes:
+      label: Your environment setup
+      description: This information helps us help you
+      placeholder: 
+      value: |
+        - Operating System:
+        - Node.js version (run `node --version`):
+        - Package version:
+        - Docker version (run `docker --version`):
+        - Is docker installed locally?
+        - Do you have containers created?
+        - Does this file exists `/var/run/docker.sock` ?
+        - Output of `docker info`:
+    validations:
+      required: false
