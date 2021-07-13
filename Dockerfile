@@ -13,4 +13,4 @@ WORKDIR /app
 ENV NODE_ENV production
 RUN yarn install --frozen-lockfile
 
-CMD ["node", "index.js"]
+ENTRYPOINT ["node", "index.js"]
