@@ -164,10 +164,10 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-blessed-contrib@^4.10.0:
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.10.0.tgz#12d2a38c9ecd9063e4cce9d6dfe73137c31a4121"
-  integrity sha512-NbMkaBNPNZikQo5XBKsXTGIu/gxAywRANHPt2Zc4oFmtiXGHgAGgl6Q6mg6sr9SvG08zidPxokRDcgso+HGmzw==
+blessed-contrib@^4.10.1:
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.10.1.tgz#e2d426cf59f1378ed1b9618f1eb6a44768c27a64"
+  integrity sha512-S3jE7riCbWnAK8OT+ta4Z8RX/X6nfISxzn0SDIMFYuY90qUwqx7w7e9fIsc2m2ODwma7dFcXNwGSjyayfKd1DQ==
   dependencies:
     ansi-term ">=0.0.2"
     chalk "^1.1.0"
