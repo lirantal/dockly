@@ -31,6 +31,11 @@ Install the API module as a dependency in your project so you can easily use it 
 npm install -g dockly
 ```
 
+Install via Homebrew
+```bash
+brew install dockly
+```
+
 # Usage
 
 Just fire up dockly and it will automatically connect to your localhost docker daemon through the unix socket:
