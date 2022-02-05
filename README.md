@@ -119,9 +119,17 @@ export LC_ALL=C.UTF-8
 ```
 for more info please see [this issue](https://github.com/yaronn/blessed-contrib/issues/111)
 
-# Author
-Liran Tal <liran.tal@gmail.com>
-
 ## Alternatives
 
 See [Awesome Docker list](https://github.com/veggiemonk/awesome-docker/blob/master/README.md#terminal) for similar tools to work with Docker.
+
+# In the news
+
+- Admin Magazine article: [Visualizing containers with clarity
+](https://www.admin-magazine.com/Articles/Visualizing-containers-with-clarity)
+- [A learnk8s tweet](https://twitter.com/learnk8s/status/1075677503782563840)
+- [Dockly – Manage Docker Containers From Terminal](https://ostechnix.com/dockly-manage-docker-containers-from-terminal/)
+- [Clever cloud CEO, Quentin Adam, tweeting about dockly](https://twitter.com/waxzce/status/1123886351924043777)
+
+# Author
+Liran Tal <liran.tal@gmail.com>
