@@ -9,12 +9,12 @@ class Util {
     }
 
     // If a socketPath was explicitly specified, attempt connection based on it
-    const dockerlibConfig = {};
+    const dockerlibConfig = {}
 
-    if (config.socketPath) {dockerlibConfig.socketPath = config.socketPath}
-    if (config.host) {dockerlibConfig.host = config.host}
-    if (config.port) {dockerlibConfig.port = config.port}
-    if (config.protocol) {dockerlibConfig.protocol = config.protocol}
+    if (config.socketPath) { dockerlibConfig.socketPath = config.socketPath }
+    if (config.host) { dockerlibConfig.host = config.host }
+    if (config.port) { dockerlibConfig.port = config.port }
+    if (config.protocol) { dockerlibConfig.protocol = config.protocol }
 
     this.dockerCon = new DockerLib(dockerlibConfig)
 
