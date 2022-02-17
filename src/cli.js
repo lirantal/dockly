@@ -14,6 +14,24 @@ function Cli () {
       description: 'Docker daemon socket to connect to'
     },
     {
+      name: 'host',
+      alias: 'H',
+      type: String,
+      description: 'Remote docker daemon host to connect to'
+    },
+    {
+      name: 'port',
+      alias: 'P',
+      type: Number,
+      description: 'Remote docker port to connect to'
+    },
+    {
+      name: 'protocol',
+      alias: 'T',
+      type: 'http' | 'https' | 'ssh',
+      description: 'Remote docker protocol to connect to'
+    },
+    {
       name: 'help',
       alias: 'h',
       type: Boolean,
