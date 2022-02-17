@@ -46,6 +46,9 @@ It's also possible to provide command line options for dockly to customize the d
 | Param | Type | Description |
 | --- | --- | --- |
 | -s or --socketPath | string | Docker socket to connect to |
+| -H or --host | string | Remote docker daemon host to connect to |
+| -P or --port | string | Remote docker port to connect to  |
+| -T or --protocol | `http` \| `https` \| `ssh` | Remote docker protocol to connect to |
 | --containerFilters | string | String to apply to filter shown containers |
 | -h or --help | null | Display help |
 | -v or --version | null | Display version information |
