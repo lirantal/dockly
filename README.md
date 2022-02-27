@@ -18,7 +18,9 @@
 🌟 Featured on [![Awesome Docker](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/veggiemonk/awesome-docker) [![DevOps Weekly](https://img.shields.io/badge/DevOpsWeekly-%F0%9F%95%B6-yellow.svg
 )](http://devopsweekly.com) 
 [![terminals are sexy](https://img.shields.io/badge/TerminalsAreSexy-%F0%9F%92%BB-green.svg
-)](https://github.com/k4m4/terminals-are-sexy) 
+)](https://github.com/k4m4/terminals-are-sexy) [![Programmer's Weekly](https://img.shields.io/badge/ProgrammersWeekly-%F0%9F%95%B6-purple.svg
+)](https://mailchi.mp/programmerweekly/programmer-weekly-issue-94?e=e8c11d0390) [![Console.dev](https://img.shields.io/badge/ConsoleDotDev-%F0%9F%95%B6-blue.svg
+)](https://console.dev/tools/)
 
 
 
