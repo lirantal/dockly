@@ -45,6 +45,7 @@ class Index extends React.Component {
             src="https://platform.twitter.com/widgets.js"
             charset="utf-8"
           ></script>
+          <script async src="https://cdn.splitbee.io/sb.js"></script>
         </Helmet>
 
         <Header />
