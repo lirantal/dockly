@@ -38,7 +38,7 @@ jobs:
       - name: Gatsby Publish
         uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          access-token: ${{ secrets.GITHUB_TOKEN }}
+          access-token: x-access-token:${{ secrets.GITHUB_TOKEN }}
           working-dir: docs
           deploy-branch: gh-pages
 
