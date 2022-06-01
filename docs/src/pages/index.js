@@ -46,6 +46,7 @@ class Index extends React.Component {
             charset="utf-8"
           ></script>
           <script async src="https://cdn.splitbee.io/sb.js"></script>
+          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI62QL&placement=lirantalgithubio" id="_carbonads_js"></script>
         </Helmet>
 
         <Header />
