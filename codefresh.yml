@@ -17,7 +17,7 @@ steps:
     registry: dockerhub
     candidate: '${{BuildingDockerImage}}'
     tags:
-      - master
+      - main
       - latest
     when:
       branch:
