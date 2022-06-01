@@ -82,7 +82,7 @@
     "standard": "^12.0.1"
   },
   "release": {
-    "branch": "master"
+    "branch": "main"
   },
   "standard": {
     "ignore": [
