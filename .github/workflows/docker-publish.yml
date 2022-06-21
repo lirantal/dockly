@@ -64,4 +64,10 @@ jobs:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
           TAGS: ${{ steps.meta.outputs.tags }}
-        run: cosign sign --key env://COSIGN_PRIVATE_KEY ${TAGS}
+        run: |
+          cosign sign --key env://COSIGN_PRIVATE_KEY ${TAGS} \
+            -a "repo=${{ github.repository }}" \
+            -a "workflow=${{ github.workflow }}" \
+            -a "ref=${{ github.sha }}" \
+            -a "actor=${{ github.actor }}" \
+            -a "build=${{ github.run_id }}"
