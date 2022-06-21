@@ -63,4 +63,5 @@ jobs:
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        run: cosign sign --key env://COSIGN_PRIVATE_KEY ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: cosign sign --key env://COSIGN_PRIVATE_KEY ${TAGS}
