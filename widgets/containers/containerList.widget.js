@@ -64,7 +64,8 @@ class myWidget extends ListWidget {
           container.Id.substring(0, 5),
           container.Names[0].substring(0, 40),
           container.Image.substring(0, 35),
-          container.Command.substring(0, 30),
+          // remove any new lines or carriage return line feed from the string in container.Command
+          container.Command.substring(0, 30).replace(/(\r\n|\n|\r)/gm, ''),
           container.State,
           container.Status
         ]
