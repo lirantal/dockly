@@ -45,6 +45,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=ref,event=pr
           flavor: |
             prefix=
             suffix=
