@@ -46,7 +46,6 @@ class Index extends React.Component {
             charset="utf-8"
           ></script>
           <script async src="https://cdn.splitbee.io/sb.js"></script>
-          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI62QL&placement=lirantalgithubio" id="_carbonads_js"></script>
         </Helmet>
 
         <Header />
@@ -58,6 +57,7 @@ class Index extends React.Component {
         {/* <Nav sticky={this.state.stickyNav} /> */}
 
         <div id="main">
+          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI62QL&placement=lirantalgithubio" id="_carbonads_js"></script>
           <section id="intro" className="main special">
             <header className="major">
               <h2>A Node.js CLI application made with <span role="img" aria-label="heart">💚</span></h2>
