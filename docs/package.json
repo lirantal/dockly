@@ -9,7 +9,7 @@
     "gatsby-plugin-manifest": "^2.0.24",
     "gatsby-plugin-offline": "^2.0.25",
     "gatsby-plugin-react-helmet": "^3.0.10",
-    "gatsby-plugin-sass": "^2.0.11",
+    "gatsby-plugin-sass": "^3.0.0",
     "node-sass": "^4.11.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
