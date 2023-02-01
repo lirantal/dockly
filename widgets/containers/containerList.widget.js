@@ -60,20 +60,20 @@ class myWidget extends ListWidget {
     const containerList = {}
     if (containers) {
       containers.forEach((container) => {
-          let containerPortPublic = (container.Ports[0] && container.Ports[0].PublicPort) ? String(container.Ports[0].PublicPort) : ''
-          let containerPortPrivate = (container.Ports[0] && container.Ports[0].PrivatePort) ? String(container.Ports[0].PrivatePort) : ''
-          let containerPort = containerPortPrivate + ':' + containerPortPublic
+        let containerPortPublic = (container.Ports[0] && container.Ports[0].PublicPort) ? String(container.Ports[0].PublicPort) : ''
+        let containerPortPrivate = (container.Ports[0] && container.Ports[0].PrivatePort) ? String(container.Ports[0].PrivatePort) : ''
+        let containerPort = containerPortPrivate + ':' + containerPortPublic
 
-          containerList[container.Id] = [
-            container.Id.substring(0, 5),
-            container.Names[0].substring(0, 40),
-            container.Image.substring(0, 35),
-            // remove any new lines or carriage return line feed from the string in container.Command
-            container.Command.substring(0, 30).replace(/(\r\n|\n|\r)/gm, ''),
-            container.State,
-            container.Status,
-            containerPort
-          ]
+        containerList[container.Id] = [
+          container.Id.substring(0, 5),
+          container.Names[0].substring(0, 40),
+          container.Image.substring(0, 35),
+          // remove any new lines or carriage return line feed from the string in container.Command
+          container.Command.substring(0, 30).replace(/(\r\n|\n|\r)/gm, ''),
+          container.State,
+          container.Status,
+          containerPort
+        ]
       })
     }
 
