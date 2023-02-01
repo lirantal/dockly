@@ -94,6 +94,7 @@ class myWidget extends baseWidget(EventEmitter) {
       style: this.getWidgetStyle({ bg: 'yellow', fg: 'black' }),
       align: 'left',
       inputOnFocus: true,
+      vi: true,
       value: ''
     })
   }

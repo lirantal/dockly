@@ -42,6 +42,7 @@ class myWidget extends baseWidget(EventEmitter) {
         fg: 'blue',
         ch: '|'
       },
+      vi: true,
       align: 'left',
       content: ''
     })

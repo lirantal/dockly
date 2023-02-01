@@ -136,6 +136,7 @@ class myWidget extends baseWidget() {
         fg: 'blue',
         ch: '|'
       },
+      vi: true,
       align: 'center'
     })
   }

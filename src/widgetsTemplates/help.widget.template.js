@@ -83,6 +83,7 @@ class myWidget extends baseWidget() {
       align: 'left',
       width: '70%',
       height: '70%',
+      vi: true,
       top: 'center',
       left: 'center',
       content: 'Loading...'
