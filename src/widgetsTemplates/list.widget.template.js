@@ -90,6 +90,7 @@ class myWidget extends baseWidget(EventEmitter) {
       tags: true,
       interactive: true,
       border: 'line',
+      vi: true,
       hover: {
         bg: 'blue'
       },
