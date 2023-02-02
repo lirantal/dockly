@@ -60,6 +60,10 @@ class myWidget extends ListWidget {
     const containerList = {}
     if (containers) {
       containers.forEach((container) => {
+        let containerPortPublic = (container.Ports[0] && container.Ports[0].PublicPort) ? String(container.Ports[0].PublicPort) : ''
+        let containerPortPrivate = (container.Ports[0] && container.Ports[0].PrivatePort) ? String(container.Ports[0].PrivatePort) : ''
+        let containerPort = containerPortPrivate + ':' + containerPortPublic
+
         containerList[container.Id] = [
           container.Id.substring(0, 5),
           container.Names[0].substring(0, 40),
@@ -67,7 +71,8 @@ class myWidget extends ListWidget {
           // remove any new lines or carriage return line feed from the string in container.Command
           container.Command.substring(0, 30).replace(/(\r\n|\n|\r)/gm, ''),
           container.State,
-          container.Status
+          container.Status,
+          containerPort
         ]
       })
     }
@@ -83,7 +88,7 @@ class myWidget extends ListWidget {
       return container
     })
 
-    list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status'])
+    list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status', 'Ports'])
     this.containersListData = list
     this.containersList = containerList
 
