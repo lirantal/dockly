@@ -1,4 +1,4 @@
-name: CI
+name: Project CI
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest]
-        node: ['14']
+        node: ['14', '16', '18']
     name: lint
     runs-on: ${{ matrix.platform }}
     steps:
@@ -20,32 +20,10 @@ jobs:
       - name: check lint
         run: yarn lint
 
-  build_docs:
-    strategy:
-      matrix:
-        platform: [ubuntu-latest]
-        node: ['14']
-    name: Build docs
-    runs-on: ${{ matrix.platform }}
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-      - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
-      - name: Gatsby Publish
-        uses: enriikke/gatsby-gh-pages-action@v2
-        with:
-          access-token: x-access-token:${{ secrets.GITHUB_TOKEN }}
-          working-dir: docs
-          deploy-branch: gh-pages
-
   release:
     name: Semantic release
     runs-on: 'ubuntu-latest'
-    needs: build_docs
+    needs: lint
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
