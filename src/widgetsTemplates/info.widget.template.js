@@ -50,7 +50,7 @@ class myWidget extends baseWidget() {
           // then show the information on the item
           this.getItemById(itemId, (err, data) => {
             if (!err) {
-              this.update(util.inspect(data))
+              this.update(util.inspect(data, { depth: null, colors: true }))
               this.screen.render()
             }
           })
