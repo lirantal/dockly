@@ -1,4 +1,4 @@
-name: CI
+name: Gatsby website docs
 
 on: [push, pull_request]
 
