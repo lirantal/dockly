@@ -16,7 +16,7 @@
     "react-helmet": "^5.2.0",
     "react-scroll-to-element": "^0.2.0",
     "react-scrollspy": "^3.3.5",
-    "react-waypoint": "^8.0.3"
+    "react-waypoint": "^10.3.0"
   },
   "keywords": [
     "gatsby"
