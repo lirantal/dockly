@@ -66,6 +66,7 @@
   },
   "homepage": "https://github.com/lirantal/dockly#readme",
   "dependencies": {
+    "@kubernetes/client-node": "^0.18.1",
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.10.1",
     "chalk": "^4",

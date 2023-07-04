@@ -10,17 +10,28 @@ const MODES = require('../lib/modes')
 // @TODO should be moved outside and used as a config
 // from the user (index.js)
 const CONTAINERS_GRID_LAYOUT = {
+  // dialogs, don't use grid!
   'actionsMenu': [4, 4, 4, 4],
-  'searchInput': [11, 0, 1, 12],
-  'actionStatus': [6, 0, 1, 10],
+  'help': [4, 4, 4, 4],
   'containerInfo': [2, 2, 8, 8],
+  'containerSortList': [4, 5, 3, 2],
+
+  // main panel
   'containerList': [0, 0, 6, 10],
-  'containerLogs': [7, 0, 4, 12],
+  'actionStatus': [6, 0, 1, 10],
+
+  // side panel on right
   'containerStatus': [0, 10, 2, 2],
   'containerUtilization': [2, 10, 3, 2],
   'containerVsImages': [5, 10, 2, 2],
-  'help': [4, 4, 4, 4],
-  'toolbar': [11, 0, 1, 12]
+
+  // log panel
+  'containerLogs': [7, 0, 4, 12],
+
+  // bottom toolbar  ------
+  'toolbar': [11, 0, 1, 12],
+  // toggle between these two
+  'searchInput': [11, 0, 1, 12],
 }
 
 const SERVICES_GRID_LAYOUT = {
@@ -54,10 +65,13 @@ GRID_LAYOUT[MODES.image] = IMAGES_GRID_LAYOUT
 class screen {
   constructor (utils = new Map()) {
     this.mode = MODES.container
+    // blessed screen
     this.screen = undefined
+    // contrib grid
     this.grid = undefined
     this.title = 'Dockly'
 
+    // utils has docker at start
     this.utils = utils
 
     // toggle widgets focus
@@ -81,11 +95,13 @@ class screen {
     this.grid = new contrib.grid({ rows: 12, cols: 12, hideBorder: true, screen: this.screen })
   }
 
+    // initialize screen, and create the hooks and widgets repository
+    // pretty much, load all widgets for current layout, call their render and inits, and setup refernces
+    // register events
   init () {
     // load all hooks and widgets
     this.assets = assetsLoader.load()
 
-    // initialize screen, and create the hooks and widgets repository
     this.initScreen()
     this.initHooks()
     this.initWidgets()
@@ -105,6 +121,7 @@ class screen {
   }
 
   initHooks () {
+    // set in hooks / widgetsrepo
     for (let [hookName, HookObject] of this.assets.get('hooks').entries()) {
       let hook = new HookObject()
       this.hooks.set(hookName, hook)
@@ -122,6 +139,7 @@ class screen {
   initWidgets () {
     const layout = GRID_LAYOUT[this.mode]
     for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
+      // if the widget is in the layout
       if (layout[widgetName]) {
         let widget = new WidgetObject({
           blessed,
@@ -171,6 +189,7 @@ class screen {
     }
   }
 
+  // just get the next node lol, use % instead...
   toggleMode () {
     const availableModes = Object.values(MODES)
     if (!availableModes.includes(this.mode)) {
@@ -187,6 +206,7 @@ class screen {
 
   registerEvents () {
     this.screen.on('element focus', (curr, old) => {
+      // change focus style lol
       if (old && old.border) {
         old.style.border.fg = 'default'
       }
@@ -204,6 +224,7 @@ class screen {
     })
 
     this.screen.key('v', () => {
+      // we reload all assets? wtf?
       this.clearHooks()
       this.clearWidgets()
       this.toggleMode()

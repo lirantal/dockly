@@ -62,6 +62,11 @@ class myWidget extends baseWidget(EventEmitter) {
 
     this.screen.render()
   }
+
+  // TODO this sucks 
+  renderWidget () {
+    return null
+  }
 }
 
 module.exports = myWidget
