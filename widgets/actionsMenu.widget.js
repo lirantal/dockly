@@ -25,6 +25,7 @@ class myWidget extends baseWidget() {
     this.widget.setItems(Object.keys(this.menuItems))
   }
 
+  // TODO too tightly coupled
   stopAllContainers () {
     const actionStatus = this.widgetsRepo.get('actionStatus')
     const data = {
@@ -102,6 +103,7 @@ class myWidget extends baseWidget() {
     })
 
     const toolbar = this.widgetsRepo.get('toolbar')
+    // TODO sets up it's handler, bad practice IMO
     toolbar.on('key', (keyString) => {
       // on info keypress m
       if (keyString === 'm') {

@@ -31,6 +31,7 @@ if (semver.lt(process.version, nodeVersion.minimum)) {
 initDockerConnection()
   .then(initScreens)
   .then(function (screen) {
+    // register listener 
     process.on('uncaughtException', (err) => {
       // Make sure the screen is cleared
       screen.teardown()
@@ -41,6 +42,7 @@ initDockerConnection()
     return exitError(err)
   })
 
+  // Returns docker in map 
 function initDockerConnection () {
   return new Promise((resolve, reject) => {
     let utils
@@ -66,6 +68,7 @@ function initDockerConnection () {
   })
 }
 
+// draw screens 
 function initScreens (utils) {
   return new Promise((resolve, reject) => {
     let screen
