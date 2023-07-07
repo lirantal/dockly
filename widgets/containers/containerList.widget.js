@@ -5,11 +5,14 @@ const figures = require('figures')
 
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
+const ContainerState = require('../../src/enum.js').ContainerState
+
 class myWidget extends ListWidget {
   constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super({ blessed, contrib, screen, grid })
     this.containersList = {}
     this.containersListData = []
+    this.sortBy = ContainerState.running
   }
 
   getLabel () {
@@ -56,6 +59,12 @@ class myWidget extends ListWidget {
     }
   }
 
+  sortContainersByState (state) {
+    this.sortBy = state
+    this.refreshList()
+  }
+
+  // TODO refactor this
   formatList (containers) {
     const containerList = {}
     if (containers) {
@@ -82,12 +91,19 @@ class myWidget extends ListWidget {
       let container = []
 
       container = containerList[key]
+      const status = container[4]
       container[4] = this.formatContainerState(container[4])
       container[5] = this.formatContainerStatus(container[5])
+      container[7] = status
 
       return container
     })
 
+    list.sort(this.sortContainers(this.sortBy))
+    list = list.map(a => {
+      a.pop()
+      return a
+    })
     list.unshift(['Id', 'Name', 'Image', 'Command', 'State', 'Status', 'Ports'])
     this.containersListData = list
     this.containersList = containerList
@@ -141,27 +157,17 @@ class myWidget extends ListWidget {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
   }
 
-  /**
-   * Sort containers by their state: running, created, then exited.
-   *
-   * @param item left
-   * @param item right
-   * @returns {number} for position
-   */
-  sortContainers (a, b) {
-    if (a[4] === 'running' && b[4] !== 'running') {
-      return -1
-    }
+  sortContainers (state) {
+    return (a, b) => {
+      if (a[7] === state && b[7] !== state) {
+        return -1
+      }
 
-    if (a[4] === 'paused' && b[4] !== 'paused') {
-      return -1
+      if (b[7] === state && a[7] !== state) {
+        return 1
+      }
+      return 0
     }
-
-    if (a[4] === 'exited' && b[4] !== 'exited') {
-      return 1
-    }
-
-    return 0
   }
 }
 

@@ -11,16 +11,17 @@ const MODES = require('../lib/modes')
 // from the user (index.js)
 const CONTAINERS_GRID_LAYOUT = {
   'actionsMenu': [4, 4, 4, 4],
-  'searchInput': [11, 0, 1, 12],
-  'actionStatus': [6, 0, 1, 10],
+  'help': [4, 4, 4, 4],
   'containerInfo': [2, 2, 8, 8],
+  'containerSortList': [4, 5, 3, 2],
   'containerList': [0, 0, 6, 10],
-  'containerLogs': [7, 0, 4, 12],
+  'actionStatus': [6, 0, 1, 10],
   'containerStatus': [0, 10, 2, 2],
   'containerUtilization': [2, 10, 3, 2],
   'containerVsImages': [5, 10, 2, 2],
-  'help': [4, 4, 4, 4],
-  'toolbar': [11, 0, 1, 12]
+  'containerLogs': [7, 0, 4, 12],
+  'toolbar': [11, 0, 1, 12],
+  'searchInput': [11, 0, 1, 12]
 }
 
 const SERVICES_GRID_LAYOUT = {
@@ -208,6 +209,7 @@ class screen {
       this.clearWidgets()
       this.toggleMode()
       this.screen.destroy()
+      // TODO refactor this so that all of the assets aren't reloaded on screen switch
       this.init()
     })
   }

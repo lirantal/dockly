@@ -74,6 +74,10 @@ class myWidget extends baseWidget(EventEmitter) {
       'menu': {
         keys: ['m'],
         callback: () => { this.emit('key', 'm') }
+      },
+      'sort': {
+        keys: ['o'],
+        callback: () => { this.emit('key', 'o') }
       }
     }
 
