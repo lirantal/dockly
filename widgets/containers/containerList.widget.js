@@ -59,9 +59,9 @@ class myWidget extends ListWidget {
     }
   }
 
-  sortContainersByState(state) {
-    this.sortBy = state;
-    this.refreshList();
+  sortContainersByState (state) {
+    this.sortBy = state
+    this.refreshList()
   }
 
   // TODO refactor this

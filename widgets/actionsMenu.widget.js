@@ -138,10 +138,10 @@ class myWidget extends baseWidget() {
       },
       vi: true,
       align: 'center',
-      left: "center",
-      top: "center",
-      width: "33%",
-      height: "33%"
+      left: 'center',
+      top: 'center',
+      width: '33%',
+      height: '33%'
     })
   }
 

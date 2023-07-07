@@ -21,7 +21,7 @@ const CONTAINERS_GRID_LAYOUT = {
   'containerVsImages': [5, 10, 2, 2],
   'containerLogs': [7, 0, 4, 12],
   'toolbar': [11, 0, 1, 12],
-  'searchInput': [11, 0, 1, 12],
+  'searchInput': [11, 0, 1, 12]
 }
 
 const SERVICES_GRID_LAYOUT = {

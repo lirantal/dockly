@@ -10,8 +10,8 @@ class ContainerSortListWidget extends baseWidget() {
     this.grid = grid
     this.label = 'Sort By:'
     this.isVisible = false
-    const sortedStates = Object.keys(ContainerState);
-    sortedStates.sort((a, b) => a.length - b.length);
+    const sortedStates = Object.keys(ContainerState)
+    sortedStates.sort((a, b) => a.length - b.length)
     this.items = sortedStates
       .map(state =>
         ({
@@ -20,7 +20,7 @@ class ContainerSortListWidget extends baseWidget() {
               handler: () => this.sortContainerList(state)
             }
         })
-      ).reduce((accum, obj) => ({...accum, ...obj}), {})
+      ).reduce((accum, obj) => ({ ...accum, ...obj }), {})
 
     this.widget = this.getWidget()
   }
