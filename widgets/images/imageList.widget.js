@@ -45,11 +45,11 @@ class myWidget extends ListWidget {
 
     if (images) {
       images.forEach((image) => {
-        const getTag = (tag, part) => tag ? tag[0].split(':')[part] : 'none'
+        const getTag = (tag, part) => (tag && tag.length) ? tag[0].split(':')[part] : 'none'
 
         imageList.push([
           image.Id.substring(7, 12),
-          image.RepoDigests ? image.RepoDigests[0].split('@')[0] : getTag(image[2], 0),
+          (image.RepoDigests && image.RepoDigests.length) ? image.RepoDigests[0].split('@')[0] : getTag(image[2], 0),
           getTag(image.RepoTags, 1),
           this.timeDifference(image.Created),
           this.formatBytes(image.Size)
