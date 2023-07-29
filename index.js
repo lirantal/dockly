@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 'use strict'
 
+const { EventEmitter } = require('events')
+EventEmitter.defaultMaxListeners = 50
+
 /**
  * Project dependencies
  */
