@@ -129,7 +129,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
   getItemLogs (cb) {
     console.log('getItemsLogs called!!!')
-    process.exit(55);
+    process.exit(55)
     throw new Error('method getItemLogs not implemented')
   }
 
