@@ -20,15 +20,21 @@ class myWidget extends ListWidget {
   }
 
   getItemLogs (containerId, cb) {
-    return this.utilsRepo.get('docker').getContainerLogs(containerId, cb)
+    if (this.widgetsRepo.has('containerLogs')) {
+      return this.utilsRepo.get('docker').getContainerLogs(containerId, cb)
+    }
   }
 
   updateItemLogs (str) {
-    return this.widgetsRepo.get('containerLogs').update(str)
+    if (this.widgetsRepo.has('containerLogs')) {
+      return this.widgetsRepo.get('containerLogs').update(str)
+    }
   }
 
   clearItemLogs () {
-    return this.widgetsRepo.get('containerLogs').clear()
+    if (this.widgetsRepo.has('containerLogs')) {
+      return this.widgetsRepo.get('containerLogs').clear()
+    }
   }
 
   getListItems (cb) {
