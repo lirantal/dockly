@@ -45,9 +45,9 @@ class myWidget extends baseWidget(EventEmitter) {
             this.toggleWidgetListColor = !this.toggleWidgetListColor
 
             if (this.toggleWidgetListColor) {
-              str = chalk.cyan(chunk.toString('utf-8').trim())
+              str = chalk.cyan(chunk.toString('utf8').trim())
             } else {
-              str = chalk.green(chunk.toString('utf-8').trim())
+              str = chalk.green(chunk.toString('utf8').trim())
             }
 
             this.updateItemLogs(str)
