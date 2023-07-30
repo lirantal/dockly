@@ -71,7 +71,7 @@
     "chalk": "^4",
     "clipboardy": "^2.3.0",
     "command-line-args": "^5.1.2",
-    "command-line-usage": "^5.0.5",
+    "command-line-usage": "^7.0.1",
     "dockerode": "3.3.4",
     "figures": "^2.0.0",
     "glob": "^7.2.0",
