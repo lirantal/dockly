@@ -75,7 +75,7 @@
     "dockerode": "3.3.4",
     "figures": "^2.0.0",
     "glob": "^7.2.0",
-    "lockfile-lint": "^3.0.9",
+    "lockfile-lint": "^4.10.6",
     "semver": "7.5.2"
   },
   "devDependencies": {
