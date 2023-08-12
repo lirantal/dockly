@@ -50,8 +50,7 @@ class myWidget extends baseWidget() {
     if (!data.cpu_stats || !data.precpu_stats || !data.cpu_stats.cpu_usage ||
       !data.precpu_stats.cpu_usage || !data.cpu_stats.cpu_usage.total_usage ||
       !data.precpu_stats.cpu_usage.total_usage ||
-      !data.cpu_stats.system_cpu_usage || !data.precpu_stats.system_cpu_usage ||
-      !data.cpu_stats.cpu_usage.percpu_usage) {
+      !data.cpu_stats.system_cpu_usage || !data.precpu_stats.system_cpu_usage) {
       return this.widget.setData({
         titles: ['CPU', 'Memory'],
         data: [
@@ -64,15 +63,11 @@ class myWidget extends baseWidget() {
     // Calculate CPU usage based on delta from previous measurement
     let cpuUsageDelta = data.cpu_stats.cpu_usage.total_usage - data.precpu_stats.cpu_usage.total_usage
     let systemUsageDelta = data.cpu_stats.system_cpu_usage - data.precpu_stats.system_cpu_usage
-    let cpuCoresAvail = data.cpu_stats.cpu_usage.percpu_usage ? data.cpu_stats.cpu_usage.percpu_usage.length : 0
+    let cpuCoresAvail = data.cpu_stats.online_cpus ? data.cpu_stats.online_cpus : 1
 
     let cpuUsagePercent = 0
-    if (systemUsageDelta !== 0 || cpuCoresAvail !== 0) {
-      let totalUsage = systemUsageDelta * cpuCoresAvail * 100
-      cpuUsagePercent = 0
-      if (totalUsage && totalUsage !== 0) {
-        cpuUsagePercent = cpuUsageDelta / totalUsage
-      }
+    if (systemUsageDelta > 0) {
+      cpuUsagePercent = (cpuUsageDelta / systemUsageDelta) * cpuCoresAvail * 100
     }
 
     // Calculate Memory usage
