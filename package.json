@@ -70,7 +70,7 @@
     "blessed-contrib": "^4.10.1",
     "chalk": "^4",
     "clipboardy": "^2.3.0",
-    "command-line-args": "^5.1.2",
+    "command-line-args": "^5.2.1",
     "command-line-usage": "^5.0.5",
     "dockerode": "3.3.5",
     "figures": "^2.0.0",
