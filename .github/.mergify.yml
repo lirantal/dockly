@@ -1,0 +1,17 @@
+queue_rules:
+  - name: Snyk PRs Queue
+    conditions:
+      - "check-success ~= .*"
+      
+pull_request_rules:
+  - name: Automatic merge Snyk PRs on Status Checks passing
+    conditions:
+      - title~=^\[Snyk\]
+      - head~=^snyk-fix
+      - base=main
+    actions:
+      queue:
+        name: "Snyk PRs Queue"
+      label:
+        add:
+          - "auto-merge"
