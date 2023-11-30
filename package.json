@@ -74,7 +74,7 @@
     "command-line-usage": "^5.0.5",
     "dockerode": "3.3.5",
     "figures": "^2.0.0",
-    "glob": "^7.2.3",
+    "glob": "^9.0.0",
     "lockfile-lint": "^3.0.9",
     "semver": "7.5.2"
   },
