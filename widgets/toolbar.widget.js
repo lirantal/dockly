@@ -98,7 +98,7 @@ class myWidget extends baseWidget(EventEmitter) {
 
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listbar, {
       keys: false,
-      mouse: true,
+      mouse: false,
       style: {
         prefix: {
           fg: 'yellow'
