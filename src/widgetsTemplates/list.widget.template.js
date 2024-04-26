@@ -85,7 +85,7 @@ class myWidget extends baseWidget(EventEmitter) {
       parent: this.screen,
       label: this.label,
       keys: true,
-      mouse: true,
+      mouse: false,
       data: null,
       tags: true,
       interactive: true,

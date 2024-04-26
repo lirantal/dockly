@@ -47,7 +47,7 @@ class myWidget extends baseWidget() {
     const formation = (this.isExpanded ? EXPANDED_LAYOUT : this.grid.gridLayout)
     return this.grid.gridObj.set(...formation, this.blessed.log, {
       label: this.label,
-      mouse: true,
+      mouse: false,
       scrollable: true,
       alwaysScroll: true,
       keys: true,
