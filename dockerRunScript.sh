@@ -6,4 +6,4 @@ printf '\e[?1000l'
 docker exec -it "$1" /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 
 # enable mouse as input source for dockly
-printf '\e[?1000h'
+#printf '\e[?1000h'
