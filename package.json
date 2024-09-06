@@ -69,13 +69,13 @@
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.10.1",
     "chalk": "^4",
-    "clipboardy": "^2.3.0",
+    "clipboardy": "^3.0.0",
     "command-line-args": "^5.2.1",
     "command-line-usage": "^5.0.5",
-    "dockerode": "3.3.5",
+    "dockerode": "4.0.0",
     "figures": "^2.0.0",
     "glob": "^7.2.3",
-    "lockfile-lint": "^3.0.9",
+    "lockfile-lint": "^4.12.0",
     "semver": "7.6.0"
   },
   "devDependencies": {
