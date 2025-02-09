@@ -3,32 +3,32 @@
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
-  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super({ blessed, contrib, screen, grid })
     this.servicesListData = []
   }
 
-  getLabel () {
+  getLabel() {
     return 'Services'
   }
 
-  getItemLogs (serviceId, cb) {
+  getItemLogs(serviceId, cb) {
     return this.utilsRepo.get('docker').getServiceLogs(serviceId, cb)
   }
 
-  updateItemLogs (str) {
+  updateItemLogs(str) {
     return this.widgetsRepo.get('servicesLogs').update(str)
   }
 
-  clearItemLogs () {
+  clearItemLogs() {
     return this.widgetsRepo.get('servicesLogs').clear()
   }
 
-  getListItems (cb) {
+  getListItems(cb) {
     this.utilsRepo.get('docker').listServices(cb)
   }
 
-  filterList (data) {
+  filterList(data) {
     let filteredContainersList = this.servicesListData[0]
     let serviceList = this.servicesListData.slice(1)
     let filteredServices = []
@@ -43,16 +43,23 @@ class myWidget extends ListWidget {
         }
       })
     }
-
+    //Render filtered services if available; otherwise, it means either the user hasn't provided input or no matches were found.
     if (filteredServices.length > 0) {
       filteredServices.unshift(filteredContainersList)
       this.update(filteredServices)
     } else {
-      this.update(this.servicesListData)
+      if (data.length > 0) {
+        this.update([
+          headerRow,
+          ['', 'No Services found matching: ' + data, '', '', '', '', '']
+        ])
+      } else {
+        this.update(this.servicesListData)
+      }
     }
   }
 
-  formatList (services) {
+  formatList(services) {
     const list = []
 
     if (services) {
@@ -77,7 +84,7 @@ class myWidget extends ListWidget {
    * returns a selected service from the services listbox
    * @return {string} service id
    */
-  getSelectedService () {
+  getSelectedService() {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
   }
 }
