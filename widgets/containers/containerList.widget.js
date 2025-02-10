@@ -56,7 +56,7 @@ class myWidget extends ListWidget {
         }
       })
     }
-
+    //Render filtered services if available; otherwise, it means either the user hasn't provided input or no matches were found.
     if (filteredContainers.length > 0) {
       filteredContainers.unshift(filteredContainersList)
       this.update(filteredContainers)

@@ -74,7 +74,12 @@ class myWidget extends baseWidget(EventEmitter) {
       })
 
       searchInput.on('exitSearch', () => {
-        this.update(this.containersListData)
+
+       this.update(
+       this.containersListData || 
+       this.imagesListData || 
+        this.servicesListData || 
+         []);
         this.screen.render()
         this.focus()
       })
