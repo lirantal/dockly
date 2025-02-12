@@ -32,12 +32,12 @@ class myWidget extends ListWidget {
     let filteredContainersList = this.servicesListData[0]
     let serviceList = this.servicesListData.slice(1)
     let filteredServices = []
+    const headerRow = this.servicesListData[0]
 
     if (data) {
       filteredServices = serviceList.filter((service) => {
         const serviceName = service[1]
         const serviceImageName = service[2]
-
         if ((serviceName.indexOf(data) !== -1) || (serviceImageName.indexOf(data) !== -1)) {
           return true
         }

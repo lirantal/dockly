@@ -20,6 +20,7 @@ class myWidget extends ListWidget {
     let imageTitleList = this.imagesListData[0]
     let imageList = this.imagesListData.slice(1)
     let filteredimages = []
+    const headerRow = this.imagesListData[0]
 
     if (data) {
       filteredimages = imageList.filter((container, index, containerItems) => {
