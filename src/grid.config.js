@@ -4,12 +4,12 @@ const CONTAINERS_GRID_LAYOUT = {
     'containerInfo': [2, 2, 8, 8],
     'containerSortList': [4, 5, 3, 2],
     'containerList': [0, 0, 6, 10],
-    'actionStatus': [6, 0, 1, 10],
+    'actionStatus': [6, 0, 1.5, 10],
     'containerStatus': [0, 10, 2, 2],
     'containerUtilization': [2, 10, 3, 2],
     'containerVsImages': [5, 10, 2, 2],
-    'containerLogs': [7, 0, 4, 12],
-    'toolbar': [11, 0, 1, 12],
+    'containerLogs': [7.5, 0, 4, 12],
+    'toolbar': [11.5, 0, 1, 12],
     'searchInput': [11, 0, 1, 12]
 }
 
