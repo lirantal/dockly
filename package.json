@@ -4,10 +4,10 @@
   "description": "Immersive terminal interface for managing docker containers and services",
   "main": "index.js",
   "scripts": {
-    "test": "yarn run lint",
-    "lint": "standard && yarn run lint:lockfile",
+    "test": "npm run lint",
+    "lint": "standard && npm run lint:lockfile",
     "lint:fix": "standard --fix",
-    "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts npm yarn",
+    "lint:lockfile": "lockfile-lint --path package-lock.json --type npm --validate-https --allowed-hosts npm",
     "debug": "node --inspect=0.0.0.0:9222 ./index.js "
   },
   "files": [
