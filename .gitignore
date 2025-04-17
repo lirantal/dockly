@@ -4,3 +4,4 @@ node_modules/
 .idea/
 containerId.txt
 package-lock.json
+.qodo

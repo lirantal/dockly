@@ -6,7 +6,7 @@ const chalk = require('chalk')
 const baseWidget = require('../baseWidget')
 
 class myWidget extends baseWidget(EventEmitter) {
-  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -18,7 +18,7 @@ class myWidget extends baseWidget(EventEmitter) {
     this.toggleWidgetListColor = 0
   }
 
-  init() {
+  init () {
     this.refreshList()
     this.focus()
 
@@ -74,19 +74,18 @@ class myWidget extends baseWidget(EventEmitter) {
       })
 
       searchInput.on('exitSearch', () => {
-
-       this.update(
-       this.containersListData || 
-       this.imagesListData || 
-        this.servicesListData || 
-         []);
+        this.update(
+          this.containersListData ||
+       this.imagesListData ||
+        this.servicesListData ||
+         [])
         this.screen.render()
         this.focus()
       })
     }
   }
 
-  getWidget() {
+  getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.listtable, {
       parent: this.screen,
       label: this.label,
@@ -105,7 +104,7 @@ class myWidget extends baseWidget(EventEmitter) {
     })
   }
 
-  refreshList() {
+  refreshList () {
     this.getListItems((err, data) => {
       if (!err) {
         const selectedIndex = this.widget.selected
@@ -117,7 +116,7 @@ class myWidget extends baseWidget(EventEmitter) {
     })
   }
 
-  getItemId(item) {
+  getItemId (item) {
     if (!item) {
       return null
     }
@@ -125,35 +124,35 @@ class myWidget extends baseWidget(EventEmitter) {
     return item.getContent().toString().trim().split(' ').shift()
   }
 
-  getLabel() {
+  getLabel () {
     throw new Error('method getLabel not implemented')
   }
 
-  getListItems(cb) {
+  getListItems (cb) {
     throw new Error('method getListItems not implemented')
   }
 
-  getItemLogs(cb) {
+  getItemLogs (cb) {
     throw new Error('method getItemLogs not implemented')
   }
 
-  updateItemLogs(str) {
+  updateItemLogs (str) {
     throw new Error('method updateItemLogs not implemented')
   }
 
-  clearItemLogs(str) {
+  clearItemLogs (str) {
     throw new Error('method clearItemlogs not implemented')
   }
 
-  filterList(data) {
+  filterList (data) {
     throw new Error('method filterList not implemented')
   }
 
-  formatList(data) {
+  formatList (data) {
     throw new Error('method formatList not implemented')
   }
 
-  update(data) {
+  update (data) {
     this.widget.clearItems()
     return this.widget.setData(data)
   }

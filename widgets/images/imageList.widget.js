@@ -3,20 +3,20 @@
 const ListWidget = require('../../src/widgetsTemplates/list.widget.template')
 
 class myWidget extends ListWidget {
-  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super({ blessed, contrib, screen, grid })
     this.imagesListData = []
   }
 
-  getLabel() {
+  getLabel () {
     return 'Images'
   }
 
-  getListItems(cb) {
+  getListItems (cb) {
     this.utilsRepo.get('docker').listImages(cb)
   }
 
-  filterList(data) {
+  filterList (data) {
     let imageTitleList = this.imagesListData[0]
     let imageList = this.imagesListData.slice(1)
     let filteredimages = []
@@ -32,7 +32,7 @@ class myWidget extends ListWidget {
         }
       })
     }
-    //Render filtered services if available; otherwise, it means either the user hasn't provided input or no matches were found.
+    // Render filtered services if available; otherwise, it means either the user hasn't provided input or no matches were found.
     if (filteredimages.length > 0) {
       filteredimages.unshift(imageTitleList)
       this.update(filteredimages)
@@ -48,7 +48,7 @@ class myWidget extends ListWidget {
     }
   }
 
-  formatList(images) {
+  formatList (images) {
     const imageList = []
 
     if (images) {
@@ -78,7 +78,7 @@ class myWidget extends ListWidget {
    * @param {number} bytes - number of bytes.
    * @returns {string} human readable size.
    */
-  formatBytes(bytes, decimals) {
+  formatBytes (bytes, decimals) {
     if (bytes === 0) return '0 Bytes'
     let k = 1000
 
@@ -93,7 +93,7 @@ class myWidget extends ListWidget {
    * @param {number} creationDate Images creation date in unix time.
    * @returns
    */
-  timeDifference(creationDate) {
+  timeDifference (creationDate) {
     const msPerMinute = 60 * 1000
     const msPerHour = msPerMinute * 60
     const msPerDay = msPerHour * 24
@@ -116,11 +116,11 @@ class myWidget extends ListWidget {
    * returns a selected container from the containers listbox
    * @return {string} container id
    */
-  getSelectedImage() {
+  getSelectedImage () {
     return this.widget.getItem(this.widget.selected).getContent().toString().trim().split(' ').shift()
   }
 
-  getItemLogs(itemId, cb) {
+  getItemLogs (itemId, cb) {
     cb(new Error('image view don\'t have log widget'))
   }
 }

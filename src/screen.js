@@ -10,14 +10,13 @@ const MODES = require('../lib/modes')
 // @TODO should be moved outside and used as a config
 // from the user (index.js)
 
-
 const GRID_LAYOUT = {}
 GRID_LAYOUT[MODES.container] = CONTAINERS_GRID_LAYOUT
 GRID_LAYOUT[MODES.service] = SERVICES_GRID_LAYOUT
 GRID_LAYOUT[MODES.image] = IMAGES_GRID_LAYOUT
 
 class screen {
-  constructor(utils = new Map()) {
+  constructor (utils = new Map()) {
     this.mode = MODES.container
     this.screen = undefined
     this.grid = undefined
@@ -33,7 +32,7 @@ class screen {
     this.widgets = new Map()
   }
 
-  initScreen() {
+  initScreen () {
     this.screen = blessed.screen({
       title: this.title,
       fullUnicode: true,
@@ -46,7 +45,7 @@ class screen {
     this.grid = new contrib.grid({ rows: 12, cols: 12, hideBorder: true, screen: this.screen })
   }
 
-  init() {
+  init () {
     // load all hooks and widgets
     this.assets = assetsLoader.load()
 
@@ -69,7 +68,7 @@ class screen {
     this.render()
   }
 
-  initHooks() {
+  initHooks () {
     for (let [hookName, HookObject] of this.assets.get('hooks').entries()) {
       let hook = new HookObject()
       this.hooks.set(hookName, hook)
@@ -77,14 +76,14 @@ class screen {
     }
   }
 
-  clearHooks() {
+  clearHooks () {
     for (let [hookName] of this.assets.get('hooks').entries()) {
       this.hooks.delete(hookName)
       this.widgetsRepository.delete(hookName)
     }
   }
 
-  initWidgets() {
+  initWidgets () {
     const layout = GRID_LAYOUT[this.mode]
     for (let [widgetName, WidgetObject] of this.assets.get('widgets').entries()) {
       if (layout[widgetName]) {
@@ -105,38 +104,38 @@ class screen {
     }
   }
 
-  clearWidgets() {
+  clearWidgets () {
     for (let [widgetName] of this.assets.get('widgets').entries()) {
       this.widgets.delete(widgetName)
       this.widgetsRepository.delete(widgetName)
     }
   }
 
-  setWidgetsRepo() {
+  setWidgetsRepo () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.setWidgetsRepo(this.widgetsRepository)
     }
   }
 
-  setWidgetsUtils() {
+  setWidgetsUtils () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.setUtilsRepo(this.utils)
     }
   }
 
-  setWidgetsInit() {
+  setWidgetsInit () {
     for (let widgetObject of this.widgetsRepository.values()) {
       widgetObject.init()
     }
   }
 
-  renderWidgets() {
+  renderWidgets () {
     for (let widgetObject of this.widgets.values()) {
       widgetObject.renderWidget()
     }
   }
 
-  toggleMode() {
+  toggleMode () {
     const availableModes = Object.values(MODES)
     if (!availableModes.includes(this.mode)) {
       this.mode = availableModes[0]
@@ -150,7 +149,7 @@ class screen {
     }
   }
 
-  registerEvents() {
+  registerEvents () {
     this.screen.on('element focus', (curr, old) => {
       if (old && old.border) {
         old.style.border.fg = 'default'
@@ -178,7 +177,7 @@ class screen {
     })
   }
 
-  render() {
+  render () {
     // var grid = new contrib.grid({rows: 12, cols: 12, screen: this.screen})
 
     // grid.set(row, col, rowSpan, colSpan, obj, opts)
@@ -190,7 +189,7 @@ class screen {
     this.screen.render()
   }
 
-  teardown() {
+  teardown () {
     this.screen.destroy()
   }
 }
