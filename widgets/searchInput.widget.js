@@ -6,9 +6,8 @@ const baseWidget = require('../src/baseWidget')
 const ASCII_CHAR_START = 32
 const ASCII_CHAR_END = 126
 
-
 class myWidget extends baseWidget(EventEmitter) {
-  constructor({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
+  constructor ({ blessed = {}, contrib = {}, screen = {}, grid = {} }) {
     super()
     this.blessed = blessed
     this.contrib = contrib
@@ -22,15 +21,15 @@ class myWidget extends baseWidget(EventEmitter) {
     this.inputValue = []
   }
 
-  getLabel() {
+  getLabel () {
     return ''
   }
 
-  renderWidget() {
+  renderWidget () {
     return null
   }
 
-  captureText(key) {
+  captureText (key) {
     if (!key || typeof key !== 'object') {
       return ''
     }
@@ -53,11 +52,10 @@ class myWidget extends baseWidget(EventEmitter) {
     return this.inputValue.join('')
   }
 
-  init() {
+  init () {
     if (!this.widgetsRepo.has('toolbar')) {
       return null
     }
-
 
     this.widget.on('keypress', (ch, key) => {
       if (key.name === 'escape' || key.name === 'return' || key.name === 'enter') {
@@ -68,7 +66,6 @@ class myWidget extends baseWidget(EventEmitter) {
         this.emit('exitSearch')
         this.screen.remove(this.widget)
         this.screen.render()
-
       } else {
         const searchText = this.captureText(key)
         this.widget.setValue(searchText)
@@ -77,10 +74,8 @@ class myWidget extends baseWidget(EventEmitter) {
       }
     })
 
-
     const toolbar = this.widgetsRepo.get('toolbar')
     toolbar.on('key', (keyString) => {
-
       if (keyString === '/') {
         this.toggleVisibility = !this.toggleVisibility
         if (this.toggleVisibility) {
@@ -96,7 +91,7 @@ class myWidget extends baseWidget(EventEmitter) {
     // by default, remove this widget from the screen
     this.screen.remove(this.widget)
   }
-  getWidget() {
+  getWidget () {
     return this.grid.gridObj.set(...this.grid.gridLayout, this.blessed.textbox, {
       focused: true,
       border: 'line',
