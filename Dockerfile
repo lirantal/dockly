@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 
 LABEL maintainer="Liran Tal <liran.tal@gmail.com>"
 LABEL contributor="Eitan Schichmanter <eitan.sch@gmail.com>"
@@ -11,6 +11,6 @@ ENV LC_ALL C.UTF-8
 COPY . /app
 WORKDIR /app
 ENV NODE_ENV production
-RUN yarn install --frozen-lockfile
+RUN npm ci
 
 ENTRYPOINT ["node", "index.js"]
