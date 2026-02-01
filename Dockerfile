@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:24-alpine
 
 LABEL maintainer="Liran Tal <liran.tal@gmail.com>"
 LABEL contributor="Eitan Schichmanter <eitan.sch@gmail.com>"
