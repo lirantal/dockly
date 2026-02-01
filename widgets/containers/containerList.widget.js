@@ -82,8 +82,8 @@ class myWidget extends ListWidget {
     const containerList = {}
     if (containers) {
       containers.forEach((container) => {
-        let containerPortPublic = (container.Ports[0] && container.Ports[0].PublicPort) ? String(container.Ports[0].PublicPort) : ''
-        let containerPortPrivate = (container.Ports[0] && container.Ports[0].PrivatePort) ? String(container.Ports[0].PrivatePort) : ''
+        let containerPortPublic = (container.Ports && container.Ports[0] && container.Ports[0].PublicPort) ? String(container.Ports[0].PublicPort) : ''
+        let containerPortPrivate = (container.Ports && container.Ports[0] && container.Ports[0].PrivatePort) ? String(container.Ports[0].PrivatePort) : ''
         let containerPort = containerPortPrivate + ':' + containerPortPublic
 
         containerList[container.Id] = [
