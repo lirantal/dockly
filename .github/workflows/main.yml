@@ -7,18 +7,18 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest]
-        node: ['14', '16', '18', '20']
+        node: ['22', '24']
     name: lint
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
       - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+        run: npm ci
       - name: check lint
-        run: yarn lint
+        run: npm run lint
 
   release:
     name: Semantic release
@@ -26,12 +26,12 @@ jobs:
     needs: lint
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
       - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+        run: npm ci
       - name: release
         run: npx semantic-release
         env:

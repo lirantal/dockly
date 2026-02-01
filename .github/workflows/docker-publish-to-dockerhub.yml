@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
