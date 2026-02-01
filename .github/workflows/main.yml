@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+        run: npm ci
       - name: check lint
-        run: yarn lint
+        run: npm run lint
 
   release:
     name: Semantic release
@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: '20'
       - name: install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+        run: npm ci
       - name: release
         run: npx semantic-release
         env:
