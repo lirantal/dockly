@@ -81,12 +81,13 @@
   "devDependencies": {
     "standard": "^12.0.1"
   },
-  "release": {
-    "branches": "main"
-  },
   "standard": {
     "ignore": [
       "docs/**"
     ]
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
   }
 }
