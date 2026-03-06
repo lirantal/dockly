@@ -24,6 +24,8 @@ Dockly has been highlighted, featured and chosen as favorite docker container ma
 )](https://console.dev/tools/)
 
 <a href="https://console.dev" title="Visit Console - the best tools for developers"><img src="https://console.dev/img/badges/1.0/png/console-badge-pick-green1-dark.png" alt="Console - Developer Tool of the Week" /></a>
+[![Docker Health](https://img.releaserun.com/badge/health/docker-engine.svg)](https://releaserun.com/badges/docker-engine/)
+[![Node.js Health](https://img.releaserun.com/badge/health/nodejs.svg)](https://releaserun.com/badges/nodejs/)
 
 ![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
