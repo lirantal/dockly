@@ -12,7 +12,6 @@
 [![npm module downloads](http://img.shields.io/npm/dt/dockly.svg)](https://www.npmjs.org/package/dockly)
 [![Security Responsible Disclosure](https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg)](./SECURITY.md
 )
-[![dockly](https://snyk.io/advisor/npm-package/dockly/badge.svg)](https://snyk.io/advisor/npm-package/dockly)
 
 Dockly has been highlighted, featured and chosen as favorite docker container management tool on:
 
@@ -21,9 +20,7 @@ Dockly has been highlighted, featured and chosen as favorite docker container ma
 [![terminals are sexy](https://img.shields.io/badge/TerminalsAreSexy-%F0%9F%92%BB-green.svg
 )](https://github.com/k4m4/terminals-are-sexy) [![Programmer's Weekly](https://img.shields.io/badge/ProgrammersWeekly-%F0%9F%95%B6-purple.svg
 )](https://mailchi.mp/programmerweekly/programmer-weekly-issue-94?e=e8c11d0390) [![Console.dev](https://img.shields.io/badge/ConsoleDotDev-%F0%9F%95%B6-blue.svg
-)](https://console.dev/tools/)
-
-<a href="https://console.dev" title="Visit Console - the best tools for developers"><img src="https://console.dev/img/badges/1.0/png/console-badge-pick-green1-dark.png" alt="Console - Developer Tool of the Week" /></a>
+)](https://console.dev/)
 
 ![dockly-demo-2](https://cloud.githubusercontent.com/assets/316371/25682867/c5212216-3027-11e7-8f36-72d38516d2af.gif)
 
