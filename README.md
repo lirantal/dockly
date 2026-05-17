@@ -134,6 +134,10 @@ See [Awesome Docker list](https://github.com/veggiemonk/awesome-docker/blob/mast
 - [Dockly – Manage Docker Containers From Terminal](https://ostechnix.com/dockly-manage-docker-containers-from-terminal/)
 - [Clever cloud CEO, Quentin Adam, tweeting about dockly](https://twitter.com/waxzce/status/1123886351924043777)
 
+## Contributing
+
+Please consult [CONTRIBUTING](./CONTRIBUTING.md) for guidelines on contributing to this project.
+
 # Author
 Liran Tal <liran.tal@gmail.com>
 
