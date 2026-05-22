@@ -1,6 +1,17 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
+	"features": {
+		"ghcr.io/devcontainers/features/python@sha256:fbcad6955caeecc5ad3f7886baf652e25cba5225a6c4c2287c536de2e5607511": {
+			"version": "3.12",
+			"installPythonDevDependencies": true
+		},
+		"ghcr.io/devcontainer-community/devcontainer-features/astral.sh-uv@sha256:36f95b90080248a05aba7b1b3cecf8018bb6d7222f6274f03f050b502abd4fe7": {
+			"shellautocompletion": true
+		},
+		"ghcr.io/devcontainers-extra/features/ripgrep@sha256:0dfc0ac16f0d6aa754d006a138fd4cb4a62c245d308306edf8ad1b7a80b8fdf2": {},
+		"ghcr.io/devcontainers/features/github-cli@sha256:d22f50b70ed75339b4eed1ba9ecde3a1791f90e88d37936517e3bace0bbad671": {}
+	},
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:4-24-bookworm"
