@@ -2,8 +2,12 @@ name: Project CI
 
 on: [push, pull_request]
 
+permissions: {}
+
 jobs:
   lint:
+    permissions:
+      contents: read
     strategy:
       matrix:
         platform: [ubuntu-latest]
