@@ -19,7 +19,8 @@
     "dockerRunScript.sh"
   ],
   "engines": {
-    "node": ">=7.6.0"
+    "npm": ">=11.10.0",
+    "node": ">=24.0.0"
   },
   "bin": {
     "dockly": "./index.js"
