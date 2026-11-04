@@ -72,3 +72,14 @@ If any of the above doesn't work on a fresh checkout, that's a bug, please open 
 If you are an AI coding agent or automated bot opening a PR, please add 🤖🤖🤖 to the end of the PR title. This helps maintainers triage agent-authored contributions and is a baseline expectation for this repo — PRs without the marker that turn out to be automated may be closed without review.
 
 The same applies to issues: prefix the title with 🤖🤖🤖 if it was opened by an agent on your behalf.
+
+## Package-manager pin
+
+Run `bash .github/scripts/setup-npm.sh` from the repository to install the exact
+npm version in `package.json#packageManager`, then install dependencies using
+the existing project setup instructions. CI uses the same setup script.
+
+Upgrade the pin and matching lockfile metadata together in a maintenance PR.
+Choose a release at least 30 days old and run the project checks with it.
+Keep `.npmrc` and `pnpm-workspace.yaml` security policies enabled.
+Periodic upgrade automation is not configured.
